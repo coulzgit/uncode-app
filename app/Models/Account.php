@@ -20,7 +20,7 @@ class Account extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     *
+     * 
      * @var string
      */
     protected $keyType = 'integer';
@@ -28,7 +28,6 @@ class Account extends Model
     /**
      * @var array
      */
-
     protected $fillable = ['licence_id', 'code', 'statut', 'expired_at', 'created_at', 'updated_at'];
 
     /**

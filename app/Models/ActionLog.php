@@ -6,17 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
- * @property integer $doc_id
- * @property string $data_index
- * @property string $data_value
- * @property string $stamp_date
+ * @property string $log_index
+ * @property string $doc_id
  * @property string $stamp_uid
+ * @property string $stamp_date
+ * @property string $log_comment
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $ID_DOC
  * @property Doc $doc
- * @property DocDataName[] $docDataNames
+ * @property ActionLogName[] $actionLogNames
  */
-class DocData extends Model
+class ActionLog extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
@@ -28,21 +29,21 @@ class DocData extends Model
     /**
      * @var array
      */
-    protected $fillable = ['doc_id', 'data_index', 'data_value', 'stamp_date', 'stamp_uid', 'created_at', 'updated_at'];
+    protected $fillable = ['log_index', 'doc_id', 'stamp_uid', 'stamp_date', 'log_comment', 'created_at', 'updated_at', 'ID_DOC'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function doc()
     {
-        return $this->belongsTo('App\Models\Doc');
+        return $this->belongsTo('App\Models\Doc', 'ID_DOC');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function docDataNames()
+    public function actionLogNames()
     {
-        return $this->hasMany('App\Models\DocDataName');
+        return $this->hasMany('App\Models\ActionLogName');
     }
 }
