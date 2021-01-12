@@ -13,11 +13,10 @@ class CreateDocDatasTable extends Migration
      */
     public function up()
     {
-        Schema::create('doc_datas', function (Blueprint $table) {
+        Schema::create('data_docs', function (Blueprint $table) {
             $table->id();
             $table->string('data_index')->nullable(false);
-            // $table->string('doc_id',64)->nullable(false);
-            
+            $table->string('doc_id',64)->nullable(false);
             $table->string('data_value',100)->nullable(true);
             $table->string('stamp_date')->nullable(true);
             $table->string('stamp_uid',60)->nullable(true);
@@ -33,6 +32,6 @@ class CreateDocDatasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('doc_datas');
+        Schema::dropIfExists('data_docs');
     }
 }

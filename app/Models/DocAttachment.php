@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
- * @property integer $doc_id
+ * @property string $doc_id
  * @property string $attachment_name
  * @property string $attachment_file
  * @property string $attachment_owner
@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $original_file_name
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $ID_DOC
  * @property Doc $doc
  */
 class DocAttachment extends Model
@@ -31,13 +32,13 @@ class DocAttachment extends Model
     /**
      * @var array
      */
-    protected $fillable = ['doc_id', 'attachment_name', 'attachment_file', 'attachment_owner', 'attachment_resource', 'user_org_code', 'resource_id', 'attachment_encrypted', 'original_file_name', 'created_at', 'updated_at'];
+    protected $fillable = ['doc_id', 'attachment_name', 'attachment_file', 'attachment_owner', 'attachment_resource', 'user_org_code', 'resource_id', 'attachment_encrypted', 'original_file_name', 'created_at', 'updated_at', 'ID_DOC'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function doc()
     {
-        return $this->belongsTo('App\Models\Doc');
+        return $this->belongsTo('App\Models\Doc', 'ID_DOC');
     }
 }

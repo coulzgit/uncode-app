@@ -36,7 +36,7 @@ class AccDataName extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     *
+     * 
      * @var string
      */
     protected $keyType = 'integer';
@@ -44,7 +44,6 @@ class AccDataName extends Model
     /**
      * @var array
      */
-
     protected $fillable = ['acc_data_id', 'data_field', 'data_name', 'default_value', 'data_type', 'data_formula', 'data_background', 'data_format', 'listfile_index', 'lock_field', 'special_field', 'expand_index', 'dont_warn', 'comp_bind_level', 'must_field', 'max_length', 'min_length', 'layer', 'comp_no', 'use_digitgrouping', 'num_digits', 'data_width', 'created_at', 'updated_at'];
 
     /**

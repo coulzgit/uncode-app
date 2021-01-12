@@ -16,7 +16,7 @@ class CreateAccActionLogNamesTable extends Migration
         Schema::create('action_log_names', function (Blueprint $table) {
             $table->id();
            
-            // $table->integer('log_index')->nullable(false);
+            $table->string('log_index')->nullable(false);
             $table->string('log_description',250)->nullable(true);
             $table->string('default_view')->nullable(false);
             $table->string('lan_code',3)->nullable(false);

@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable(true);
             $table->string('nom_role')->nullable(true);
             $table->integer('role_id')->nullable(true);
-            //$table->string('account_code')->nullable(true);
+            //$table->string('account_id')->nullable(true);
             
             $table->boolean('account_owner')->default(false);
             $table->string('photo')->nullable(true);

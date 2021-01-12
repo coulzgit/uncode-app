@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
- * @property integer $doc_id
- * @property string $log_index
- * @property string $stamp_uid
+ * @property string $data_index
+ * @property string $doc_id
+ * @property string $data_value
  * @property string $stamp_date
- * @property string $log_comment
+ * @property string $stamp_uid
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $ID_DOC
  * @property Doc $doc
- * @property AccActionLogName[] $accActionLogNames
+ * @property DocDataName[] $docDataNames
  */
-class AccActionLog extends Model
+class DataDoc extends Model
 {
     /**
-
      * The "type" of the auto-incrementing ID.
      * 
      * @var string
@@ -29,22 +29,21 @@ class AccActionLog extends Model
     /**
      * @var array
      */
-
-    protected $fillable = ['doc_id', 'log_index', 'stamp_uid', 'stamp_date', 'log_comment', 'created_at', 'updated_at'];
+    protected $fillable = ['data_index', 'doc_id', 'data_value', 'stamp_date', 'stamp_uid', 'created_at', 'updated_at', 'ID_DOC'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function doc()
     {
-        return $this->belongsTo('App\Models\Doc');
+        return $this->belongsTo('App\Models\Doc', 'ID_DOC');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function accActionLogNames()
+    public function docDataNames()
     {
-        return $this->hasMany('App\Models\AccActionLogName');
+        return $this->hasMany('App\Models\DocDataName', 'doc_data_id');
     }
 }
