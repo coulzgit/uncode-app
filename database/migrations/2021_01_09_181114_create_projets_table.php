@@ -16,6 +16,7 @@ class CreateProjetsTable extends Migration
         Schema::create('projets', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
+            $table->integer('created_by');
             //$table->bigInteger('account_id');
 
             $table->timestamps();

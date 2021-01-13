@@ -50,31 +50,41 @@ Route::group(
 	    Route::post('/signup', 'UserController@inscriptionc')->name('client.inscri');
 
 
-	    //MODULE COMPTE
-	     Route::get('account/create', 'UserController@createAccount')->name('account.create');
-	    Route::post('account/create', 'UserController@saveAccount');
-	    Route::get('account/{account_id}/details', 'UserController@detailsAccount')->name('account.details'); 
-
+	    //COULZ ROUTES
 
 	    Route::get('account/{account_id?}/adduser', 'UserController@addUser')->name('account.adduser'); 
 	    Route::get('account/{account_id?}/listuser', 'UserController@listUser')->name('account.listuser'); 
-	  
+	    Route::get('account/create', 'UserController@createAccount')->name('account.create');
 	    Route::get('account/list', 'UserController@listAccount')->name('account.list'); 
 	    Route::get('account/{account_id?}/config', 'UserController@configAccount')->name('account.config');  
-	    
+	    Route::get('account/{account_id}/details', 'UserController@detailsAccount')->name('account.details'); 
 	    Route::get('account/{account_id}/edit', 'UserController@editAccount')->name('account.edit');
 	    Route::get('account/{account_id}/config', 'UserController@configAccount')->name('account.config1');
 
-	    Route::get('/404', function () {
-		    return view('404');
-		});
-
 	    Route::get('/tester', function () {
-		    return view('404');
+		    return view('teste');
 		});
 
 
 
+
+		//    Route::get('export', 'MyController@export')->name('export');
+
+		// Route::get('importExportView', 'MyController@importExportView');
+
+		// Route::post('import', 'MyController@import')->name('import');
+
+		Route::get('export', 'AcountController@export')->name('export');
+		Route::get('accounts/importView', 'AcountController@importView');
+		Route::post('import', 'AcountController@import')->name('import');
+		Route::get('export', 'AcountController@export')->name('export');
+		Route::get('accounts/importView', 'AcountController@importView');
+
+		Route::post('import', 'DocController@import')->name('import');
+
+		Route::get('docs/importView', 'DocController@docView');
+
+		Route::post('import', 'DocController@import')->name('import');
 
 
 });

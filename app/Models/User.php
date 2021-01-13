@@ -34,6 +34,9 @@ class User extends Model
      * @var array
      */
     protected $fillable = ['account_id', 'prenom', 'nom', 'email', 'email_verified_at', 'password', 'nom_role', 'role_id', 'account_owner', 'photo', 'remember_token', 'created_at', 'updated_at'];
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

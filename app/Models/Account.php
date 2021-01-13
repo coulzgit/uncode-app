@@ -53,4 +53,10 @@ class Account extends Model
     {
         return $this->hasMany('App\Models\User');
     }
+    public function proprietaire($account_id){
+
+        return User::where('account_id',$account_id)
+        ->where('account_owner',true)->first();
+
+    }
 }
