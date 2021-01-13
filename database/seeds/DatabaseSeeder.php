@@ -97,27 +97,33 @@ class DatabaseSeeder extends Seeder
         // TABLE PROJET
         [
             App\Models\Projet::create([
-                'account_id'=>1, 
+                'account_id'=>1,
+                'created_by'=>1, 
                 'nom'=>'Projet1'
             ]),
             App\Models\Projet::create([
-                'account_id'=>1, 
+                'account_id'=>1,
+                'created_by'=>1,  
                 'nom'=>'Projet2'
             ]),
             App\Models\Projet::create([
                 'account_id'=>1, 
+                'created_by'=>2, 
                 'nom'=>'Projet3'
             ]),
             App\Models\Projet::create([
                 'account_id'=>1, 
+                'created_by'=>1, 
                 'nom'=>'Projet4'
             ]),
             App\Models\Projet::create([
                 'account_id'=>2, 
+                'created_by'=>1, 
                 'nom'=>'Projet5'
             ]),
             App\Models\Projet::create([
                 'account_id'=>2, 
+                'created_by'=>1, 
                 'nom'=>'Projet6'
             ])
 

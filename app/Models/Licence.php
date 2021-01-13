@@ -31,6 +31,6 @@ class Licence extends Model
      */
     public function accounts()
     {
-        return $this->hasMany('App\Models\Account');
+        return $this->hasMany('App\Models\Account','account_id');
     }
 }

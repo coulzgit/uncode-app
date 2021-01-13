@@ -54,4 +54,13 @@
 <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>	
 <!-- form-element -->
 <script src="{{URL::asset('assets/js/form-elements.js')}}"></script>
+<!-- TEST -->
+<script type="text/javascript">
+	
+	var account = @json($account);
+	$(document).ready(function(){
+		console.log('account',account);
+
+	});
+</script>
 @endsection

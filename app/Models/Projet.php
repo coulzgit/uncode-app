@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $id
  * @property integer $account_id
  * @property string $nom
+ * @property int $created_by
  * @property string $created_at
  * @property string $updated_at
  * @property Account $account
@@ -25,7 +26,7 @@ class Projet extends Model
     /**
      * @var array
      */
-    protected $fillable = ['account_id', 'nom', 'created_at', 'updated_at'];
+    protected $fillable = ['account_id', 'nom', 'created_by', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

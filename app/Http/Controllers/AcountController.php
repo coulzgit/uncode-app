@@ -16,7 +16,7 @@ class AcountController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.uncod.comptes_clients.liste_comptes.index');
     }
 
     /**
@@ -26,7 +26,7 @@ class AcountController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.uncod.comptes_clients.new_account.index');
     }
 
     /**
@@ -37,7 +37,11 @@ class AcountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input['licence_id']=$request['licence_id'];
+        $input['code']=$request['code'];
+        $input['statut']=$request['statut'];
+
+
     }
 
     /**

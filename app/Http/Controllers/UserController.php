@@ -10,10 +10,15 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Notifications\RegisterNotify;
 use App\Models\User;
+use App\Models\Account;
+use App\Models\Projet;
+use App\Models\Licence;
 use Auth;
 use Mail;
 use Session;
 use DB;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class UserController extends Controller
 {
@@ -75,7 +80,7 @@ class UserController extends Controller
          //
          //$recruteurs = Recruteur::orderBy('id')->get();
          //$acc_data_names = acc_data_names::all();
-//return view('doctadas.index')->with('acc_data_names', $acc_data_names);
+        //return view('doctadas.index')->with('acc_data_names', $acc_data_names);
          return view('admin/uncod.index');
      }
 
@@ -110,7 +115,7 @@ class UserController extends Controller
      public function inscriptionc(Request $request)
      {
          //
-         request()->validate([
+            request()->validate([
 
              'nom' => 'required|string|max:255',
              'prenom' => 'required|string|max:255',
@@ -118,7 +123,7 @@ class UserController extends Controller
              'tel' => 'required|int|max:255',
              'password' => 'required|string|min:6|confirmed',
 
-     ]);
+            ]);
 
              $message = "Ajouté avec succès";
              $user = new User;
@@ -136,14 +141,14 @@ class UserController extends Controller
 
              return redirect()->with(['message' => $message]);
 
-     }
+             }
 
-     else
-         {
-             flash('user not saved')->error();
+             else
+                 {
+                     flash('user not saved')->error();
 
-         } */
-     return back()->with(['message' => $message]);
+                 } */
+             return back()->with(['message' => $message]);
 
      }
 
@@ -153,14 +158,14 @@ class UserController extends Controller
       * @return \Illuminate\Http\Response
       */
      public function create()
-     {
-        {
+    {
+        
 
         $roles = DB::table('roles')->get();
           return view('acounts.signup',['roles' => $roles]);
 
+    
     }
-     }
 
      /**
       * Store a newly created resource in storage.
@@ -168,10 +173,10 @@ class UserController extends Controller
       * @param  \Illuminate\Http\Request  $request
       * @return \Illuminate\Http\Response
       */
-     public function store(Request $request)
-     {
-         //
-         request()->validate([
+    public function store(Request $request)
+    {
+        //
+        request()->validate([
 
              'nom' => 'required|string|max:255',
              'prenom' => 'required|string|max:255',
@@ -179,7 +184,7 @@ class UserController extends Controller
              'tel' => 'required|string|max:255',
              'password' => 'required|string|min:6|confirmed',
 
-     ]);
+        ]);
 
          $user = new User;
              $user->prenom = $request->get('prenom');
@@ -224,10 +229,10 @@ class UserController extends Controller
 
          }
 
-     }
-     return back()->with(['message' => $message]);
+         }
+        return back()->with(['message' => $message]);
 
-     }
+    }
 
 
     /**
@@ -270,7 +275,7 @@ class UserController extends Controller
             'tel' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
 
-    ]);
+        ]);
 
 
 
@@ -297,30 +302,358 @@ class UserController extends Controller
         return back();
     }
 
-
-    //########  COULZ FUNCTIONS
+/* ################ MODULE ACCOUNT################### */
     public function addUser(){
         return view('admin.uncod.comptes_clients.add_user.index');
     }
     public function createAccount(){
-        return view('admin.uncod.comptes_clients.new_account.index');
+        $licences = DB::table('licences')->get();
+        return view('admin.uncod.comptes_clients.new_account.index',
+            [
+                'licences' => $licences
+        ]);
+        
+    }
+    public function saveAccount(Request $request){
+        $input['licence_id']=$request['licence_id'];
+        $input['code']=$request['code'];
+        $input['statut']=$request['statut'];
     }
     public function listAccount(){
-        return view('admin.uncod.comptes_clients.liste_comptes.index');
+        $accounts = $this->getListComptes();
+        return view('admin.uncod.comptes_clients.liste_comptes.index',
+            [
+                'accounts'=>$accounts
+            ]);
+    }
+    private function getListComptes(){
+        $accounts = [];
+        try {
+            
+            $accounts = Account::where('statut', true)->get();
+            $accounts = $this->formaterListAccount($accounts);
+    
+        } catch (Exception $e) {}
+        return $accounts;
+    }
+    private function formaterListAccount($accounts){
+        $myCollect=collect([]);
+        try {
+            foreach ($accounts as $key => $account) {
+               $myCollect->push($this->formatAccountData($account['id']));
+            }
+        } catch (Exception $e) {
+            
+        }
+        return $myCollect;
+
     }
     public function configAccount(){
         return view('admin.uncod.comptes_clients.config_account.index');
     }
 
-    public function detailsAccount(){
-        return view('admin.uncod.comptes_clients.liste_comptes.details.index');
+    public function detailsAccount(Request $request){
+        $account_id = $request['account_id'];
+        $myCollect=collect([]);
+        $account = Account::find($account_id);
+        if (empty($account)) {
+            return redirect(app()-> getLocale().'/404');
+        }
+        
+        $account = $this->formatAccountData($account_id);
+        return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account]);
     }
-    public function editAccount(){
-        return view('admin.uncod.comptes_clients.edit_account.index');
+    private function formatAccountData($account_id){
+
+        $myCollect = collect([]);
+        
+        try {
+            $account = Account::find($account_id);
+            $myCollect->put('account',$account);
+            //PROPRIETAIRE
+            $proprietaire = User::where('account_id',$account_id)->where('account_owner',true)->first();
+            $licence = Licence::find($account->licence_id);
+            $users = User::where('account_id',$account_id)->get();
+            $projets = $this->getProjetByAccount($account_id);
+            $myCollect->put('proprietaire',$proprietaire);
+            $myCollect->put('users',$users);
+            $myCollect->put('projets',$projets);
+            $myCollect->put('licence',$licence);
+
+        } catch (Exception $e) {
+            
+        }
+        return $myCollect;
+    }
+    private function getProjetByAccount($account_id){ 
+        $myCollect = collect([]);
+        try {
+            $projets = Projet::where('account_id',$account_id)->get();
+            foreach ($projets as $key => $projet) {
+                $item = collect([]);
+                $item->put('nom',$projet['nom']);
+                $item->put('created_at',$this->formaterDate( $projet['created_at'],'long'));
+                $item->put('created_by',User::find($projet['created_by']));
+
+
+                $myCollect->push($item);
+
+            }
+        } catch (Exception $e) {
+            
+        }
+        return $myCollect;
+    }
+    private function formaterDate($date_string,$date_type)
+    {
+        $monthsArray= [
+                "January"=>[
+                    "n_m_fr"=>"Jan",
+                    "n_m_en"=>"Jan",
+                    "n_l_fr"=>"Janvier",
+                    "n_l_en"=>"January",
+
+                ],
+                "February"=>[
+                    "n_m_fr"=>"Fév",
+                    "n_m_en"=>"Feb",
+                    "n_l_fr"=>"Février",
+                    "n_l_en"=>"February",
+                ],
+                "March"=>[
+                    "n_m_fr"=>"Mar",
+                    "n_m_en"=>"Mar",
+                    "n_l_fr"=>"Mardi",
+                    "n_l_en"=>"March",
+                ],
+                "April"=>[
+                    "n_m_fr"=>"Avr",
+                    "n_m_en"=>"Apr",
+                    "n_l_fr"=>"Avril",
+                    "n_l_en"=>"April",
+                ],
+                "May"=>[
+                    "n_m_fr"=>"Mai",
+                    "n_m_en"=>"May",
+                    "n_l_fr"=>"Mai",
+                    "n_l_en"=>"May",
+                ],
+                "June"=>[
+                    "n_m_fr"=>"Jun",
+                    "n_m_en"=>"Jun",
+                    "n_l_fr"=>"Juin",
+                    "n_l_en"=>"June",
+                ],
+                "July"=>[
+                    "n_m_fr"=>"Jul",
+                    "n_m_en"=>"Jul",
+                    "n_l_fr"=>"Juillet",
+                    "n_l_en"=>"July",
+                ],
+
+                "August"=>[
+                    "n_m_fr"=>"Aug",
+                    "n_m_en"=>"Aug",
+                    "n_l_fr"=>"Aout",
+                    "n_l_en"=>"Auguster",
+                ],
+
+                "September"=>[
+                    "n_m_fr"=>"Sep",
+                    "n_m_en"=>"Sep",
+                    "n_l_fr"=>"Septembre",
+                    "n_l_en"=>"September",
+                ],
+
+                "October"=>[
+                    "n_m_fr"=>"Oct",
+                    "n_m_en"=>"Oct",
+                    "n_l_fr"=>"Octobre",
+                    "n_l_en"=>"October",
+                ],
+
+                "November"=>[
+                    "n_m_fr"=>"Nov",
+                    "n_m_en"=>"Nov",
+                    "n_l_fr"=>"Novembre",
+                    "n_l_en"=>"November",
+                ],
+                "December"=>[
+                    "n_m_fr"=>"Déc",
+                    "n_m_en"=>"Dec",
+                    "n_l_fr"=>"Décembre",
+                    "n_l_en"=>"December",
+                ]
+            ];
+
+        $myDate = $date_string->format('Y-m-d');
+        $day = Carbon::parse($myDate)->format('l');
+        $month = Carbon::parse($myDate)->format('F');
+        $day_num=substr($myDate,8,2) ;//2020-09-24
+        $month_num=substr($myDate,5,2) ;//2020-09-24
+        $year_num=substr($myDate,0,4) ;//2020-09-24
+        if ($date_type=="long") {
+            $month_name_min = $monthsArray[$month]["n_l_en"];
+            if(app()->getLocale()=="fr"){
+                $month_name_min = $monthsArray[$month]["n_l_fr"];
+            }
+            return $day_num.' '.$month_name_min.' '.$year_num;
+        }elseif ($date_type=="min"){
+            $month_name_min = $monthsArray[$month]["n_m_en"];
+            if(app()->getLocale()=="fr"){
+                $month_name_min = $monthsArray[$month]["n_m_fr"];
+            }
+            return $day_num.' '.$month_name_min.' '.$year_num;
+        }
+        
+
+        //$periods = CarbonPeriod::create($start,$end);
+
+        // $myCollect = collect([]);
+        // foreach ($periods as $date) {
+        //     $myDate = $date->format('Y-m-d');
+        //     $day = Carbon::parse($myDate)->format('l');
+        //     $month = Carbon::parse($myDate)->format('F');
+        //     $day_num=substr($myDate,8,2) ;//2020-09-24
+        //     $month_num=substr($myDate,5,2) ;//2020-09-24
+
+        //     $myItem = collect([]);
+        //     if($day=="Monday"){
+        //         $horaires = Horaire::where("user_id",$institut->user_id)
+        //         ->where("codeDay","L")
+        //         ->where("statut","normale")
+        //         ->get();
+        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
+        //         $myItem->put("codeDay","L");
+        //         $myItem->put("date",$myDate);
+
+        //         $day_name_min="Mon";
+        //         if(app()-> getLocale()=="fr"){
+        //             $day_name_min="Lun";
+        //         }
+        //         $myItem->put("day_name_min",$day_name_min);
+
+        //     }elseif($day=="Tuesday"){
+        //         $horaires = Horaire::where("user_id",$institut->user_id)
+        //         ->where("codeDay","M")
+        //         ->where("statut","normale")
+        //         ->get();
+        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
+        //         $myItem->put("codeDay","M");
+        //         $myItem->put("date",$myDate);
+        //         $myItem->put("hours",$hoursDispo);
+
+        //         $day_name_min="Tue";
+        //         if(app()-> getLocale()=="fr"){
+        //             $day_name_min="Mar";
+        //         }
+        //         $myItem->put("day_name_min",$day_name_min);
+        //     }elseif($day=="Wednesday"){
+        //         $horaires = Horaire::where("user_id",$institut->user_id)
+        //         ->where("codeDay","Me")
+        //         ->where("statut","normale")
+        //         ->get();
+        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
+        //         $myItem->put("codeDay","Me");
+        //         $myItem->put("date",$myDate);
+        //         $myItem->put("hours",$hoursDispo);
+
+        //         $day_name_min="Wed";
+        //         if(app()-> getLocale()=="fr"){
+        //             $day_name_min="Mer";
+        //         }
+        //         $myItem->put("day_name_min",$day_name_min);
+        //     }elseif($day=="Thursday"){
+        //         $horaires = Horaire::where("user_id",$institut->user_id)
+        //         ->where("codeDay","J")
+        //         ->where("statut","normale")
+        //         ->get();
+        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
+        //         $myItem->put("codeDay","J");
+        //         $myItem->put("date",$myDate);
+        //         $myItem->put("hours",$hoursDispo);
+
+        //         $day_name_min="Thu";
+        //         if(app()-> getLocale()=="fr"){
+        //             $day_name_min="Jeu";
+        //         }
+        //         $myItem->put("day_name_min",$day_name_min);
+        //     }elseif($day=="Friday"){
+        //         $horaires = Horaire::where("user_id",$institut->user_id)
+        //         ->where("codeDay","V")
+        //         ->where("statut","normale")
+        //         ->get();
+        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
+        //         $myItem->put("codeDay","V");
+        //         $myItem->put("date",$myDate);
+        //         $myItem->put("hours",$hoursDispo);
+
+        //         $day_name_min="Fri";
+        //         if(app()-> getLocale()=="fr"){
+        //             $day_name_min="Ven";
+        //         }
+        //         $myItem->put("day_name_min",$day_name_min);
+        //     }elseif($day=="Saturday"){
+        //         $horaires = Horaire::where("user_id",$institut->user_id)
+        //         ->where("codeDay","S")
+        //         ->where("statut","normale")
+        //         ->get();
+        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
+        //         $myItem->put("codeDay","S");
+        //         $myItem->put("date",$myDate);
+        //         $myItem->put("hours",$hoursDispo);
+
+        //         $day_name_min="Sat";
+        //         if(app()-> getLocale()=="fr"){
+        //             $day_name_min="Sam";
+        //         }
+        //         $myItem->put("day_name_min",$day_name_min);
+        //     }elseif($day=="Sunday"){
+        //         $horaires = Horaire::where("user_id",$institut->user_id)
+        //         ->where("codeDay","D")
+        //         ->where("statut","normale")
+        //         ->get();
+        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
+        //         $myItem->put("codeDay","D");
+        //         $myItem->put("date",$myDate);
+        //         $myItem->put("hours",$hoursDispo);
+
+        //         $day_name_min="Sun";
+        //         if(app()-> getLocale()=="fr"){
+        //             $day_name_min="Dim";
+        //         }
+        //         $myItem->put("day_name_min",$day_name_min);
+        //     }
+        //     $myItem->put("month",$month);
+        //     $myItem->put("day_num",$day_num);
+        //     $myItem->put("month_num",$month_num);
+        //     $month_name_min = $monthsArray[$month]["n_m_en"];
+        //     if(app()-> getLocale()=="fr"){
+        //         $month_name_min = $monthsArray[$month]["n_m_fr"];
+        //     }
+        //     $myItem->put("month_name_min",$month_name_min);
+
+        //     $myCollect->push($myItem); 
+        // }
+        // return $myCollect;
+    }
+    public function editAccount(Request $request){
+        $account_id = $request['account_id'];
+        $account = Account::find($account_id);
+        $licences = DB::table('licences')->get();
+        if (empty($account)) {
+            return redirect(app()-> getLocale().'/404');
+        }
+        return view('admin.uncod.comptes_clients.edit_account.index',
+            [
+                'licences'=>$licences,
+                'account'=>$account
+            ]);
     }
     
     public function listUser(){
         return view('admin.uncod.comptes_clients.liste_users.index');
     }
+
     
 }
