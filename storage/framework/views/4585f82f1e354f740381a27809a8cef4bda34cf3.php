@@ -17,7 +17,7 @@
 					<div style="border: 1px solid #eee;border-radius: 5px;margin-right: 20px;padding: 20px" class="col-md-5">
 						<h6 class="price">
 							N° du compte:  
-							<span style="color: #adadad" class="h6 ml-2">00011</span>
+							<span style="color: #adadad" class="h6 ml-2"><?php echo e($account['account']->code); ?></span>
 						</h6>
 						<h6 class="price">
 							Date de création:  

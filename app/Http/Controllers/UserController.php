@@ -315,9 +315,63 @@ class UserController extends Controller
         
     }
     public function saveAccount(Request $request){
-        $input['licence_id']=$request['licence_id'];
-        $input['code']=$request['code'];
-        $input['statut']=$request['statut'];
+        $licence_id=$request['licence_id'];
+        $account_code=random_int(10000,99999);
+        $account_statut=false;
+        if ($request['statut']=="ON") {
+            $account_statut=true;
+        }
+        Account::create([
+            'code'=>$account_code,
+            'statut'=>$account_statut,
+            'licence_id'=>$licence_id
+        ]);
+
+        $message="Create account sucessfully";
+        if(app()->getLocale()=="fr"){
+            $message="Création de compte réussie";
+        }
+        return redirect()->back()->with('message',$message);
+    }
+    public function updateAccount(Request $request){
+        $account_id=$request['account_id'];
+        $account = Account::find($account_id);
+        if (empty($account)) {
+            return redirect(app()-> getLocale().'/404');
+        }
+
+        $licence_id=$request['licence_id'];
+        $account_statut=false;
+        if ($request['statut']=="ON") {
+            $account_statut=true;
+        }
+
+        $account->statut=$account_statut;
+        $account->licence_id=$licence_id;
+        $account->save();
+
+        $message="Update account Sucessfully";
+        if(app()->getLocale()=="fr"){
+            $message="Modification de compte Réussie";
+        }
+        return redirect()->back()->with('message',$message);
+    }
+    private function validateAccountData(array $data){
+        $messages = [
+            'licence_id.required' => 'Licence required'
+            ,
+        ];
+        if(app()-> getLocale()=="fr"){
+          $messages = [
+                'licence_id.required' => 'Licence obligatoire',
+            ];  
+        }
+
+        $validator = Validator::make($data, [
+            'licence_id' => 'required'
+        ], $messages);
+
+        return $validator;
     }
     public function listAccount(){
         $accounts = $this->getListComptes();
@@ -349,9 +403,9 @@ class UserController extends Controller
 
     }
     public function configAccount(){
+        
         return view('admin.uncod.comptes_clients.config_account.index');
     }
-
     public function detailsAccount(Request $request){
         $account_id = $request['account_id'];
         $myCollect=collect([]);
