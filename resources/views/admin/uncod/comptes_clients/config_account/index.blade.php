@@ -50,8 +50,33 @@
 <!--Internal  index js -->
 <script src="{{URL::asset('assets/js/index.js')}}"></script>
 <script src="{{URL::asset('assets/js/jquery.vmap.sampledata.js')}}"></script>
-<!-- Select2 -->
+
+
+
+<!--NEW: Select2 -->
 <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>	
-<!-- form-element -->
+<script src="{{URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/jquery.maskedinput/jquery.maskedinput.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/spectrum-colorpicker/spectrum.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js')}}"></script>
 <script src="{{URL::asset('assets/js/form-elements.js')}}"></script>
+
+<!-- TEST -->
+<script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript">
+	
+	var account = @json($account);
+	var doc_columns = @json($doc_columns);
+	var acc_data_columns = @json($acc_data_columns);
+	$(document).ready(function(){
+		console.log('account',account);
+		console.log('doc_columns',doc_columns);
+		console.log('acc_data_columns',acc_data_columns);
+
+	});
+</script>
+
+
+
 @endsection

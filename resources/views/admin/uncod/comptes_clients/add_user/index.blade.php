@@ -67,6 +67,17 @@
 <script src="{{URL::asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js')}}"></script>
 <script src="{{URL::asset('assets/js/form-elements.js')}}"></script>
 
+<!-- TEST -->
+<script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript">
+	
+	var roles = @json($roles);
+	$(document).ready(function(){
+		console.log('roles',roles);
+
+	});
+</script>
+
 
 
 

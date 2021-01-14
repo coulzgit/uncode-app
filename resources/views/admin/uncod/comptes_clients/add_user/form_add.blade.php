@@ -16,7 +16,7 @@
 						</label>
 						</div>
 						<div class="col-md-8 mg-t-5 mg-md-t-0">
-							<input class="form-control" placeholder="{{__('Saisir le numéro du compte')}}" type="text">
+							<input disabled="" value="0011" class="form-control" placeholder="{{__('Saisir le numéro du compte')}}" type="text">
 						</div>
 					</div>
 
