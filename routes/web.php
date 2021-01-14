@@ -26,10 +26,10 @@ Route::post('/connexion', 'UserController@login');
 
 Route::group(
 	[
-	'prefix' => '{locale}', 
+	'prefix' => '{locale}',
 	'where' =>['locale'=>'[a-zA-Z]{2}'],
 	'middleware' => 'setlocale'
-	], 
+	],
 	function () {
 		Route::get('/', function () {
 		    return view('admin/uncod/.signin');
@@ -39,7 +39,7 @@ Route::group(
 
 Route::group(
 	[
-	'prefix' => '{locale}', 
+	'prefix' => '{locale}',
 	'where' =>['locale'=>'[a-zA-Z]{2}'],
 	'middleware' => ['setlocale','Connecter']
 	]
@@ -51,17 +51,17 @@ Route::group(
 
 
 	    //MODULE COMPTE
-	     Route::get('account/create', 'UserController@createAccount')->name('account.create');
-	    Route::post('account/create', 'UserController@saveAccount');
-	    Route::get('account/{account_id}/details', 'UserController@detailsAccount')->name('account.details'); 
+	    Route::get('account/create', 'UserController@createAccount')->name('account.create');
+	    Route::post('account/create', 'UserController@saveAccount')->name('account.create');
+	    Route::get('account/{account_id}/details', 'UserController@detailsAccount')->name('account.details');
 
 
-	    Route::get('account/{account_id?}/adduser', 'UserController@addUser')->name('account.adduser'); 
-	    Route::get('account/{account_id?}/listuser', 'UserController@listUser')->name('account.listuser'); 
-	  
-	    Route::get('account/list', 'UserController@listAccount')->name('account.list'); 
-	    Route::get('account/{account_id?}/config', 'UserController@configAccount')->name('account.config');  
-	    
+	    Route::get('account/{account_id?}/adduser', 'UserController@addUser')->name('account.adduser');
+	    Route::get('account/{account_id?}/listuser', 'UserController@listUser')->name('account.listuser');
+
+	    Route::get('account/list', 'UserController@listAccount')->name('account.list');
+	    Route::get('account/{account_id?}/config', 'UserController@configAccount')->name('account.config');
+
 	    Route::get('account/{account_id}/edit', 'UserController@editAccount')->name('account.edit');
 	    Route::get('account/{account_id}/config', 'UserController@configAccount')->name('account.config1');
 
