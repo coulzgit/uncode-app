@@ -28,17 +28,12 @@
 <td><?php echo e($role->name); ?></td>
 <td>
 <a class="btn btn-info" href="<?php echo e(route('roles.show',['locale'=>app()->getLocale(),$role->id])); ?>">Show</a>
-<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('role-edit')): ?>
+
 <a class="btn btn-primary" href="<?php echo e(route('roles.edit',['locale'=>app()->getLocale(),$role->id])); ?>">Edit</a>
-<?php endif; ?>
-<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('role-delete')): ?>
-<?php echo Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']); ?>
+<a class="btn btn-danger" href="<?php echo e(route('roles.delete',['locale'=>app()->getLocale(),$role->id])); ?>">Delete</a>
 
-<?php echo Form::submit('Delete', ['class' => 'btn btn-danger']); ?>
 
-<?php echo Form::close(); ?>
 
-<?php endif; ?>
 </td>
 </tr>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -46,5 +41,18 @@
 <?php echo $roles->render(); ?>
 
 <p class="text-center text-primary"><small>Tutorial by Tutsmake.com</small></p>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+<!-- TEST -->
+<script src="<?php echo e(asset('app-assets/js/vendors/jquery-3.2.1.min.js')); ?>"></script>
+<script type="text/javascript">
+
+	var roles = <?php echo json_encode($roles, 15, 512) ?>;
+	$(document).ready(function(){
+		console.log('roles',roles);
+
+	});
+</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/params/roles/index.blade.php ENDPATH**/ ?>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/uncod/layouts.master')
 @section('content')
 <div class="row">
 <div class="col-lg-12 margin-tb">
@@ -6,7 +6,7 @@
 <h2> Show Role</h2>
 </div>
 <div class="pull-right">
-<a class="btn btn-primary" href="{{ route('roles.index',['locale'=>app()->getLocale()]) }}"> Back</a>
+<a class="btn btn-primary" href="{{ route('roles',['locale'=>app()->getLocale()]) }}"> Back</a>
 </div>
 </div>
 </div>

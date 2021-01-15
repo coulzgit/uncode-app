@@ -67,7 +67,10 @@
     "actif": "active",
     "désactivé": "unactive",
     "Chercher": "Search",
-    "Choisissez-en un": "Choose one"
+    "Choisissez-en un": "Choose one",
+    "Configuration des accès":"Access configuration",
+    "Nouveau role":"New role",
+    "Liste des roles":"List of roles"
 
 
 }
