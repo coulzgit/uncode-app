@@ -51,19 +51,19 @@
 									<td>07 Janv 2021</td>
 									<td>actif</td>
 									<td>
-										<a title="<?php echo e(__('Détails du compte')); ?>" href="<?php echo e(route('account.details',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-primary">
+										<a title="<?php echo e(__('Détails du compte')); ?>" href="<?php echo e(route('accounts.show',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-primary">
 											<i class="las la-search"></i>
 										</a>
-										<a title="<?php echo e(__('Modifier le compte')); ?>" href="<?php echo e(route('account.edit',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-info">
+										<a title="<?php echo e(__('Modifier le compte')); ?>" href="<?php echo e(route('accounts.edit',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-info">
 											<i class="las la-pen"></i>
 										</a>
-										<a title="<?php echo e(__('Configurer le compte')); ?>" href="<?php echo e(route('account.config1',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-success">
+										<a title="<?php echo e(__('Configurer le compte')); ?>" href="<?php echo e(route('accounts.config',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-success">
 											<i class="las la-tools"></i>
 										</a>
-										<a title="<?php echo e(__('Ajouter un utilisateur')); ?>" href="<?php echo e(route('account.adduser',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-secondary">
+										<a title="<?php echo e(__('Ajouter un utilisateur')); ?>" href="#" class="btn btn-sm btn-secondary">
 											<i class="las la-user-plus"></i>
 										</a>
-										<a title="<?php echo e(__('Liste utilisateur')); ?>" href="<?php echo e(route('account.listuser',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-warning">
+										<a title="<?php echo e(__('Liste utilisateur')); ?>" href="#" class="btn btn-sm btn-warning">
 											<i class="las la-users"></i>
 										</a>	
 										<a title="<?php echo e(__('Supprimer le compte')); ?>" href="#" class="btn btn-sm btn-danger">
@@ -80,24 +80,25 @@
 									<td>07 Janv 2021</td>
 									<td>actif</td>
 									<td>
-										<a title="<?php echo e(__('Détails du compte')); ?>" href="<?php echo e(route('account.details',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-primary">
+										<a title="<?php echo e(__('Détails du compte')); ?>" href="<?php echo e(route('accounts.show',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-primary">
 											<i class="las la-search"></i>
 										</a>
-										<a title="<?php echo e(__('Modifier le compte')); ?>" href="<?php echo e(route('account.edit',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-info">
+										<a title="<?php echo e(__('Modifier le compte')); ?>" href="<?php echo e(route('accounts.edit',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-info">
 											<i class="las la-pen"></i>
 										</a>
-										<a title="<?php echo e(__('Configurer le compte')); ?>" href="<?php echo e(route('account.config1',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-success">
+										<a title="<?php echo e(__('Configurer le compte')); ?>" href="<?php echo e(route('accounts.config',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-success">
 											<i class="las la-tools"></i>
 										</a>
-										<a title="<?php echo e(__('Ajouter un utilisateur')); ?>" href="<?php echo e(route('account.config1',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-secondary">
+										<a title="<?php echo e(__('Ajouter un utilisateur')); ?>" href="#" class="btn btn-sm btn-secondary">
 											<i class="las la-user-plus"></i>
 										</a>
-										<a title="<?php echo e(__('Liste utilisateur')); ?>" href="<?php echo e(route('account.config1',['account_id'=>1,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-warning">
+										<a title="<?php echo e(__('Liste utilisateur')); ?>" href="#" class="btn btn-sm btn-warning">
 											<i class="las la-users"></i>
 										</a>	
 										<a title="<?php echo e(__('Supprimer le compte')); ?>" href="#" class="btn btn-sm btn-danger">
 											<i class="las la-trash"></i>
 										</a>
+										
 									</td>
 								</tr>
 

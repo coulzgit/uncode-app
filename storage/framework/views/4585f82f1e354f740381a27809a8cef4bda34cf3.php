@@ -1,5 +1,5 @@
 <div style="display: flex;justify-content: center;" class="row row-sm">
-	<a href="{{route('accounts',app()->getLocale())}}">
+	<a href="<?php echo e(route('accounts',app()->getLocale())); ?>">
 		<i class="ti ti-arrow-left"></i>
 		Retour
 	</a>
@@ -17,7 +17,7 @@
 					<div style="border: 1px solid #eee;border-radius: 5px;margin-right: 20px;padding: 20px" class="col-md-5">
 						<h6 class="price">
 							N° du compte:  
-							<span style="color: #adadad" class="h6 ml-2">{{$account['account']->code}}</span>
+							<span style="color: #adadad" class="h6 ml-2"><?php echo e($account['account']->code); ?></span>
 						</h6>
 						<h6 class="price">
 							Date de création:  
@@ -60,7 +60,7 @@
 				UTILISATEURS
 			</div>
 			<div class="card-body ">
-				@include('admin.uncod.comptes_clients.liste_comptes.details.users_list')
+				<?php echo $__env->make('admin.uncod.comptes_clients.liste_comptes.details.users_list', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 			</div>
 		</div>
 	</div>	
@@ -73,15 +73,15 @@
 				PROJETS
 			</div>
 			<div class="card-body ">
-				@include('admin.uncod.comptes_clients.liste_comptes.details.projets_list')
+				<?php echo $__env->make('admin.uncod.comptes_clients.liste_comptes.details.projets_list', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 			</div>
 		</div>
 	</div>	
 </div>
 
 <div style="display: flex;justify-content: center;margin-bottom: 20px" class="row row-sm">
-	<a href="{{route('account.list',app()->getLocale())}}">
+	<a href="<?php echo e(route('account.list',app()->getLocale())); ?>">
 		<i class="ti ti-arrow-left"></i>
 		Retour
 	</a>
-</div>
+</div><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/liste_comptes/details/content.blade.php ENDPATH**/ ?>

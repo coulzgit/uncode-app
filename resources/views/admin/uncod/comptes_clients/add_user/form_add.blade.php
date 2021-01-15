@@ -151,7 +151,7 @@
 						{{__('Sauvegarder')}}
 					</button>
 					
-					<a href="{{route('account.list',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">{{__('Annuler')}}</a>
+					<a href="{{route('accounts',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">{{__('Annuler')}}</a>
 				</div>
 			</div>
 		</div>

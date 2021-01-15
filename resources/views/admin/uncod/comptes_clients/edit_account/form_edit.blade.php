@@ -43,7 +43,7 @@
 
 					
 					<button class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">Sauvegarder</button>
-					<a href="{{route('account.list',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">Annuler</a>
+					<a href="{{route('accounts',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">Annuler</a>
 				</div>
 			</div>
 		</div>

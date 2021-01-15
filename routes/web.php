@@ -90,3 +90,23 @@ Route::group(
 	    Route::resource('projets', ProjetController::class);
 	}
 );
+// ACCOUNT
+Route::group(
+	[
+		'prefix' => '{locale}', 
+		'where' =>['locale'=>'[a-zA-Z]{2}'],
+		'middleware' => ['auth','setlocale']
+	], 
+	function() {
+	    Route::get('/accounts', 'AccountController@index')->name('accounts');
+	    Route::get('/accounts/create', 'AccountController@create')->name('accounts.create');
+	    Route::post('/accounts/create', 'AccountController@store')->name('accounts.create');
+
+	    Route::get('/accounts/{account_id?}/show', 'AccountController@show')->name('accounts.show');
+	    Route::get('/accounts/{account_id?}/edit', 'AccountController@edit')->name('accounts.edit');
+	    Route::post('/accounts/{account_id?}/edit', 'AccountController@update')->name('accounts.edit');
+
+	    Route::get('/accounts/{account_id?}/config', 'AccountController@config')->name('accounts.config');
+	    Route::post('/accounts/{account_id?}/config', 'AccountController@saveConfig')->name('accounts.config');
+	}
+);

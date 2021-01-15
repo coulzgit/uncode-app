@@ -69,25 +69,18 @@
 									</a>
 								</li> -->
 								<li>
-									<a class="sub-slide-item" href="<?php echo e(route('account.create',app()->getLocale())); ?>">
+									<a class="sub-slide-item" href="<?php echo e(route('accounts.create',app()->getLocale())); ?>">
 										<?php echo e(__('Nouveau compte')); ?>
 
 									</a>
 								</li>
 								<li>
-									<a class="sub-slide-item" href="<?php echo e(route('account.list',app()->getLocale())); ?>">
+									<a class="sub-slide-item" href="<?php echo e(route('accounts',app()->getLocale())); ?>">
 										<?php echo e(__('Liste des comptes')); ?>
 
 									</a>
 								</li>
-								<li style="display: none;">
-									<a class="sub-slide-item" href="<?php echo e(route('account.config',app()->getLocale())); ?>">
-										
-										<?php echo e(__('Configuration de compte')); ?>
-
-									</a>
-								</li>
-
+								
 
 							</li>
 						</ul>

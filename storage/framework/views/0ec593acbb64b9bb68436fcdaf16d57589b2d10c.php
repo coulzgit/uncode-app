@@ -11,8 +11,7 @@
 		<div class="left-content">
 			<div>
 			  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
-			  	<?php echo e(__('Comptes des clients')); ?>
-
+			  	Mise à jour du compte client n° 00011
 			  </h2>
 			  
 			</div>
@@ -23,7 +22,7 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 
-<?php echo $__env->make('admin.uncod.comptes_clients.liste_comptes.table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('admin.uncod.comptes_clients.edit_account.form_edit', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 			</div>
 			<!-- /Container -->
 		</div>
@@ -54,16 +53,17 @@
 <script src="<?php echo e(URL::asset('assets/plugins/select2/js/select2.min.js')); ?>"></script>	
 <!-- form-element -->
 <script src="<?php echo e(URL::asset('assets/js/form-elements.js')); ?>"></script>
-
 <!-- TEST -->
 <script src="<?php echo e(asset('app-assets/js/vendors/jquery-3.2.1.min.js')); ?>"></script>
 <script type="text/javascript">
 	
-	var accounts = <?php echo json_encode($accounts, 15, 512) ?>;
+	var licences = <?php echo json_encode($licences, 15, 512) ?>;
+	var account = <?php echo json_encode($account, 15, 512) ?>;
 	$(document).ready(function(){
-		console.log('accounts',accounts);
+		console.log('licences',licences);
+		console.log('account',account);
 
 	});
 </script>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/liste_comptes/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/edit_account/index.blade.php ENDPATH**/ ?>

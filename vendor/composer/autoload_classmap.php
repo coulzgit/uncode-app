@@ -10,7 +10,7 @@ return array(
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AccdataController' => $baseDir . '/app/Http/Controllers/AccdataController.php',
     'App\\Http\\Controllers\\AccdatanameController' => $baseDir . '/app/Http/Controllers/AccdatanameController.php',
-    'App\\Http\\Controllers\\AcountController' => $baseDir . '/app/Http/Controllers/AcountController.php',
+    'App\\Http\\Controllers\\AccountController' => $baseDir . '/app/Http/Controllers/AccountController.php',
     'App\\Http\\Controllers\\ActionlogController' => $baseDir . '/app/Http/Controllers/ActionlogController.php',
     'App\\Http\\Controllers\\ActionlognameController' => $baseDir . '/app/Http/Controllers/ActionlognameController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',

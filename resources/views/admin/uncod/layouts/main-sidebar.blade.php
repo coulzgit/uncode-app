@@ -66,22 +66,16 @@
 									</a>
 								</li> -->
 								<li>
-									<a class="sub-slide-item" href="{{route('account.create',app()->getLocale())}}">
+									<a class="sub-slide-item" href="{{route('accounts.create',app()->getLocale())}}">
 										{{__('Nouveau compte')}}
 									</a>
 								</li>
 								<li>
-									<a class="sub-slide-item" href="{{route('account.list',app()->getLocale())}}">
+									<a class="sub-slide-item" href="{{route('accounts',app()->getLocale())}}">
 										{{__('Liste des comptes')}}
 									</a>
 								</li>
-								<li style="display: none;">
-									<a class="sub-slide-item" href="{{route('account.config',app()->getLocale())}}">
-										
-										{{__('Configuration de compte')}}
-									</a>
-								</li>
-
+								
 
 							</li>
 						</ul>

@@ -633,7 +633,7 @@ class ComposerStaticInitc5dc840972087d5128ed8d333c673c5b
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AccdataController' => __DIR__ . '/../..' . '/app/Http/Controllers/AccdataController.php',
         'App\\Http\\Controllers\\AccdatanameController' => __DIR__ . '/../..' . '/app/Http/Controllers/AccdatanameController.php',
-        'App\\Http\\Controllers\\AcountController' => __DIR__ . '/../..' . '/app/Http/Controllers/AcountController.php',
+        'App\\Http\\Controllers\\AccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/AccountController.php',
         'App\\Http\\Controllers\\ActionlogController' => __DIR__ . '/../..' . '/app/Http/Controllers/ActionlogController.php',
         'App\\Http\\Controllers\\ActionlognameController' => __DIR__ . '/../..' . '/app/Http/Controllers/ActionlognameController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
