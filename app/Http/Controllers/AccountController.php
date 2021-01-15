@@ -77,7 +77,7 @@ class AccountController extends Controller
         if($request->ajax())
         {
             return array(
-                'responseCode'=>404,
+                'responseCode'=>200,
                 'message'=>$message
             ) ;
         }

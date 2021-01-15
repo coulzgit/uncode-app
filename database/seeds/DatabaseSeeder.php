@@ -25,6 +25,10 @@ class DatabaseSeeder extends Seeder
             App\Models\Licence::create([
                 'nom'=>'Illimite',//ID:3
                 'description'=>'illimite'
+            ]),
+            App\Models\Licence::create([
+                'nom'=>'Special',//ID:4
+                'description'=>'Special'
             ])
         ];
         // TABLE ACCOUNT
