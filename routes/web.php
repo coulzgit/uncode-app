@@ -85,7 +85,7 @@ Route::group(
 		'middleware' => ['auth','setlocale']
 	], 
 	function() {
-	    Route::resource('roles', RoleController::class);
+	    //Route::resource('roles', RoleController::class);
 	    Route::resource('users', UserController::class);
 	    Route::resource('projets', ProjetController::class);
 	}
@@ -108,5 +108,42 @@ Route::group(
 
 	    Route::get('/accounts/{account_id?}/config', 'AccountController@config')->name('accounts.config');
 	    Route::post('/accounts/{account_id?}/config', 'AccountController@saveConfig')->name('accounts.config');
+	}
+);
+
+// ROLE
+Route::group(
+	[
+		'prefix' => '{locale}', 
+		'where' =>['locale'=>'[a-zA-Z]{2}'],
+		'middleware' => ['auth','setlocale']
+	], 
+	function() {
+	    Route::get('/roles', 'RoleController@index')->name('roles');
+	    Route::get('/roles/create', 'RoleController@create')->name('roles.create');
+	    Route::post('/roles/create', 'RoleController@store')->name('roles.create');
+
+	    Route::get('/roles/{role_id?}/show', 'RoleController@show')->name('roles.show');
+	    Route::get('/roles/{role_id?}/edit', 'RoleController@edit')->name('roles.edit');
+	    Route::post('/roles/{role_id?}/edit', 'RoleController@update')->name('roles.edit');
+	    Route::post('/roles/{role_id?}/delete', 'RoleController@delete')->name('roles.delete');
+	}
+);
+
+// USER
+Route::group(
+	[
+		'prefix' => '{locale}', 
+		'where' =>['locale'=>'[a-zA-Z]{2}'],
+		'middleware' => ['auth','setlocale']
+	], 
+	function() {
+	    Route::get('/users', 'UserController@index')->name('users');
+	    Route::get('/users/create', 'UserController@create')->name('users.create');
+	    Route::post('/users/create', 'UserController@store')->name('users.create');
+
+	    Route::get('/users/{user_id?}/show', 'UserController@show')->name('users.show');
+	    Route::get('/users/{user_id?}/edit', 'UserController@edit')->name('users.edit');
+	    Route::post('/users/{user_id?}/edit', 'UserController@update')->name('users.edit');
 	}
 );

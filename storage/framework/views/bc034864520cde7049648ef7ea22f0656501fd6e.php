@@ -5,7 +5,7 @@
 <h2> Show Role</h2>
 </div>
 <div class="pull-right">
-<a class="btn btn-primary" href="<?php echo e(route('roles.index',['locale'=>app()->getLocale()])); ?>"> Back</a>
+<a class="btn btn-primary" href="<?php echo e(route('roles',['locale'=>app()->getLocale()])); ?>"> Back</a>
 </div>
 </div>
 </div>
@@ -29,4 +29,4 @@
 </div>
 </div>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/params/roles/show.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/params/roles/show.blade.php ENDPATH**/ ?>

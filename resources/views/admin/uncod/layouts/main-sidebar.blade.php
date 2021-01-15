@@ -111,7 +111,8 @@
 							</li>
 						</ul>
 					</li>
-					<!-- PARAMETRAGES -->
+
+					<!-- CONFIGURATION ACCES -->
 					<li class="slide ">
 						<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
 							<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24" >
@@ -129,22 +130,12 @@
 							<li class="sub-slide">
 
 									<li>
-										<a class="sub-slide-item" href="#">
-											{{__('Nouvelle Permission')}}
-										</a>
-									</li>
-									<li>
-										<a class="sub-slide-item" href="#">
-											{{__('Liste des permissions')}}
-										</a>
-									</li>
-									<li>
-										<a class="sub-slide-item" href="#">
+										<a class="sub-slide-item" href="{{route('roles.create',app()->getLocale())}}">
 											{{__('Nouveau role')}}
 										</a>
 									</li>
 									<li>
-										<a class="sub-slide-item" href="#">
+										<a class="sub-slide-item" href="{{route('roles',app()->getLocale())}}">
 											{{__('Liste des roles')}}
 										</a>
 									</li>
@@ -152,6 +143,7 @@
 							</li>
 						</ul>
 					</li>
+					
 
 				</ul>
 			</div>

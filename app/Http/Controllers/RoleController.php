@@ -26,8 +26,8 @@ class RoleController extends Controller
 	public function create()
 	{
 
-		$permission = Permission::get();
-		return view('admin.params.roles.create',compact('permission'));
+		$permissions = Permission::get();
+		return view('admin.params.roles.create',compact('permissions'));
 	}
 	public function store(Request $request)
 	{
@@ -37,25 +37,45 @@ class RoleController extends Controller
 		]);
 		$role = Role::create(['name' => $request->input('name')]);
 		$role->syncPermissions($request->input('permission'));
+
+		if($request->ajax())
+        {
+            return array(
+                'responseCode'=>200,
+            ) ;
+        }
 		return redirect()->route('roles.index')
 		->with('success','Role created successfully');
 	}
-	public function show($id)
+	public function show(Request $request)
 	{
-		$role = Role::find($id);
+		$role_id = $request['role_id'];
+		$role = Role::find($role_id);
 		if (empty($role)) {
 			return redirect(app()-> getLocale().'/404');
 		}
 		$rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-		->where("role_has_permissions.role_id",$id)
+		->where("role_has_permissions.role_id",$role_id)
 		->get();
 		return view('admin.params.roles.show',compact('role','rolePermissions'));
 	}
-	public function edit($id)
+	public function edit(Request $request)
 	{
-		$role = Role::find($id);
+		$role_id = $request['role_id'];
+		$role = Role::find($role_id);
+        if (empty($role)) {
+            if($request->ajax())
+            {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
+            return redirect(app()-> getLocale().'/404');
+        }
+
+
 		$permission = Permission::get();
-		$rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+		$rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$role_id)
 		->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
 		->all();
 		return view('admin.params.roles.edit',compact('role','permission','rolePermissions'));

@@ -85,10 +85,10 @@ class AddFkToMyTabsTable extends Migration
             $table->foreignId('account_id')->nullable()->constrained('accounts');
         });
 
-        // // RELATION TABLE ROLE_DATA
-        // Schema::table('role_names', function (Blueprint $table) {
-        //     $table->foreignId('role_id')->nullable()->constrained('roles');
-        // });
+        // // RELATION TABLE PERMISSION_NAME
+        Schema::table('permission_names', function (Blueprint $table) {
+            $table->foreignId('permission_id')->nullable()->constrained('permissions');
+        });
     }
 
     /**

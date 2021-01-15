@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\RoleHasPermission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -269,20 +271,61 @@ class DatabaseSeeder extends Seeder
         [
             //role-list|role-create|role-edit|role-delete
             Permission::create([         
-                'name'=>'role-list',
+                'name'=>'role-list',//ID: 1
                 'guard_name'=>'web'
             ]),
             Permission::create([         
-                'name'=>'role-create',
+                'name'=>'role-create',//ID: 2
                 'guard_name'=>'web'
             ]),
             Permission::create([         
-                'name'=>'role-edit',
+                'name'=>'role-edit',//ID: 3
                 'guard_name'=>'web'
             ]),
             Permission::create([         
-                'name'=>'role-delete',
+                'name'=>'role-delete',//ID: 4
                 'guard_name'=>'web'
+            ]),
+        ];
+        // TABLE ROLE
+        [ 
+            Role::create([         
+                'name'=>'Super admin',//ID: 1
+                'guard_name'=>'web'
+            ]),
+            Role::create([         
+                'name'=>'Admin',//ID: 2
+                'guard_name'=>'web'
+            ]),
+            Role::create([         
+                'name'=>'User',//ID: 3
+                'guard_name'=>'web'
+            ]),
+            
+        ];
+        // TABLE ROLE_HAS_PERMISSION
+        [ 
+            RoleHasPermission::insert([         
+                'role_id'=>1,
+                'permission_id'=>1
+            ]),
+            RoleHasPermission::insert([         
+                'role_id'=>1,
+                'permission_id'=>2
+            ]),
+            RoleHasPermission::insert([         
+                'role_id'=>1,
+                'permission_id'=>3
+            ]),  
+        ];
+        [ 
+            RoleHasPermission::create([         
+                'role_id'=>2,
+                'permission_id'=>1
+            ]),
+            RoleHasPermission::create([         
+                'role_id'=>2,
+                'permission_id'=>3
             ]),
         ];
         // TABLE PROJET

@@ -29,18 +29,29 @@
 <td>{{ $role->name }}</td>
 <td>
 <a class="btn btn-info" href="{{ route('roles.show',['locale'=>app()->getLocale(),$role->id]) }}">Show</a>
-@can('role-edit')
+
 <a class="btn btn-primary" href="{{ route('roles.edit',['locale'=>app()->getLocale(),$role->id]) }}">Edit</a>
-@endcan
-@can('role-delete')
-{!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-{!! Form::close() !!}
-@endcan
+<a class="btn btn-danger" href="{{ route('roles.delete',['locale'=>app()->getLocale(),$role->id]) }}">Delete</a>
+
+
+
 </td>
 </tr>
 @endforeach
 </table>
 {!! $roles->render() !!}
 <p class="text-center text-primary"><small>Tutorial by Tutsmake.com</small></p>
+@endsection
+
+@section('js')
+<!-- TEST -->
+<script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript">
+
+	var roles = @json($roles);
+	$(document).ready(function(){
+		console.log('roles',roles);
+
+	});
+</script>
 @endsection

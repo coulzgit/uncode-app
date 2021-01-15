@@ -6,7 +6,7 @@
 <h2>Edit Role</h2>
 </div>
 <div class="pull-right">
-<a class="btn btn-primary" href="{{ route('roles.index',['locale'=>app()->getLocale(),$role->id]) }}"> Back</a>
+<a class="btn btn-primary" href="{{ route('roles',['locale'=>app()->getLocale(),$role->id]) }}"> Back</a>
 </div>
 </div>
 </div>
@@ -20,7 +20,7 @@
 </ul>
 </div>
 @endif
-{!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
+{!! Form::model($role, ['method' => 'PATCH']) !!}
 <div class="row">
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
@@ -45,4 +45,52 @@
 </div>
 {!! Form::close() !!}
 @endsection
-<p class="text-center text-primary"><small>Tutorial by Tutsmake.com</small></p>
+
+@section('js')
+<!-- TEST -->
+<script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript">
+
+	var permission = @json($permission);
+	var rolePermissions = @json($rolePermissions);
+	$(document).ready(function(){
+		console.log('permission',permission);
+		console.log('rolePermissions',rolePermissions);
+
+	});
+	function createRole(){
+        //Exemple de format data
+        var data ={
+               'name':"role_name",
+               'permissions':[1,3,4]//list id permission
+         };
+        console.log('data',data);
+        //sendNewRoleData(data);
+    }
+    function sendNewRoleData(data){
+        $.ajaxSetup({
+          headers:{
+            'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
+          }
+        });
+        $.ajax({
+          url:"{{route('roles.create', ['locale'=>app()-> getLocale()])}}",
+          method:'POST',
+          data:data,
+          dataType: 'json',
+          encode  : true,
+          success:function(result){
+
+            if(result["responseCode"] === 200){
+              alert('success');
+            }else if(result["responseCode"] === 404){
+                alert('failed');
+            }
+          },
+          error:function(result){
+            alert('failed');
+          }
+        });
+    }
+</script>
+@endsection
