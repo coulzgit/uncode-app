@@ -14,10 +14,10 @@
 			  	<?php echo e(__('Créer un nouveau compte client')); ?>
 
 			  </h2>
-			  
+
 			</div>
 		</div>
-		
+
 	</div>
 	<!-- /breadcrumb -->
 <?php $__env->stopSection(); ?>
@@ -54,19 +54,64 @@
 <script src="<?php echo e(URL::asset('assets/js/index.js')); ?>"></script>
 <script src="<?php echo e(URL::asset('assets/js/jquery.vmap.sampledata.js')); ?>"></script>
 <!-- Select2 -->
-<script src="<?php echo e(URL::asset('assets/plugins/select2/js/select2.min.js')); ?>"></script>	
+<script src="<?php echo e(URL::asset('assets/plugins/select2/js/select2.min.js')); ?>"></script>
 <!-- form-element -->
 <script src="<?php echo e(URL::asset('assets/js/form-elements.js')); ?>"></script>
 
 <!-- TEST -->
 <script src="<?php echo e(asset('app-assets/js/vendors/jquery-3.2.1.min.js')); ?>"></script>
 <script type="text/javascript">
-	
+
 	var licences = <?php echo json_encode($licences, 15, 512) ?>;
 	$(document).ready(function(){
 		console.log('licences',licences);
 
 	});
 </script>
+
+<script type="text/javascript">
+    function createAccount(){
+        var licence_id = $('#licence_id').val();
+        var statut = $('#statut').val();
+        if($('#statut').hasClass('on')){
+          statut='ON';
+        }else{
+          statut='OFF';
+        }
+        var data ={
+               'statut':statut,
+               'licence_id':licence_id
+         };
+        console.log('data',data);
+        sendNewAccountData(data);
+    }
+
+    function sendNewAccountData(data){
+        $.ajaxSetup({
+          headers:{
+            'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
+          }
+        });
+        $.ajax({
+          url:"<?php echo e(route('accounts.create', ['locale'=>app()-> getLocale()])); ?>",
+          method:'POST',
+          data:data,
+          dataType: 'json',
+          encode  : true,
+          success:function(result){
+
+            if(result["responseCode"] === 200){
+              alert('success');
+            }else if(result["responseCode"] === 404){
+                alert('failed');
+            }
+          },
+          error:function(result){
+            alert('failed');
+          }
+        });
+    }
+</script>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/new_account/index.blade.php ENDPATH**/ ?>

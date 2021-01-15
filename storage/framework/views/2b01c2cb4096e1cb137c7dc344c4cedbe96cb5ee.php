@@ -17,4 +17,5 @@
 <link href="<?php echo e(URL::asset('assets/css/style.css')); ?>" rel="stylesheet">
 <link href="<?php echo e(URL::asset('assets/css/style-dark.css')); ?>" rel="stylesheet">
 <!---Skinmodes css-->
-<link href="<?php echo e(URL::asset('assets/css/skin-modes.css')); ?>" rel="stylesheet" /><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/layouts/head.blade.php ENDPATH**/ ?>
+<link href="<?php echo e(URL::asset('assets/css/skin-modes.css')); ?>" rel="stylesheet" />
+<?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/layouts/head.blade.php ENDPATH**/ ?>

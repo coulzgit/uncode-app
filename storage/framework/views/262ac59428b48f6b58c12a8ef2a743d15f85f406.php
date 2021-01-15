@@ -92,28 +92,66 @@
 										<div class="col-lg-4">
 											<p class="mg-b-10">Sélectionner les données d'entete à afficher</p>
 										</div>
-										<div class="col-lg-6 mg-b-20 mg-lg-b-0">
-										<select class="form-control select2 select2-hidden-accessible" multiple="" data-select2-id="7" tabindex="-1" aria-hidden="true">
-											<option value="Firefox">
-												Firefox
-											</option>
-											<option value="Chrome">
-												Chrome
-											</option>
-											<option value="Safari">
-												Safari
-											</option>
-											<option value="Opera">
-												Opera
-											</option>
-											<option value="Internet Explorer">
-												Internet Explorer
-											</option>
-										</select>
-										<span class="select2 select2-container select2-container--default select2-container--focus" dir="ltr" data-select2-id="8" style="width: 308.656px;">
-											<span class="selection">
-												<span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Choose one" style="width: 306.641px;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-									</div>
+<div style="display: none;" class="col-lg-6 mg-b-20 mg-lg-b-0">
+	<select class="form-control select2 select2-hidden-accessible" multiple="" data-select2-id="7" tabindex="-1" aria-hidden="true">
+		<option value="Firefox">
+			Firefox
+		</option>
+		<option value="Chrome">
+			Chrome
+		</option>
+		<option value="Safari">
+			Safari
+		</option>
+		<option value="Opera">
+			Opera
+		</option>
+		<option value="Internet Explorer">
+			Internet Explorer
+		</option>
+	</select>
+	<span class="select2 select2-container select2-container--default select2-container--focus" dir="ltr" data-select2-id="8" style="width: 308.656px;">
+		<span class="selection">
+			<span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1">
+				<ul class="select2-selection__rendered">
+					<li class="select2-search select2-search--inline">
+						<input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Choose one" style="width: 306.641px;">
+					</li>
+				</ul>
+			</span>
+		</span>
+		<span class="dropdown-wrapper" aria-hidden="true"></span>
+	</span>
+</div>
+
+<div class="col-md-8 mg-t-5 mg-md-t-0">						
+	<div class="row col-md-8 row-sm">
+		<div class="col-lg-6 mg-b-20 mg-lg-b-0">
+			
+			<select class="form-control select2" multiple="multiple">
+				<option value="Firefox">
+					role1
+				</option>
+				<option value="Chrome">
+					role2
+				</option>
+				<option value="Safari">
+					role3
+				</option>
+				<option value="Firefox">
+					role4
+				</option>
+				<option value="Chrome">
+					role5
+				</option>
+				<option value="Safari">
+					role6
+				</option>
+				
+			</select>
+		</div>			
+	</div>
+</div>
 									</div>
 									
 								</div>

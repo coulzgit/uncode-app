@@ -1,5 +1,5 @@
 <div style="display: flex;justify-content: center;" class="row row-sm">
-	<a href="{{route('account.list',app()->getLocale())}}">
+	<a href="{{route('accounts',app()->getLocale())}}">
 		<i class="ti ti-arrow-left"></i>
 		Retour
 	</a>
@@ -41,7 +41,9 @@
 					<div style="border: 1px solid #eee;border-radius: 5px;padding: 20px"  class="col-md-6">
 						<h6 class="price">
 							Client:
-							<span style="color: #adadad" class="h6 ml-2">{{ $account['proprietaire']->prenom }}</span>
+							<span style="color: #adadad" class="h6 ml-2">
+								<!-- {{ $account['proprietaire']->prenom }} -->
+							</span>
 						</h6>
 						<h6 class="price">
 							Nombre d'utilisateur:

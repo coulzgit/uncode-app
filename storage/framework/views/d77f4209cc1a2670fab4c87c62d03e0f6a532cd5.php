@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 	<head>
 
+        <meta name="api_token" content="<?php echo e(csrf_token()); ?>">
 		<meta charset="UTF-8">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,10 +19,10 @@
 			<img src="<?php echo e(URL::asset('assets/img/loader.svg')); ?>" class="loader-img" alt="Loader">
 		</div>
 		<!-- /Loader -->
-		<?php echo $__env->make('admin/uncod/layouts.main-sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>		
+		<?php echo $__env->make('admin/uncod/layouts.main-sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 		<!-- main-content -->
 		<div class="main-content app-content">
-			<?php echo $__env->make('admin/uncod/layouts.main-header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>			
+			<?php echo $__env->make('admin/uncod/layouts.main-header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 			<!-- container -->
 			<div class="container-fluid">
 				<?php echo $__env->yieldContent('page-header'); ?>
@@ -29,6 +30,7 @@
 				<?php echo $__env->make('admin/uncod/layouts.sidebar-right', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 				<?php echo $__env->make('admin/uncod/layouts.models', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             	<?php echo $__env->make('admin/uncod/layouts.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-				<?php echo $__env->make('admin/uncod/layouts.footer-scripts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>	
+				<?php echo $__env->make('admin/uncod/layouts.footer-scripts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 	</body>
-</html><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/layouts/master.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/layouts/master.blade.php ENDPATH**/ ?>

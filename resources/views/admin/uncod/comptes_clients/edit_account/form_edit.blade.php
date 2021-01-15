@@ -17,9 +17,11 @@
                             </label>
                         </div>
                         <div class="col-md-8 mg-t-5 mg-md-t-0">
-                        <select class="form-control">
+                        <select id="licence_id" class="form-control">
                                 @foreach ($licences as $licence)
-                                <option>{{ $licence->nom }}</option>
+                                <option value="{{ $licence->id }}">
+                                	{{ $licence->nom }}
+                                </option>
 
                                 @endforeach
                             </select>
@@ -27,25 +29,12 @@
                         </div>
                     </div>
 
-                    <div class="row row-xs align-items-center mg-b-20">
-                        <div class="col-md-4">
-                            <label class="form-label mg-b-0">
-                                {{__('Activer ce compte automatiquement ?')}}
-                            </label>
-                        </div>
-                        <div class="col-md-8 mg-t-5 mg-md-t-0">
-                            <div class="main-toggle main-toggle-success off">
-                                <span></span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <button type="submit" class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">Submit</button>
-                    <a href="{{route('account.list',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">{{__('Annuler')}}</a>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+					
+					<button onclick="updateAccount()" class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">{{__('Sauvegarder')}}</button>
+					<a href="{{route('accounts',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">{{__('Annuler')}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFKToMyTabsTable extends Migration
+class AddFkToMyTabsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -75,6 +75,20 @@ class AddFKToMyTabsTable extends Migration
         Schema::table('docs', function (Blueprint $table) {
             $table->foreignId('projet_id')->nullable()->constrained('projets');
         });
+
+        // // RELATION TABLE ACC_DATA_COLUMN_SHOW
+        Schema::table('acc_data_column_shows', function (Blueprint $table) {
+            $table->foreignId('account_id')->nullable()->constrained('accounts');
+        });
+        // // RELATION TABLE DOC_COLUMN_SHOW
+        Schema::table('doc_column_shows', function (Blueprint $table) {
+            $table->foreignId('account_id')->nullable()->constrained('accounts');
+        });
+
+        // // RELATION TABLE ROLE_DATA
+        // Schema::table('role_names', function (Blueprint $table) {
+        //     $table->foreignId('role_id')->nullable()->constrained('roles');
+        // });
     }
 
     /**

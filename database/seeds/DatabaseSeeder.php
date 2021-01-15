@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +25,10 @@ class DatabaseSeeder extends Seeder
             App\Models\Licence::create([
                 'nom'=>'Illimite',//ID:3
                 'description'=>'illimite'
+            ]),
+            App\Models\Licence::create([
+                'nom'=>'Special',//ID:4
+                'description'=>'Special'
             ])
         ];
         // TABLE ACCOUNT
@@ -47,52 +52,238 @@ class DatabaseSeeder extends Seeder
                 'licence_id'=>2
             ])
         ];
+        // TABLE DOC_COLUMN_SHOW
+        [
+            App\Models\DocColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'doc_id'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'comp_no'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'supplier_num'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'invoice_num'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'voucher_num'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'invoice_date'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'invoice_sum'
+            ]),
+        ];
+        [
+            App\Models\DocColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'doc_id'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'comp_no'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'supplier_num'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'invoice_num'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'voucher_num'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'invoice_date'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'invoice_sum'
+            ]),
+        ];
+        [
+            App\Models\DocColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'doc_id'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'comp_no'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'supplier_num'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'invoice_num'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'voucher_num'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'invoice_date'
+            ]),
+            App\Models\DocColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'invoice_sum'
+            ]),
+        ];
+        // TABLE ACC_DATA_COLUMN_SHOW
+        [
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'brutto'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'vat'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'t1'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'t2'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'t3'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>1,
+                'column_name'=>'t4'
+            ]),   
+        ];
+        [
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'brutto'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'vat'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'t1'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'t2'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'t3'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>2,
+                'column_name'=>'t4'
+            ]),   
+        ];
+        [
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'brutto'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'vat'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'t1'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'t2'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'t3'
+            ]),
+            App\Models\AccDataColumnShow::create([
+                'account_id'=>3,
+                'column_name'=>'t4'
+            ]),   
+        ];
         // TABLE USER
         [
-            App\Models\User::create([         
+            App\User::create([         
+                'user_name'=>'admin',
                 'prenom'=>'admin',
                 'nom'=>'admin', 
                 'email'=>'admin@gmail.com', 
                 'password'=>'$2y$10$Ry0.9hF64KH/TABotL9.OeBLw7LevL2CrkTRRWG5mAkX8mqCASiu2',
-                'nom_role'=>'admin',
-                'role_id'=>1,
                 'account_id'=>1,
                 'account_owner'=>true,
                 'photo'=>'photo.jpg'
             ]),
-            App\Models\User::create([         
+            App\User::create([ 
+                'user_name'=>'user1',        
                 'prenom'=>'user1',
                 'nom'=>'user1', 
                 'email'=>'user1@gmail.com', 
                 'password'=>'$2y$10$Ry0.9hF64KH/TABotL9.OeBLw7LevL2CrkTRRWG5mAkX8mqCASiu2',
-                'nom_role'=>'user',
-                'role_id'=>2,
                 'account_id'=>1,
                 'account_owner'=>false,
                 'photo'=>'photo.jpg'
             ]),
-            App\Models\User::create([         
+            App\User::create([ 
+                'user_name'=>'user2',        
                 'prenom'=>'user2',
                 'nom'=>'user2', 
                 'email'=>'user2@gmail.com', 
                 'password'=>'$2y$10$Ry0.9hF64KH/TABotL9.OeBLw7LevL2CrkTRRWG5mAkX8mqCASiu2',
-                'nom_role'=>'user',
-                'role_id'=>2,
-                'account_id'=>1,
+                'account_id'=>2,
                 'account_owner'=>false,
                 'photo'=>'photo.jpg'
             ]),
-            App\Models\User::create([         
+            App\User::create([  
+                'user_name'=>'user3',       
                 'prenom'=>'user3',
                 'nom'=>'user3', 
                 'email'=>'user3@gmail.com', 
                 'password'=>'$2y$10$Ry0.9hF64KH/TABotL9.OeBLw7LevL2CrkTRRWG5mAkX8mqCASiu2',
-                'nom_role'=>'user',
-                'role_id'=>2,
                 'account_id'=>2,
                 'account_owner'=>true,
                 'photo'=>'photo.jpg'
             ])
+        ];
+        // TABLE PERMISSION
+        [
+            //role-list|role-create|role-edit|role-delete
+            Permission::create([         
+                'name'=>'role-list',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'role-create',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'role-edit',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'role-delete',
+                'guard_name'=>'web'
+            ]),
         ];
         // TABLE PROJET
         [
@@ -615,47 +806,8 @@ class DatabaseSeeder extends Seeder
                 'stamp_uid'=>'Administrateur UNCODE '
             ]),   
         ];
-        // TABLE DOC_DATA_NAME
-        // [
-        //     App\Models\DocDataName::create([
-        //         'doc_data_id'=>1, 
-        //         'data_index'=>'1', 
-        //         'data_name'=>'Company(SAP Profit Center)', 
-        //         'default_value'=>'null', 
-        //         'data_type'=>'C', 
-        //         'list_index'=>'0', 
-        //         'order_index'=>'101', 
-        //         'lock_field'=>'0', 
-        //         'special_field'=>'COMP', 
-        //         'check_type'=>'null', 
-        //         'check_value_list'=>'null', 
-        //         'check_bind_index1'=>'0',
-        //         'check_bind_index2'=>'0', 
-        //         'check_operator1'=>'null', 
-        //         'check_operator2'=>'null', 
-        //         'client_field'=>'1', 
-        //         'must_field'=>'1', 
-        //         'cell_format'=>'null', 
-        //         'max_length'=>'null', 
-        //         'min_length'=>'null', 
-        //         'comp_no'=>'null', 
-        //         'client_updateable'=>'0',
-        //         'fs_field'=>'0', 
-        //         'fs_must_field'=>'1', 
-        //         'fs_order_index'=>'101', 
-        //         'fs_train_order_index'=>'1', 
-        //         'fs_length'=>'1', 
-        //         'fs_trainable'=>'0', 
-        //         'fs_alignment'=>'0', 
-        //         'fs_default_value'=>'null', 
-        //         'fs_data_type'=>'TEXT', 
-        //         'fs_lock_field'=>'0', 
-        //         'use_digitgrouping'=>'0', 
-        //         'num_digits'=>'null', 
-        //         'data_width'=>'0', 
-        //         'fs_enablebatchlocking'=>'null'
-        //     ]),
-        // ];
+        
+        
 
     }
 }

@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\RoleController;
+// use App\Http\Controllers\UserController;
+// use App\Http\Controllers\ProjetController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +20,16 @@ Route::get('/', function () {
     return redirect(app()-> getLocale());
 });
 Route::resource('users', 'UserController');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/connexion', 'UserController@login');
-Route::post('/connexion', 'UserController@login');
-
+Route::post('/signIn', 'UserController@login');
 Route::group(
 	[
-	'prefix' => '{locale}',
+	'prefix' => '{locale}', 
 	'where' =>['locale'=>'[a-zA-Z]{2}'],
 	'middleware' => 'setlocale'
-	],
+	], 
 	function () {
 		Route::get('/', function () {
 		    return view('admin/uncod/.signin');
@@ -39,9 +39,9 @@ Route::group(
 
 Route::group(
 	[
-	'prefix' => '{locale}',
+	'prefix' => '{locale}', 
 	'where' =>['locale'=>'[a-zA-Z]{2}'],
-	'middleware' => ['setlocale','Connecter']
+	'middleware' => ['setlocale','auth']
 	]
 	,function(){
 	    Route::get('/admin/dashboard', 'UserController@dashboard')->name('admin.dashboard');
@@ -50,20 +50,24 @@ Route::group(
 	    Route::post('/signup', 'UserController@inscriptionc')->name('client.inscri');
 
 
-	    //MODULE COMPTE
-	    Route::get('account/create', 'UserController@createAccount')->name('account.create');
-	    Route::post('account/create', 'UserController@saveAccount')->name('account.create');
-	    Route::get('account/{account_id}/details', 'UserController@detailsAccount')->name('account.details');
-
-
-	    Route::get('account/{account_id?}/adduser', 'UserController@addUser')->name('account.adduser');
-	    Route::get('account/{account_id?}/listuser', 'UserController@listUser')->name('account.listuser');
-
-	    Route::get('account/list', 'UserController@listAccount')->name('account.list');
-	    Route::get('account/{account_id?}/config', 'UserController@configAccount')->name('account.config');
-
+	    // MODULE COMPTE
+	    // create
+	     Route::get('account/create', 'UserController@createAccount')->name('account.create');
+	    Route::post('account/create', 'UserController@saveAccount');
+	    Route::get('account/{account_id}/details', 'UserController@detailsAccount')->name('account.details'); 
+	    // edit
 	    Route::get('account/{account_id}/edit', 'UserController@editAccount')->name('account.edit');
+	    Route::post('account/{account_id}/edit', 'UserController@updateAccount');
+	    // config
+	     Route::get('account/{account_id?}/config', 'UserController@configAccount')->name('account.config');  
 	    Route::get('account/{account_id}/config', 'UserController@configAccount')->name('account.config1');
+	    Route::post('account/{account_id}/config', 'UserController@saveConfigAccount');
+
+	    Route::get('account/{account_id?}/adduser', 'UserController@addUser')->name('account.adduser'); 
+	    Route::get('account/{account_id?}/listuser', 'UserController@listUser')->name('account.listuser'); 
+	  
+	    Route::get('account/list', 'UserController@listAccount')->name('account.list'); 
+	   
 
 	    Route::get('/404', function () {
 		    return view('404');
@@ -72,9 +76,37 @@ Route::group(
 	    Route::get('/tester', function () {
 		    return view('404');
 		});
-
-
-
-
-
 });
+
+Route::group(
+	[
+		'prefix' => '{locale}', 
+		'where' =>['locale'=>'[a-zA-Z]{2}'],
+		'middleware' => ['auth','setlocale']
+	], 
+	function() {
+	    Route::resource('roles', RoleController::class);
+	    Route::resource('users', UserController::class);
+	    Route::resource('projets', ProjetController::class);
+	}
+);
+// ACCOUNT
+Route::group(
+	[
+		'prefix' => '{locale}', 
+		'where' =>['locale'=>'[a-zA-Z]{2}'],
+		'middleware' => ['auth','setlocale']
+	], 
+	function() {
+	    Route::get('/accounts', 'AccountController@index')->name('accounts');
+	    Route::get('/accounts/create', 'AccountController@create')->name('accounts.create');
+	    Route::post('/accounts/create', 'AccountController@store')->name('accounts.create');
+
+	    Route::get('/accounts/{account_id?}/show', 'AccountController@show')->name('accounts.show');
+	    Route::get('/accounts/{account_id?}/edit', 'AccountController@edit')->name('accounts.edit');
+	    Route::post('/accounts/{account_id?}/edit', 'AccountController@update')->name('accounts.edit');
+
+	    Route::get('/accounts/{account_id?}/config', 'AccountController@config')->name('accounts.config');
+	    Route::post('/accounts/{account_id?}/config', 'AccountController@saveConfig')->name('accounts.config');
+	}
+);

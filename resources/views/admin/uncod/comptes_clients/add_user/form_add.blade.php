@@ -16,7 +16,7 @@
 						</label>
 						</div>
 						<div class="col-md-8 mg-t-5 mg-md-t-0">
-							<input class="form-control" placeholder="{{__('Saisir le numéro du compte')}}" type="text">
+							<input disabled="" value="0011" class="form-control" placeholder="{{__('Saisir le numéro du compte')}}" type="text">
 						</div>
 					</div>
 
@@ -151,7 +151,7 @@
 						{{__('Sauvegarder')}}
 					</button>
 					
-					<a href="{{route('account.list',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">{{__('Annuler')}}</a>
+					<a href="{{route('accounts',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">{{__('Annuler')}}</a>
 				</div>
 			</div>
 		</div>

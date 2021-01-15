@@ -37,62 +37,55 @@
 							<tbody>
 
                                 @foreach ($accounts as $item)
+									<tr role="row" class="odd">
 
-								<tr role="row" class="odd">
 
-                                        <td class="sorting_1">
-                                         {{ $item['account']->code }}
-                                        </td>
-                                        <td>
-                                            @if($item['proprietaire']==null)
-                                            <span>......</span>
-                                            @else
-                                            {{ $item['proprietaire']->prenom }}
-                                            @endif
-                                        </td>
+	                                        <td class="sorting_1">
+	                                         {{ $item['account']->code }}
+	                                        </td>
+	                                        <td>
+	                                            @if($item['proprietaire']==null)
+	                                            <span>......</span>
+	                                            @else
+	                                            {{ $item['proprietaire']->prenom }}
+	                                            @endif
+	                                        </td>
 
-                                            {{-- {{ $item['proprietaire']['prenom'] }}</td> --}}
-                                        <td>{{ $item['licence']->nom }}</td>
-                                        <td>{{ $item['account']->created_at }}</td>
-                                        <td class="sorting_1">
-                                        @if($item['account']->statut==0)
-                                         <span class="label label-warning">{{__('désactivé')}}
-                                        </span>
-                                            @else
-                                                <span class="label label-default">{{__('actif')}}</span>
-                                        @endif
-                                        </td>
-									<td class="center">
-										<a title="{{__('Détails du compte')}}" href="{{route('account.details',['account_id'=>1,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-primary">
-											<i class="las la-search"></i>
-										</a>
-										<a title="{{__('Modifier le compte')}}" href="{{route('account.edit',['account_id'=>1,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-info">
-											<i class="las la-pen"></i>
-										</a>
-										<a title="{{__('Configurer le compte')}}" href="{{route('account.config1',['account_id'=>1,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-success">
-											<i class="las la-tools"></i>
-										</a>
-										<a title="{{__('Ajouter un utilisateur')}}" href="{{route('account.adduser',['account_id'=>1,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-secondary">
-											<i class="las la-user-plus"></i>
-										</a>
-										<a title="{{__('Liste utilisateur')}}" href="{{route('account.listuser',['account_id'=>1,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-warning">
-											<i class="las la-users"></i>
-										</a>
-										<a title="{{__('Supprimer le compte')}}" href="#" class="btn btn-sm btn-danger">
-											<i class="las la-trash"></i>
-										</a>
+	                                            {{-- {{ $item['proprietaire']['prenom'] }}</td> --}}
+	                                        <td>{{ $item['licence']->nom }}</td>
+	                                        <td>{{ $item['account']->created_at }}</td>
+	                                        <td class="sorting_1">
+	                                        @if($item['account']->statut==0)
+	                                         <span class="label label-warning">{{__('désactivé')}}
+	                                        </span>
+	                                            @else
+	                                                <span class="label label-default">{{__('actif')}}</span>
+	                                        @endif
+	                                        </td>
+										<td class="center">
+											<a title="{{__('Détails du compte')}}" href="{{route('accounts.show',['account_id'=>$item['account']->id ,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-primary">
 
-                                    </td>
-
-                                </tr>
+												<i class="las la-search"></i>
+											</a>
+											<a title="{{__('Modifier le compte')}}" href="{{route('accounts.edit',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-info">
+												<i class="las la-pen"></i>
+											</a>
+											<a title="{{__('Configurer le compte')}}" href="{{route('accounts.config',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-success">
+												<i class="las la-tools"></i>
+											</a>
+											<a title="{{__('Ajouter un utilisateur')}}" href="#" class="btn btn-sm btn-secondary">
+												<i class="las la-user-plus"></i>
+											</a>
+											<a title="{{__('Liste utilisateur')}}" href="#" class="btn btn-sm btn-warning">
+												<i class="las la-users"></i>
+											</a>	
+											<a title="{{__('Supprimer le compte')}}" href="#" class="btn btn-sm btn-danger">
+												<i class="las la-trash"></i>
+											</a>
+											
+										</td>
+									</tr>
                                 @endforeach
-
-
-
-
-
-
-
 							</tbody>
                         </table>
                     </div>

@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
- * @property string $nom
+ * @property string $guard_name
  * @property string $created_at
  * @property string $updated_at
+ * @property RoleName[] $roleNames
  */
 class Role extends Model
 {
@@ -22,6 +23,13 @@ class Role extends Model
     /**
      * @var array
      */
-    protected $fillable = ['nom', 'created_at', 'updated_at'];
+    protected $fillable = ['guard_name', 'created_at', 'updated_at'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function roleNames()
+    {
+        return $this->hasMany('App\Models\RoleName');
+    }
 }

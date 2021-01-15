@@ -9,10 +9,19 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Notifications\RegisterNotify;
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Role;
+// use Hash;
+use Illuminate\Support\Arr;
+
+use App\User;
 use App\Models\Account;
 use App\Models\Projet;
 use App\Models\Licence;
+use App\Models\DocColumnShow;
+use App\Models\AccDataColumnShow;
+//use App\Models\Role;
+
 use Auth;
 use Mail;
 use Session;
@@ -35,6 +44,104 @@ class UserController extends Controller
         $this->middleware('guest');
     }
 
+    
+/* ##########  USER - RULES - PERMISSIONS ########## */
+    public function index(Request $request) 
+    {
+        $data = User::orderBy('id','DESC')->paginate(5);
+        return view('mytestes.users.index',compact('data'))
+        ->with('i', ($request->input('page', 1) - 1) * 5);
+    } 
+    public function create()
+    {   
+        $roles = Role::pluck('name','name')->all();
+        // return view('admin.uncod.comptes_clients.add_user.index',compact('roles'));
+        return view('mytestes.users.create',compact('roles'));
+    }
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'user_name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|same:confirm-password',
+            'roles' => 'required'
+            ]);
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+        $user = User::create($input);
+        $user->assignRole($request->input('roles'));
+        $message="User created successfully";
+        if(app()->getLocale()=="fr"){
+            $message="Utilisateur crée avec réussie";
+        }
+        if($request->ajax())
+        {
+            return array(
+                'responseCode'=>404,
+                'message'=>$message
+            ) ;
+        }
+        return redirect()->back()->with('message',$message);
+    }
+    public function show($id)
+    {
+        $user = User::find($id);
+        return view('mytestes.users.show',compact('user'));
+    }
+    public function edit($id)
+    {  
+        $user = User::find($id);
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name','name')->all();
+        return view('mytestes.users.edit',compact('user','roles','userRole'));
+    }
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+        'user_name' => 'required',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'same:confirm-password',
+        'roles' => 'required'
+        ]);
+        $input = $request->all();
+        if(!empty($input['password'])){ 
+            $input['password'] = Hash::make($input['password']);
+        }else{
+            $input = Arr::except($input,array('password'));    
+        }
+        $user = User::find($id);
+        $user->update($input);
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        $user->assignRole($request->input('roles'));
+        $message="User updated successfully";
+        if(app()->getLocale()=="fr"){
+            $message="Utilisateur modifié avec succès";
+        }
+        if($request->ajax())
+        {
+            return array(
+                'responseCode'=>404,
+                'message'=>$message
+            ) ;
+        }
+        return redirect()->back()->with('message',$message);
+    }
+    public function destroy($id)
+    {
+        User::find($id)->delete();
+        $message="User updated successfully";
+        if(app()->getLocale()=="fr"){
+            $message="Utilisateur modifié avec succès";
+        }
+        if($request->ajax())
+        {
+            return array(
+                'responseCode'=>404,
+                'message'=>$message
+            ) ;
+        }
+        return redirect()->back()->with('message',$message);
+    }
     public function login(Request $request){
 
         if($request->isMethod('post')){
@@ -43,7 +150,7 @@ class UserController extends Controller
             $message = 'Email ou Mot de Passe incorect';
 
             $data = $request->input();
-            if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password'], 'nom_role'=>'admin'])){
+            if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])){
 
                 //echo "succes"; die;
                 return redirect(app()-> getLocale().'/admin/dashboard')->with(['admin' => $admin]);
@@ -57,255 +164,16 @@ class UserController extends Controller
             else{
                 //echo "failed"; die;
 
-                return redirect(app()-> getLocale().'/connexion')->with(['message' => $message]);
+                return redirect(app()-> getLocale().'/')->with(['message' => $message]);
             }
         }
         return view('admin/uncod/.signin');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-     {
-         //
-
-         return view('users.index');
-     }
-
-     public function dashboard()
-     {
-         //
-         //$recruteurs = Recruteur::orderBy('id')->get();
-         //$acc_data_names = acc_data_names::all();
-        //return view('doctadas.index')->with('acc_data_names', $acc_data_names);
-         return view('admin/uncod.index');
-     }
-
-
-     public function dashboard_client()
-     {
-         //
-         //$recruteurs = Recruteur::orderBy('id')->get();
-         return view('admin/uncod/client.index');
-     }
-
-     /**
-      * Show the form for creating a new resource.
-      *
-      * @return \Illuminate\Http\Response
-      */
-      public function inscription()
-      {
-          //
-          $roles = DB::table('roles')->get();
-          //$pays = Pay::all();
-          return view('admin/uncod.signup',['roles' => $roles]);
-      }
-
-
-      /**
-      * Store a newly created resource in storage.
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-     public function inscriptionc(Request $request)
-     {
-         //
-            request()->validate([
-
-             'nom' => 'required|string|max:255',
-             'prenom' => 'required|string|max:255',
-             'email' => 'required|string|email|max:255|unique:users',
-             'tel' => 'required|int|max:255',
-             'password' => 'required|string|min:6|confirmed',
-
-            ]);
-
-             $message = "Ajouté avec succès";
-             $user = new User;
-             $user->prenom = $request->get('prenom');
-             $user->nom = $request->get('nom');
-             $user->tel = $request->get('tel');
-             $user->email = $request->get('email');
-             $user->nom_role = $request->get('nom_role');
-             $user->password = Hash::make($request->get('password'));
-             $user->notify(new RegisterNotify());
-             $user->save();
-
-             /* if($user->save()){
-             error_log('la création a réussi');
-
-             return redirect()->with(['message' => $message]);
-
-             }
-
-             else
-                 {
-                     flash('user not saved')->error();
-
-                 } */
-             return back()->with(['message' => $message]);
-
-     }
-
-     /**
-      * Show the form for creating a new resource.
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function create()
+    public function dashboard()
     {
-        
-
-        $roles = DB::table('roles')->get();
-          return view('acounts.signup',['roles' => $roles]);
-
-    
+        return view('admin/uncod.index');
     }
-
-     /**
-      * Store a newly created resource in storage.
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-    public function store(Request $request)
-    {
-        //
-        request()->validate([
-
-             'nom' => 'required|string|max:255',
-             'prenom' => 'required|string|max:255',
-             'email' => 'required|string|email|max:255|unique:users',
-             'tel' => 'required|string|max:255',
-             'password' => 'required|string|min:6|confirmed',
-
-        ]);
-
-         $user = new User;
-             $user->prenom = $request->get('prenom');
-             $user->nom = $request->get('nom');
-             //$user->tel = $request->get('tel');
-             $user->email = $request->get('email');
-             $user->role = $request->get('role');
-             $user->password = Hash::make($request->get('password'));
-             $user->notify(new RegisterNotify());
-
-         if($user->save()){
-             error_log('la création a réussi');
-
-         $message = "Ajouté avec succès";
-         $recruteur = new Recruteur();
-         $recruteur->civilite = $request->get('civilite');
-         $recruteur->prenom = $request->get('prenom');
-         $recruteur->nom = $request->get('nom');
-         $recruteur->secteur = $request->get('secteur');
-         $recruteur->tel = $request->get('tel');
-         $recruteur->nom_entreprise = $request->get('nom_entreprise');
-         $recruteur->pays = $request->get('pays');
-         $recruteur->ville = $request->get('ville');
-         $recruteur->image = $request->get('image');
-         $recruteur->annonce = $request->get('annonce');
-         $recruteur->role = $request->get('role');
-         $recruteur->email = $request->get('email');
-         $recruteur->password = Hash::make($request->get('password'));
-
-         $recruteur->user_id = $user->id;
-
-         //$agents->save();
-         if($recruteur->save())
-         {
-             Auth::login($user);
-             return back()->with(['message' => $message]);
-
-         }
-         else
-         {
-             flash('user not saved')->error();
-
-         }
-
-         }
-        return back()->with(['message' => $message]);
-
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-        request()->validate([
-
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'tel' => 'required|string|max:255',
-            'password' => 'required|string|min:6|confirmed',
-
-        ]);
-
-
-
-
-        $message = "Recruteur modifés avec succés";
-
-
-
-        return redirect('lister_recruteur_admin')->with(['message' => $message]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-        $recruteur = Recruteur::find($id);
-        $recruteur->delete();
-
-        return back();
-    }
-
 /* ################ MODULE ACCOUNT################### */
-    public function addUser(){
-        return view('admin.uncod.comptes_clients.add_user.index');
-    }
     public function createAccount(){
         $licences = DB::table('licences')->get();
         return view('admin.uncod.comptes_clients.new_account.index',
@@ -331,12 +199,25 @@ class UserController extends Controller
         if(app()->getLocale()=="fr"){
             $message="Création de compte réussie";
         }
+        if($request->ajax())
+        {
+            return array(
+                'responseCode'=>404,
+                'message'=>$message
+            ) ;
+        }
         return redirect()->back()->with('message',$message);
     }
     public function updateAccount(Request $request){
         $account_id=$request['account_id'];
         $account = Account::find($account_id);
         if (empty($account)) {
+            if($request->ajax())
+            {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
             return redirect(app()-> getLocale().'/404');
         }
 
@@ -402,9 +283,44 @@ class UserController extends Controller
         return $myCollect;
 
     }
-    public function configAccount(){
+    public function configAccount(Request $request){
+        $account_id = $request['account_id'];
+        $accountData = $this->getAccountConfigured($account_id);
+        $acc_data_columns=$this->getAccDataColumns();
+        $doc_columns=$this->getDocColumns();
+
+        return view('admin.uncod.comptes_clients.config_account.index',[
+                'account'=>$accountData,
+                'doc_columns'=>$doc_columns,
+                'acc_data_columns'=>$acc_data_columns
+            ]
+        );
+    }
+    private function getAccountConfigured($account_id){
+        $myCollect = collect([]);
         
-        return view('admin.uncod.comptes_clients.config_account.index');
+        try {
+            $account = Account::find($account_id);
+            $myCollect->put('account',$account);
+            $doc_columns=DocColumnShow::where('account_id',$account_id)->get();
+            $acc_data_columns=AccDataColumnShow::where('account_id',$account_id)->get();
+
+            $myCollect->put('doc_columns',$doc_columns);
+            $myCollect->put('acc_data_columns',$acc_data_columns);
+        } catch (Exception $e) {
+            
+        }
+        return $myCollect;
+    }
+    private function getAccDataColumns(){
+        
+        $acc_data_columns=collect(['sort_order', 'brutto', 'brutto_calc', 'vat', 'vat_pros', 'accepted', 'acceptor_id', 'accepted_date', 't1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10', 't11', 't12', 't13', 't14', 't15', 't16', 't17', 't18', 't19', 't20', 't21', 't22', 't23', 't24', 't25', 't26', 't27', 't28', 't29', 't30', 't31', 't32', 't33', 't34', 't35', 't36', 't37', 't38', 't39', 't40', 't41', 't42', 't43', 't44', 't45', 't46', 't47', 't48', 't49', 't50', 't51', 't52', 't53', 't54', 't55', 't56', 't57', 't58', 't59', 't60', 't61', 't62', 't63', 't64', 't65', 't66', 't67', 't68', 't69', 't70', 't71', 't72', 't73', 't74', 't75', 't76', 't77', 't78', 't79', 't80', 't81', 't82', 't83', 't84', 't85', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10', 'n11', 'n12', 'n13', 'n14', 'n15', 'n16', 'n17', 'n18', 'n19', 'n20', 'stamp_date', 'stamp_uid', 'net_sum', 'net_calc', 'layer', 'reviewed', 'reviewer_id', 'reviewed_date']);
+        return $acc_data_columns;
+    }
+    private function getDocColumns(){
+        
+        $doc_columns=collect(['doc_id', 'scan_date', 'comp_no', 'supplier_num', 'invoice_num', 'voucher_num', 'invoice_date', 'invoice_last_date', 'invoice_sum', 'status_index', 'order_num', 'exchange_rate', 'invoice_currency', 'invoice_sum_calc', 'supplier_name', 'attrib_t1', 'attrib_t2', 'attrib_t3', 'attrib_t4', 'attrib_t5', 'attrib_t6', 'attrib_t7', 'attrib_n', 'attrib_n2', 'attrib_n3', 'attrib_n4', 'attrib_d', 'attrib_d2', 'attrib_d3', 'attrib_d4', 'vat_sum', 'invoice_type', 'prebooked', 'entry_date', 'net_sum_calc', 'net_sum', 'vat_sum_calc', 'contract_num', 'payment_date', 'invoice_category']);
+        return $doc_columns;
     }
     public function detailsAccount(Request $request){
         $account_id = $request['account_id'];
@@ -704,10 +620,36 @@ class UserController extends Controller
                 'account'=>$account
             ]);
     }
-    
     public function listUser(){
+        
         return view('admin.uncod.comptes_clients.liste_users.index');
     }
+    public function saveConfigAccount(Request $request)
+    {
+        $app_name=$request['app_name'];
+        $app_logo=$request['app_logo'];
+        $doc_columns=$request['doc_columns'];
+        $acc_data_columns=$request['acc_data_columns'];
+        
+        //Revoir
+        $message="Configuration account Sucessfully";
+        if(app()->getLocale()=="fr"){
+            $message="Configuration de compte Réussie";
+        }
+        if($request->ajax())
+        {
+            return array(
+                'responseCode'=>200,
+                'message'=>$message
+            ) ;
+        }
+        return redirect()->back()->with('message',$message);
+    }
+    public function addUser(){
+        $roles = Role::pluck('name','name')->all();
+        return view('admin.uncod.comptes_clients.add_user.index',compact('roles'));
+    }
+
 
     
 }

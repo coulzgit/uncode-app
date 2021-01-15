@@ -49,9 +49,34 @@
 <!--Internal  index js -->
 <script src="<?php echo e(URL::asset('assets/js/index.js')); ?>"></script>
 <script src="<?php echo e(URL::asset('assets/js/jquery.vmap.sampledata.js')); ?>"></script>
-<!-- Select2 -->
+
+
+
+<!--NEW: Select2 -->
 <script src="<?php echo e(URL::asset('assets/plugins/select2/js/select2.min.js')); ?>"></script>	
-<!-- form-element -->
+<script src="<?php echo e(URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/jquery.maskedinput/jquery.maskedinput.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/spectrum-colorpicker/spectrum.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js')); ?>"></script>
 <script src="<?php echo e(URL::asset('assets/js/form-elements.js')); ?>"></script>
+
+<!-- TEST -->
+<script src="<?php echo e(asset('app-assets/js/vendors/jquery-3.2.1.min.js')); ?>"></script>
+<script type="text/javascript">
+	
+	var account = <?php echo json_encode($account, 15, 512) ?>;
+	var doc_columns = <?php echo json_encode($doc_columns, 15, 512) ?>;
+	var acc_data_columns = <?php echo json_encode($acc_data_columns, 15, 512) ?>;
+	$(document).ready(function(){
+		console.log('account',account);
+		console.log('doc_columns',doc_columns);
+		console.log('acc_data_columns',acc_data_columns);
+
+	});
+</script>
+
+
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/config_account/index.blade.php ENDPATH**/ ?>

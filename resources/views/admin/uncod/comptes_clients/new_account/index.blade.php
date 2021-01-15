@@ -72,28 +72,28 @@
 <script type="text/javascript">
     function createAccount(){
         var licence_id = $('#licence_id').val();
-                var statut = $('#statut').val();
-                if($('#statut').hasClass('off')){
-                statut='OFF';
-                }else{
-                statut='ON';
-                }
-                var data ={
-                       'statut':statut,
-                       'licence_id':licence_id
-                 };
-                console.log('data',data);
-                // sendNewAccountData(data);
+        var statut = $('#statut').val();
+        if($('#statut').hasClass('on')){
+          statut='ON';
+        }else{
+          statut='OFF';
+        }
+        var data ={
+               'statut':statut,
+               'licence_id':licence_id
+         };
+        console.log('data',data);
+        sendNewAccountData(data);
     }
 
-function sendNewAccount(data){
+    function sendNewAccountData(data){
         $.ajaxSetup({
           headers:{
             'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
           }
         });
         $.ajax({
-          url:"{{route('account.create', ['locale'=>app()-> getLocale()])}}",
+          url:"{{route('accounts.create', ['locale'=>app()-> getLocale()])}}",
           method:'POST',
           data:data,
           dataType: 'json',
@@ -101,7 +101,7 @@ function sendNewAccount(data){
           success:function(result){
 
             if(result["responseCode"] === 200){
-            alert('success');
+              alert('success');
             }else if(result["responseCode"] === 404){
                 alert('failed');
             }

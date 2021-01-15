@@ -1,8 +1,10 @@
 <?php $__env->startSection('css'); ?>
-<!--  Owl-carousel css-->
-<link href="<?php echo e(URL::asset('assets/plugins/owl-carousel/owl.carousel.css')); ?>" rel="stylesheet" />
-<!-- Maps css -->
-<link href="<?php echo e(URL::asset('assets/plugins/jqvmap/jqvmap.min.css')); ?>" rel="stylesheet">
+<!-- Internal Data table css -->
+<link href="<?php echo e(URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet" />
+<link href="<?php echo e(URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css')); ?>" rel="stylesheet">
+<link href="<?php echo e(URL::asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css')); ?>" rel="stylesheet" />
+<link href="<?php echo e(URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css')); ?>" rel="stylesheet">
+<link href="<?php echo e(URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css')); ?>" rel="stylesheet">
 <link href="<?php echo e(URL::asset('assets/plugins/select2/css/select2.min.css')); ?>" rel="stylesheet">
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('page-header'); ?>
@@ -14,10 +16,10 @@
 			  	<?php echo e(__('Comptes des clients')); ?>
 
 			  </h2>
-			  
+
 			</div>
 		</div>
-		
+
 	</div>
 	<!-- /breadcrumb -->
 <?php $__env->stopSection(); ?>
@@ -30,35 +32,31 @@
 		<!-- /main-content -->
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
-<!--Internal  Chart.bundle js -->
-<script src="<?php echo e(URL::asset('assets/plugins/chart.js/Chart.bundle.min.js')); ?>"></script>
-<!-- Moment js -->
-<script src="<?php echo e(URL::asset('assets/plugins/raphael/raphael.min.js')); ?>"></script>
-<!--Internal  Flot js-->
-<script src="<?php echo e(URL::asset('assets/plugins/jquery.flot/jquery.flot.js')); ?>"></script>
-<script src="<?php echo e(URL::asset('assets/plugins/jquery.flot/jquery.flot.pie.js')); ?>"></script>
-<script src="<?php echo e(URL::asset('assets/plugins/jquery.flot/jquery.flot.resize.js')); ?>"></script>
-<script src="<?php echo e(URL::asset('assets/plugins/jquery.flot/jquery.flot.categories.js')); ?>"></script>
-<script src="<?php echo e(URL::asset('assets/js/dashboard.sampledata.js')); ?>"></script>
-<script src="<?php echo e(URL::asset('assets/js/chart.flot.sampledata.js')); ?>"></script>
-<!--Internal Apexchart js-->
-<script src="<?php echo e(URL::asset('assets/js/apexcharts.js')); ?>"></script>
-<!-- Internal Map -->
-<script src="<?php echo e(URL::asset('assets/plugins/jqvmap/jquery.vmap.min.js')); ?>"></script>
-<script src="<?php echo e(URL::asset('assets/plugins/jqvmap/maps/jquery.vmap.usa.js')); ?>"></script>
-<script src="<?php echo e(URL::asset('assets/js/modal-popup.js')); ?>"></script>
-<!--Internal  index js -->
-<script src="<?php echo e(URL::asset('assets/js/index.js')); ?>"></script>
-<script src="<?php echo e(URL::asset('assets/js/jquery.vmap.sampledata.js')); ?>"></script>
-<!-- Select2 -->
-<script src="<?php echo e(URL::asset('assets/plugins/select2/js/select2.min.js')); ?>"></script>	
-<!-- form-element -->
-<script src="<?php echo e(URL::asset('assets/js/form-elements.js')); ?>"></script>
+<!-- Internal Data tables -->
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/jquery.dataTables.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/dataTables.dataTables.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/responsive.dataTables.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/jquery.dataTables.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/dataTables.bootstrap4.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/dataTables.buttons.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/buttons.bootstrap4.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/jszip.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/pdfmake.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/vfs_fonts.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/buttons.html5.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/buttons.print.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/buttons.colVis.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')); ?>"></script>
+<!--Internal  Datatable js -->
+<script src="<?php echo e(URL::asset('assets/js/table-data.js')); ?>"></script>
+
 
 <!-- TEST -->
 <script src="<?php echo e(asset('app-assets/js/vendors/jquery-3.2.1.min.js')); ?>"></script>
 <script type="text/javascript">
-	
+
 	var accounts = <?php echo json_encode($accounts, 15, 512) ?>;
 	$(document).ready(function(){
 		console.log('accounts',accounts);
@@ -66,4 +64,5 @@
 	});
 </script>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/liste_comptes/index.blade.php ENDPATH**/ ?>
