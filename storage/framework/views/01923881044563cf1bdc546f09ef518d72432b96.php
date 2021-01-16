@@ -1,0 +1,1 @@
+content<?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/users/show/content.blade.php ENDPATH**/ ?>

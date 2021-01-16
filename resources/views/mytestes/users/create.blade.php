@@ -6,7 +6,7 @@
 <h2>Create New User</h2>
 </div>
 <div class="pull-right">
-<a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+<a class="btn btn-primary" href="{{ route('users') }}"> Back</a>
 </div>
 </div>
 </div>
@@ -20,7 +20,7 @@
 </ul>
 </div>
 @endif
-{!! Form::open(array('route' => 'users.store','method'=>'POST')) !!}
+{!! Form::open(array('route' => 'users.create','method'=>'POST')) !!}
 <div class="row">
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
@@ -58,4 +58,17 @@
 </div>
 {!! Form::close() !!}
 <p class="text-center text-primary"><small>Tutorial by tutsmake.com</small></p>
+@endsection
+
+@section('js')
+<!-- TEST -->
+<script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript">
+
+	var roles = @json($roles);
+	$(document).ready(function(){
+		console.log('roles',roles);
+
+	});
+</script>
 @endsection

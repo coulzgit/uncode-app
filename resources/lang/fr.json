@@ -61,7 +61,13 @@
     "active": "actif",
     "unactive": "désactivé",
     "Search": "Chercher",
-    "Choose one": "Choisissez-en un"
+    "Choose one": "Choisissez-en un",
+
+    "Viewing invoices":"Affichage de factures",
+    "Projects configuration":"Configuration des projets",
+    "New project":"Nouveau projet",
+    "List of projects":"Liste des projets",
+    "Loading data":"Chargement de données"
 
 
 

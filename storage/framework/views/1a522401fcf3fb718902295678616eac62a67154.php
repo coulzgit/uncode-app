@@ -82,10 +82,10 @@
 											<a title="<?php echo e(__('Configurer le compte')); ?>" href="<?php echo e(route('accounts.config',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-success">
 												<i class="las la-tools"></i>
 											</a>
-											<a title="<?php echo e(__('Ajouter un utilisateur')); ?>" href="#" class="btn btn-sm btn-secondary">
+											<a title="<?php echo e(__('Ajouter un utilisateur')); ?>" href="<?php echo e(route('accounts.adduser',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-secondary">
 												<i class="las la-user-plus"></i>
 											</a>
-											<a title="<?php echo e(__('Liste utilisateur')); ?>" href="#" class="btn btn-sm btn-warning">
+											<a title="<?php echo e(__('Liste utilisateur')); ?>" href="<?php echo e(route('accounts.users',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-warning">
 												<i class="las la-users"></i>
 											</a>	
 											<a title="<?php echo e(__('Supprimer le compte')); ?>" href="#" class="btn btn-sm btn-danger">

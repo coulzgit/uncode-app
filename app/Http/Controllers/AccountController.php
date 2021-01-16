@@ -177,9 +177,22 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $account_id=$request['account_id'];
+        $account = Account::find($account_id);
+        if (empty($account)) {
+            if($request->ajax())
+            {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
+            return redirect(app()-> getLocale().'/404');
+        }
+        //$account->delete(); attente
+        return redirect()->back()->with('message','success');
+
     }
 
     public function config(Request $request){

@@ -85,7 +85,6 @@
         console.log('data',data);
         sendNewAccountData(data);
     }
-
     function sendNewAccountData(data){
         $.ajaxSetup({
           headers:{

@@ -5,7 +5,7 @@
 <h2>Create New User</h2>
 </div>
 <div class="pull-right">
-<a class="btn btn-primary" href="<?php echo e(route('users.index')); ?>"> Back</a>
+<a class="btn btn-primary" href="<?php echo e(route('users')); ?>"> Back</a>
 </div>
 </div>
 </div>
@@ -19,7 +19,7 @@
 </ul>
 </div>
 <?php endif; ?>
-<?php echo Form::open(array('route' => 'users.store','method'=>'POST')); ?>
+<?php echo Form::open(array('route' => 'users.create','method'=>'POST')); ?>
 
 <div class="row">
 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -64,5 +64,18 @@
 <?php echo Form::close(); ?>
 
 <p class="text-center text-primary"><small>Tutorial by tutsmake.com</small></p>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+<!-- TEST -->
+<script src="<?php echo e(asset('app-assets/js/vendors/jquery-3.2.1.min.js')); ?>"></script>
+<script type="text/javascript">
+
+	var roles = <?php echo json_encode($roles, 15, 512) ?>;
+	$(document).ready(function(){
+		console.log('roles',roles);
+
+	});
+</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/mytestes/users/create.blade.php ENDPATH**/ ?>

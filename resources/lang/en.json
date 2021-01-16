@@ -70,7 +70,15 @@
     "Choisissez-en un": "Choose one",
     "Configuration des accès":"Access configuration",
     "Nouveau role":"New role",
-    "Liste des roles":"List of roles"
+    "Liste des roles":"List of roles",
+    "Nombre d'utilisateur:":"Number of user",
+
+    "Affichage de factures":"Viewing invoices",
+    "Configuration des projets":"Projects configuration",
+    "Nouveau projet":"New project",
+    "Liste des projets":"List of projects",
+    "Chargement de données":"Loading data"
+
 
 
 }

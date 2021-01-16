@@ -47,11 +47,13 @@
 							</span>
 						</h6>
 						<h6 class="price">
-							Nombre d'utilisateur:
+							<?php echo e(__('Nombre d\'utilisateur:')); ?>
+
 							<span style="color: #adadad" class="h6 ml-2">3</span>
 						</h6>
 						<h6 class="price">
-							Nombre de projet:
+							<?php echo e(__('Nombre de projet:')); ?>
+
 							<span style="color: #adadad" class="h6 ml-2">5</span>
 						</h6>
 					</div>
@@ -88,7 +90,7 @@
 </div>
 
 <div style="display: flex;justify-content: center;margin-bottom: 20px" class="row row-sm">
-	<a href="<?php echo e(route('account.list',app()->getLocale())); ?>">
+	<a href="<?php echo e(route('accounts',app()->getLocale())); ?>">
 		<i class="ti ti-arrow-left"></i>
 		Retour
 	</a>

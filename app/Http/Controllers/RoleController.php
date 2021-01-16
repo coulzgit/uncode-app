@@ -51,9 +51,15 @@ class RoleController extends Controller
 	{
 		$role_id = $request['role_id'];
 		$role = Role::find($role_id);
-		if (empty($role)) {
-			return redirect(app()-> getLocale().'/404');
-		}
+        if (empty($role)) {
+            if($request->ajax())
+            {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
+            return redirect(app()-> getLocale().'/404');
+        }
 		$rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
 		->where("role_has_permissions.role_id",$role_id)
 		->get();
@@ -95,9 +101,21 @@ class RoleController extends Controller
 		->with('success','Role updated successfully');
 	}
 
-	public function destroy($id)
+	public function destroy(Request $request)
 	{
-		DB::table("roles")->where('id',$id)->delete();
+		$role_id = $request['role_id'];
+		$role = Role::find($role_id);
+        if (empty($role)) {
+            if($request->ajax())
+            {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
+            return redirect(app()-> getLocale().'/404');
+        }
+
+		//DB::table("roles")->where('id',$id)->delete();
 		return redirect()->route('roles.index')
 		->with('success','Role deleted successfully');
 	}

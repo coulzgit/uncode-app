@@ -73,10 +73,10 @@
 											<a title="{{__('Configurer le compte')}}" href="{{route('accounts.config',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-success">
 												<i class="las la-tools"></i>
 											</a>
-											<a title="{{__('Ajouter un utilisateur')}}" href="#" class="btn btn-sm btn-secondary">
+											<a title="{{__('Ajouter un utilisateur')}}" href="{{route('accounts.adduser',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-secondary">
 												<i class="las la-user-plus"></i>
 											</a>
-											<a title="{{__('Liste utilisateur')}}" href="#" class="btn btn-sm btn-warning">
+											<a title="{{__('Liste utilisateur')}}" href="{{route('accounts.users',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-warning">
 												<i class="las la-users"></i>
 											</a>	
 											<a title="{{__('Supprimer le compte')}}" href="#" class="btn btn-sm btn-danger">

@@ -6,7 +6,7 @@
 <h2>Edit New User</h2>
 </div>
 <div class="pull-right">
-<a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+<a class="btn btn-primary" href="{{ route('users') }}"> Back</a>
 </div>
 </div>
 </div>
@@ -20,7 +20,7 @@
 </ul>
 </div>
 @endif
-{!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
+{!! Form::model($user) !!}
 <div class="row">
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
@@ -57,5 +57,24 @@
 </div>
 </div>
 {!! Form::close() !!}
-<p class="text-center text-primary"><small>Tutorial by tutsmake.com</small></p>
+
+@endsection
+
+@section('js')
+<!-- TEST -->
+<script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript">
+
+	
+	var user = @json($user);
+	var userRole = @json($userRole);
+	var roles = @json($roles);
+	$(document).ready(function(){
+		
+		console.log('user',user);
+		console.log('userRole',userRole);
+		console.log('roles',roles);
+
+	});
+</script>
 @endsection

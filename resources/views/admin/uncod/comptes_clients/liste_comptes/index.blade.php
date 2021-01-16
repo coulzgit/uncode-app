@@ -53,14 +53,5 @@
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
 
 
-<!-- TEST -->
-<script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
-<script type="text/javascript">
 
-	var accounts = @json($accounts);
-	$(document).ready(function(){
-		console.log('accounts',accounts);
-
-	});
-</script>
 @endsection

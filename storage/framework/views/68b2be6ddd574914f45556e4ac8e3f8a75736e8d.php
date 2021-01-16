@@ -53,16 +53,7 @@
 <script src="<?php echo e(URL::asset('assets/js/table-data.js')); ?>"></script>
 
 
-<!-- TEST -->
-<script src="<?php echo e(asset('app-assets/js/vendors/jquery-3.2.1.min.js')); ?>"></script>
-<script type="text/javascript">
 
-	var accounts = <?php echo json_encode($accounts, 15, 512) ?>;
-	$(document).ready(function(){
-		console.log('accounts',accounts);
-
-	});
-</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/liste_comptes/index.blade.php ENDPATH**/ ?>

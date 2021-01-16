@@ -65,31 +65,31 @@
          };
         console.log('data',data);
         //sendNewRoleData(data);
-    }
-    function sendNewRoleData(data){
-        $.ajaxSetup({
-          headers:{
-            'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
-          }
-        });
-        $.ajax({
-          url:"{{route('roles.create', ['locale'=>app()-> getLocale()])}}",
-          method:'POST',
-          data:data,
-          dataType: 'json',
-          encode  : true,
-          success:function(result){
+  }
+  function sendNewRoleData(data){
+      $.ajaxSetup({
+        headers:{
+          'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
+        }
+      });
+      $.ajax({
+        url:"{{route('roles.create', ['locale'=>app()-> getLocale()])}}",
+        method:'POST',
+        data:data,
+        dataType: 'json',
+        encode  : true,
+        success:function(result){
 
-            if(result["responseCode"] === 200){
-              alert('success');
-            }else if(result["responseCode"] === 404){
-                alert('failed');
-            }
-          },
-          error:function(result){
-            alert('failed');
+          if(result["responseCode"] === 200){
+            alert('success');
+          }else if(result["responseCode"] === 404){
+              alert('failed');
           }
-        });
-    }
+        },
+        error:function(result){
+          alert('failed');
+        }
+      });
+  }
 </script>
 @endsection

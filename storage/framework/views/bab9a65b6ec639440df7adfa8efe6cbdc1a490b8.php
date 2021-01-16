@@ -68,32 +68,32 @@
          };
         console.log('data',data);
         //sendNewRoleData(data);
-    }
-    function sendNewRoleData(data){
-        $.ajaxSetup({
-          headers:{
-            'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
-          }
-        });
-        $.ajax({
-          url:"<?php echo e(route('roles.create', ['locale'=>app()-> getLocale()])); ?>",
-          method:'POST',
-          data:data,
-          dataType: 'json',
-          encode  : true,
-          success:function(result){
+  }
+  function sendNewRoleData(data){
+      $.ajaxSetup({
+        headers:{
+          'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
+        }
+      });
+      $.ajax({
+        url:"<?php echo e(route('roles.create', ['locale'=>app()-> getLocale()])); ?>",
+        method:'POST',
+        data:data,
+        dataType: 'json',
+        encode  : true,
+        success:function(result){
 
-            if(result["responseCode"] === 200){
-              alert('success');
-            }else if(result["responseCode"] === 404){
-                alert('failed');
-            }
-          },
-          error:function(result){
-            alert('failed');
+          if(result["responseCode"] === 200){
+            alert('success');
+          }else if(result["responseCode"] === 404){
+              alert('failed');
           }
-        });
-    }
+        },
+        error:function(result){
+          alert('failed');
+        }
+      });
+  }
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/params/roles/create.blade.php ENDPATH**/ ?>

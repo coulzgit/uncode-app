@@ -5,7 +5,7 @@
 <h2>Edit New User</h2>
 </div>
 <div class="pull-right">
-<a class="btn btn-primary" href="<?php echo e(route('users.index')); ?>"> Back</a>
+<a class="btn btn-primary" href="<?php echo e(route('users')); ?>"> Back</a>
 </div>
 </div>
 </div>
@@ -19,7 +19,7 @@
 </ul>
 </div>
 <?php endif; ?>
-<?php echo Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]); ?>
+<?php echo Form::model($user); ?>
 
 <div class="row">
 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -63,6 +63,25 @@
 </div>
 <?php echo Form::close(); ?>
 
-<p class="text-center text-primary"><small>Tutorial by tutsmake.com</small></p>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+<!-- TEST -->
+<script src="<?php echo e(asset('app-assets/js/vendors/jquery-3.2.1.min.js')); ?>"></script>
+<script type="text/javascript">
+
+	
+	var user = <?php echo json_encode($user, 15, 512) ?>;
+	var userRole = <?php echo json_encode($userRole, 15, 512) ?>;
+	var roles = <?php echo json_encode($roles, 15, 512) ?>;
+	$(document).ready(function(){
+		
+		console.log('user',user);
+		console.log('userRole',userRole);
+		console.log('roles',roles);
+
+	});
+</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/mytestes/users/edit.blade.php ENDPATH**/ ?>

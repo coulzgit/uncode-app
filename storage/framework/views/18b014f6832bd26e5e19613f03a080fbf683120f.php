@@ -40,6 +40,25 @@
 						</a>
 
 					</li>
+					<!-- AFFICHAGE FACTURES -->
+					<li class="slide ">
+						<a href="" class="side-menu__item">
+							<svg style="" xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24" >
+								<path d="M0 0h24v24H0V0z" fill="none"/>
+								<path d="M5 9h14V5H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5S7.83 8.5 7 8.5 5.5 7.83 5.5 7 6.17 5.5 7 5.5zM5 19h14v-4H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z" opacity=".3"/>
+								<path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-1 6H5v-4h14v4zm-12-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 6H5V5h14v4zM7 8.5c.83 0 1.5-.67 1.5-1.5S7.83 5.5 7 5.5 5.5 6.17 5.5 7 6.17 8.5 7 8.5z"/>
+
+
+							</svg>
+
+							<span class="side-menu__label">
+								<?php echo e(__('Affichage de factures')); ?>
+
+							</span>
+							<i class="angle fe fe-chevron-right"></i>
+						</a>
+
+					</li>
 
 					<!-- COMPTE CLIENT -->
 					<li class="slide ">
@@ -60,14 +79,6 @@
 						</a>
 						<ul class="slide-menu">
 							<li class="sub-slide">
-
-								<!-- <li>
-									<a class="sub-slide-item" href="<?php echo e(route('account.adduser',app()->getLocale())); ?>">			
-										<?php echo e(__('Ajouter un utilisateur')); ?>
-
-
-									</a>
-								</li> -->
 								<li>
 									<a class="sub-slide-item" href="<?php echo e(route('accounts.create',app()->getLocale())); ?>">
 										<?php echo e(__('Nouveau compte')); ?>
@@ -94,24 +105,34 @@
 							<path d="M5 9h14V5H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5S7.83 8.5 7 8.5 5.5 7.83 5.5 7 6.17 5.5 7 5.5zM5 19h14v-4H5v4zm2-3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z" opacity=".3"/>
 							<path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zm-1 6H5v-4h14v4zm-12-.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zm-1 6H5V5h14v4zM7 8.5c.83 0 1.5-.67 1.5-1.5S7.83 5.5 7 5.5 5.5 6.17 5.5 7 6.17 8.5 7 8.5z"/>
 							</svg>
-							<span class="side-menu__label">Configuration de projets</span>
+							<span class="side-menu__label">
+								<?php echo e(__('Configuration des projets')); ?>
+
+
+							</span>
 							<i class="angle fe fe-chevron-down"></i>
 						</a>
 						<ul class="slide-menu">
 							<li class="sub-slide">
 
-									<li>
-										<a class="sub-slide-item" href="#">Nouveau projet
-										</a>
-									</li>
-									<li>
-										<a class="sub-slide-item" href="#">Liste des projets
-										</a>
-									</li>
-									<li>
-										<a class="sub-slide-item" href="#">Chargement de données
-										</a>
-									</li>
+								<li>
+									<a class="sub-slide-item" href="#">
+										<?php echo e(__('Nouveau projet')); ?>
+
+									</a>
+								</li>
+								<li>
+									<a class="sub-slide-item" href="#">
+										<?php echo e(__('Liste des projets')); ?>
+
+									</a>
+								</li>
+								<li>
+									<a class="sub-slide-item" href="#">
+										<?php echo e(__('Chargement de données')); ?>
+
+									</a>
+								</li>
 
 							</li>
 						</ul>

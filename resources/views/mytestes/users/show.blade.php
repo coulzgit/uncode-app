@@ -6,7 +6,7 @@
 <h2> Show User</h2>
 </div>
 <div class="pull-right">
-<a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+<a class="btn btn-primary" href="{{ route('users') }}"> Back</a>
 </div>
 </div>
 </div>
@@ -14,7 +14,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Name:</strong>
-{{ $user->name }}
+{{ $user->user_name }}
 </div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -34,4 +34,19 @@
 </div>
 </div>
 </div>
+@endsection
+
+@section('js')
+<!-- TEST -->
+<script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript">
+
+	
+	var user = @json($user);
+	$(document).ready(function(){
+		
+		console.log('user',user);
+
+	});
+</script>
 @endsection
