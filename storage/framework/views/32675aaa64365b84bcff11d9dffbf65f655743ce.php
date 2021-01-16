@@ -11,19 +11,19 @@
 						</thead>
 						<tbody>
 
-							@foreach ($account['projets'] as $projet)
+							<?php $__currentLoopData = $account['projets']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $projet): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr role="row" class="odd">
-                                <td class="sorting_1">{{ $projet['nom'] }}</td>
-                                <td>{{ $projet['created_at'] }}</td>
+                                <td class="sorting_1"><?php echo e($projet['nom']); ?></td>
+                                <td><?php echo e($projet['created_at']); ?></td>
                                 <td>
-                                 @if($projet['created_by']==null)
-                                <span>{{__('...') }}</span>
-                                @else
-                                <span>{{$projet['created_by'] }}</span>
-                                @endif
+                                 <?php if($projet['created_by']==null): ?>
+                                <span><?php echo e(__('...')); ?></span>
+                                <?php else: ?>
+                                <span><?php echo e($projet['created_by']); ?></span>
+                                <?php endif; ?>
                                 </td>
                             </tr>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
 
@@ -34,3 +34,4 @@
 		</div>
 	</div>
 </div>
+<?php /**PATH /var/www/html/uncode2/resources/views/admin/uncod/comptes_clients/liste_comptes/details/projets_list.blade.php ENDPATH**/ ?>
