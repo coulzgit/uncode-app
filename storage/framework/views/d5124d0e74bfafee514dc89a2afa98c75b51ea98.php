@@ -16,39 +16,33 @@
 						</thead>
 						<tbody>
 
-                            @foreach ($account['users'] as $user)
+                            <?php $__currentLoopData = $account['users']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
 
 							<tr role="row" class="odd">
                                 <td class="sorting_1">
-                                    @if($user['nom']==null)
-                                    <span>{{__('...') }}</span>
-                                    @else
-                                    <span>{{ $user['nom']}}</span>
-                                    @endif
+                                    <?php if($user['nom']==null): ?>
+                                    <span><?php echo e(__('...')); ?></span>
+                                    <?php else: ?>
+                                    <span><?php echo e($user['nom']); ?></span>
+                                    <?php endif; ?>
                                 </td>
-								<td>{{ $user['email']}}</td>
-{{-- <td>
-                                    @if($user['nom_role']==0 )
-                                    <span>...</span>
-                                    @else
-                                    <span>}</span>
-                                    @endif
-                                </td> --}}
+								<td><?php echo e($user['email']); ?></td>
+
                                 <td>....</td>
 								<td>
 
-                                    @if($user['account_owner']==0)
-                                    <span>{{__('Non') }}</span>
-                                    @else
-                                    <span>{{__('Oui') }}</span>
-                                    @endif
+                                    <?php if($user['account_owner']==0): ?>
+                                    <span><?php echo e(__('Non')); ?></span>
+                                    <?php else: ?>
+                                    <span><?php echo e(__('Oui')); ?></span>
+                                    <?php endif; ?>
 
                                 </td>
 
 							</tr>
 
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 						</tbody>
 					</table>
 				</div>
@@ -56,3 +50,4 @@
 		</div>
 	</div>
 </div>
+<?php /**PATH /var/www/html/uncode2/resources/views/admin/uncod/comptes_clients/liste_comptes/details/users_list.blade.php ENDPATH**/ ?>
