@@ -17,7 +17,6 @@ class CreateDocsTable extends Migration
 
             $table->id();
             $table->string('doc_id',64)->nullable(false); 
-
             $table->string('scan_date')->nullable(true);
             $table->string('comp_no',20)->nullable(true);
             $table->string('doc_name',60)->nullable(true);
@@ -37,7 +36,7 @@ class CreateDocsTable extends Migration
             $table->string('order_num',50)->nullable(true);
             $table->string('last_acceptor',60)->nullable(true);
             $table->string('exchange_rate',256)->nullable(true);
-            $table->string('invoice_currency',10)->nullable(true);
+            $table->string('invoice_currency',20)->nullable(true);
 
             $table->string('invoice_sum_calc',256)->nullable(true);
 

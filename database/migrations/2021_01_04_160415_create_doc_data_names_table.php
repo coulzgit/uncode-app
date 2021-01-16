@@ -15,7 +15,7 @@ class CreateDocDataNamesTable extends Migration
     {
         Schema::create('doc_data_names', function (Blueprint $table) {
             $table->id();
-            // $table->string('data_index')->nullable(false);
+            $table->string('data_index')->nullable(false);
             $table->string('data_name',50)->nullable(true);
             $table->string('default_value',50)->nullable(true);
             $table->string('data_type',1)->nullable(true);

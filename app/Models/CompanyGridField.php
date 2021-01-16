@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property integer $id
  * @property integer $compagnie_id
+ * @property string $comp_no
  * @property string $acc_fields
  * @property string $created_at
  * @property string $updated_at
@@ -24,7 +25,7 @@ class CompanyGridField extends Model
     /**
      * @var array
      */
-    protected $fillable = ['compagnie_id', 'acc_fields', 'created_at', 'updated_at'];
+    protected $fillable = ['compagnie_id', 'comp_no', 'acc_fields', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

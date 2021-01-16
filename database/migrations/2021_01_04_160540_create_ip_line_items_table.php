@@ -17,7 +17,8 @@ class CreateIpLineItemsTable extends Migration
             $table->id();
 
             
-            // $table->string('LIT_DOC_ID',64)->nullable(false);
+            $table->string('LIT_DOC_ID',64)->nullable(false);//REF: docs->doc_id
+
             $table->string('LIT_ROWID')->nullable(false);
 
             $table->string('LIT_PRODUCT_CODE',50)->nullable(true);

@@ -36,7 +36,7 @@
 												<h5 class="font-weight-semibold mb-4">
 													{{ __('Please sign in to continue') }}
 												</h5>
-												<form action="{{ url('connexion') }}" id="loginForm" method="post">
+												<form action="{{ url('signIn') }}" id="loginForm" method="post">
 													{{ csrf_field() }}
 													<div class="form-group">
 														<label class="control-label" for="username">

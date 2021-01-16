@@ -33,13 +33,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Compagnie extends Model
 {
-    
+    /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
     protected $keyType = 'integer';
 
     /**
      * @var array
      */
-
     protected $fillable = ['comp_index', 'comp_no', 'comp_name', 'comp_parent', 'comp_struct1', 'comp_struct2', 'comp_struct3', 'comp_struct4', 'comp_struct5', 'comp_struct6', 'comp_struct7', 'comp_struct8', 'comp_struct9', 'comp_struct10', 'comp_date1', 'comp_date2', 'comp_date3', 'valid_start', 'valid_end', 'edipartnerid', 'created_at', 'updated_at'];
 
     /**

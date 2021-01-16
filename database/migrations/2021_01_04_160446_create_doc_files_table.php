@@ -16,7 +16,7 @@ class CreateDocFilesTable extends Migration
         Schema::create('doc_files', function (Blueprint $table) {
             $table->id();
             
-            // $table->string('doc_id',64)->nullable(false);
+            $table->string('doc_id',64)->nullable(false);
             $table->string('doc_page')->nullable(false);
             $table->string('doc_file',256)->nullable(false);
             $table->string('file_format',4)->nullable(false);

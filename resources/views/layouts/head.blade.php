@@ -1,9 +1,6 @@
 <!-- Title -->
-<<<<<<< HEAD
-<title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title>
-=======
+
 <title> Uncode-Invoce Archive Uncode </title>
->>>>>>> 1d83c3b8485b7236ee59d31fd0bf3e54457ae6e5
 <!-- Favicon -->
 <link rel="icon" href="{{URL::asset('assets/img/brand/favicon.png')}}" type="image/x-icon"/>
 <!-- Icons css -->

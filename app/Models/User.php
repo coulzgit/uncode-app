@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property integer $id
  * @property integer $account_id
+ * @property string $user_name
  * @property string $prenom
  * @property string $nom
  * @property string $email
  * @property string $email_verified_at
  * @property string $password
- * @property string $nom_role
- * @property int $role_id
  * @property boolean $account_owner
  * @property string $photo
  * @property string $remember_token
@@ -33,7 +32,7 @@ class User extends Model
     /**
      * @var array
      */
-    protected $fillable = ['account_id', 'prenom', 'nom', 'email', 'email_verified_at', 'password', 'nom_role', 'role_id', 'account_owner', 'photo', 'remember_token', 'created_at', 'updated_at'];
+    protected $fillable = ['account_id', 'user_name', 'prenom', 'nom', 'email', 'email_verified_at', 'password', 'account_owner', 'photo', 'remember_token', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

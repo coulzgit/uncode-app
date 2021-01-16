@@ -18,7 +18,7 @@ class CreateAccDatasTable extends Migration
             $table->id();
             $table->string('data_index')->nullable(false);
             
-            // $table->string('doc_id',64)->nullable(false);
+            $table->string('doc_id',64)->nullable(false);
             //nvarchar
             $table->string('sort_order')->nullable(false);//smallInt
             $table->string('brutto',100)->nullable(true);//numeric

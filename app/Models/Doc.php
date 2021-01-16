@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 /**
  * @property integer $id
  * @property integer $projet_id
@@ -36,7 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $attrib_t3
  * @property string $attrib_t4
  * @property string $attrib_t5
- * @property string $attrib_t6]
+ * @property string $attrib_t6
  * @property string $attrib_t7
  * @property string $attrib_n
  * @property string $attrib_n2
@@ -87,9 +86,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $invoice_category
  * @property string $parent_invoice_id
  * @property string $MC_MATCH_STATUS_INDEX
+ * @property string $created_at
+ * @property string $updated_at
  * @property Projet $projet
- * @property AccActionLog[] $accActionLogs
  * @property AccData[] $accDatas
+ * @property ActionLog[] $actionLogs
  * @property DocAttachment[] $docAttachments
  * @property DocData[] $docDatas
  * @property DocFile[] $docFiles
@@ -97,10 +98,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Doc extends Model
 {
-   
+    /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
     protected $keyType = 'integer';
 
-    protected $fillable = ['projet_id', 'doc_id', 'scan_date', 'comp_no', 'doc_name', 'doc_pages', 'flow_fixed', 'supplier_num', 'invoice_num', 'voucher_num', 'invoice_date', 'invoice_last_date', 'invoice_sum', 'stamp_date', 'stamp_uid', 'status_index', 'order_num', 'last_acceptor', 'exchange_rate', 'invoice_currency', 'invoice_sum_calc', 'cash_date', 'accounting_period', 'supplier_name', 'attrib_t1', 'attrib_t2', 'attrib_t3', 'attrib_t4', 'attrib_t5', 'attrib_t6]', 'attrib_t7', 'attrib_n', 'attrib_n2', 'attrib_n3', 'attrib_n4', 'attrib_d', 'attrib_d2', 'attrib_d3', 'attrib_d4', 'bff_resource', 'vat_sum', 'invoice_serial', 'invoice_type', 'prebooked', 'secondary_status', 'entry_date', 'voucher_group', 'voucher_period', 'user_serial', 'net_sum_calc', 'net_sum', 'with_comments', 'external_status', 'voucher_year', 'serial_year', 'gl_date', 'credit_memo', 'vat_sum_calc', 'hold_owner', 'lock_owner', 'lock_date', 'lock_index', 'contract_num', 'oneaction', 'transfer_check', 'autoflow_status_index', 'match_status_index', 'custom_action_status', 'preprocessing_timestamp', 'supplier_rep_code', 'supplier_rep_name', 'payment_date', 'delivery_note_number', 'reference_person', 'CM_REQUEST', 'invoice_origin', 'match_wait_until', 'invoice_category', 'parent_invoice_id', 'MC_MATCH_STATUS_INDEX'];
+    /**
+     * @var array
+     */
+    protected $fillable = ['projet_id', 'doc_id', 'scan_date', 'comp_no', 'doc_name', 'doc_pages', 'flow_fixed', 'supplier_num', 'invoice_num', 'voucher_num', 'invoice_date', 'invoice_last_date', 'invoice_sum', 'stamp_date', 'stamp_uid', 'status_index', 'order_num', 'last_acceptor', 'exchange_rate', 'invoice_currency', 'invoice_sum_calc', 'cash_date', 'accounting_period', 'supplier_name', 'attrib_t1', 'attrib_t2', 'attrib_t3', 'attrib_t4', 'attrib_t5', 'attrib_t6', 'attrib_t7', 'attrib_n', 'attrib_n2', 'attrib_n3', 'attrib_n4', 'attrib_d', 'attrib_d2', 'attrib_d3', 'attrib_d4', 'bff_resource', 'vat_sum', 'invoice_serial', 'invoice_type', 'prebooked', 'secondary_status', 'entry_date', 'voucher_group', 'voucher_period', 'user_serial', 'net_sum_calc', 'net_sum', 'with_comments', 'external_status', 'voucher_year', 'serial_year', 'gl_date', 'credit_memo', 'vat_sum_calc', 'hold_owner', 'lock_owner', 'lock_date', 'lock_index', 'contract_num', 'oneaction', 'transfer_check', 'autoflow_status_index', 'match_status_index', 'custom_action_status', 'preprocessing_timestamp', 'supplier_rep_code', 'supplier_rep_name', 'payment_date', 'delivery_note_number', 'reference_person', 'CM_REQUEST', 'invoice_origin', 'match_wait_until', 'invoice_category', 'parent_invoice_id', 'MC_MATCH_STATUS_INDEX', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -113,17 +121,17 @@ class Doc extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function accActionLogs()
+    public function accDatas()
     {
-        return $this->hasMany('App\Models\AccActionLog');
+        return $this->hasMany('App\Models\AccData', 'ID_DOC');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function accDatas()
+    public function actionLogs()
     {
-        return $this->hasMany('App\Models\AccData');
+        return $this->hasMany('App\Models\ActionLog', 'ID_DOC');
     }
 
     /**
@@ -131,7 +139,7 @@ class Doc extends Model
      */
     public function docAttachments()
     {
-        return $this->hasMany('App\Models\DocAttachment');
+        return $this->hasMany('App\Models\DocAttachment', 'ID_DOC');
     }
 
     /**
@@ -139,7 +147,7 @@ class Doc extends Model
      */
     public function docDatas()
     {
-        return $this->hasMany('App\Models\DocData');
+        return $this->hasMany('App\Models\DocData', 'ID_DOC');
     }
 
     /**
@@ -147,7 +155,7 @@ class Doc extends Model
      */
     public function docFiles()
     {
-        return $this->hasMany('App\Models\DocFile');
+        return $this->hasMany('App\Models\DocFile', 'ID_DOC');
     }
 
     /**
@@ -155,6 +163,6 @@ class Doc extends Model
      */
     public function ipLineItems()
     {
-        return $this->hasMany('App\Models\IpLineItem');
+        return $this->hasMany('App\Models\IpLineItem', 'ID_DOC');
     }
 }

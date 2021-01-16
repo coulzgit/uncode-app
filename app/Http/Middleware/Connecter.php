@@ -20,7 +20,7 @@ class Connecter
             return $next($request);
         }
         else {
-            return redirect(app()-> getLocale().'/connexion');
+            return redirect(app()-> getLocale().'/');
         } 
     }
 }

@@ -15,7 +15,7 @@ class CreateDocAttachmentsTable extends Migration
     {
         Schema::create('doc_attachments', function (Blueprint $table) {
             $table->id();
-            // $table->string('doc_id',64)->nullable(false);
+            $table->string('doc_id',64)->nullable(false);
             $table->string('attachment_name',256)->nullable(true);
             $table->string('attachment_file',250)->nullable(false);
             $table->string('attachment_owner',60)->nullable(true);

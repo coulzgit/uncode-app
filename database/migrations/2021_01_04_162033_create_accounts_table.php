@@ -17,7 +17,8 @@ class CreateAccountsTable extends Migration
             $table->id();
             $table->string('code')->nullable(false);
             $table->boolean('statut')->default(false);
-            // $table->bigInteger('licence_id')->nullable(false);
+            $table->string('app_name')->nullable(true);
+            $table->string('app_logo')->nullable(true);
             $table->string('expired_at')->nullable(true);
             $table->timestamps();
         });
