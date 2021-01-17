@@ -1,0 +1,337 @@
+-- MySQL dump 10.13  Distrib 5.7.25, for Linux (x86_64)
+--
+-- Host: localhost    Database: wiki
+-- ------------------------------------------------------
+-- Server version	5.7.25
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `actualites`
+--
+
+DROP TABLE IF EXISTS `actualites`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actualites` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contenu_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contenu_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `statut_rep` tinyint(1) NOT NULL DEFAULT '0',
+  `statut` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actualites`
+--
+
+LOCK TABLES `actualites` WRITE;
+/*!40000 ALTER TABLE `actualites` DISABLE KEYS */;
+/*!40000 ALTER TABLE `actualites` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categories` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nom_cate` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories`
+--
+
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'winnersweek','2020-03-17 17:00:07','2020-03-17 17:00:07'),(2,'art du focus','2020-03-17 17:00:18','2020-03-17 17:00:18'),(3,'starterclass','2020-03-17 17:00:37','2020-03-17 17:00:37');
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contacts`
+--
+
+DROP TABLE IF EXISTS `contacts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contacts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nom_complet` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tel` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `statut` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contacts`
+--
+
+LOCK TABLES `contacts` WRITE;
+/*!40000 ALTER TABLE `contacts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contacts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+DROP TABLE IF EXISTS `failed_jobs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `failed_jobs`
+--
+
+LOCK TABLES `failed_jobs` WRITE;
+/*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `formations`
+--
+
+DROP TABLE IF EXISTS `formations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `formations` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nom_formation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `lieu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `horaire` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `public_cible` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `programme` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `categorie` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `categorie_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `formations`
+--
+
+LOCK TABLES `formations` WRITE;
+/*!40000 ALTER TABLE `formations` DISABLE KEYS */;
+INSERT INTO `formations` VALUES (1,'WinnersWeek','2020-03-23','Dakar','18:00','PME','Leadership, mangement, art oratoire','winnersweek',NULL,'2020-03-17 21:14:10','2020-03-17 21:14:10'),(2,'Art du Focus','2020-03-28','Dakar','17:00','Chef d\'entreprise','Leadership, mangement, art oratoire','art du focus',NULL,'2020-03-17 21:15:52','2020-03-17 21:15:52'),(3,'Starterpers','2020-03-31','Dakar','09:00','starterpers','Leadership, mangement, art oratoire','starterclass',NULL,'2020-03-17 21:16:32','2020-03-17 21:16:32');
+/*!40000 ALTER TABLE `formations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `inscriptions`
+--
+
+DROP TABLE IF EXISTS `inscriptions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `inscriptions` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `identite` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prenom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `tel_mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tel_whatsap` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `entreprise` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fonction` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attente_a` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attente_b` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attente_c` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `session` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `optimal` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `finance` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payement` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `information` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom_recommande` text COLLATE utf8mb4_unicode_ci,
+  `formation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `formation_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `inscriptions_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inscriptions`
+--
+
+LOCK TABLES `inscriptions` WRITE;
+/*!40000 ALTER TABLE `inscriptions` DISABLE KEYS */;
+INSERT INTO `inscriptions` VALUES (1,'Monsieur','s','s','sgg@gmail.com',NULL,'d','s',NULL,NULL,'s',NULL,NULL,'Ouagadougou-30 Mars au 03 Avril 2020','Je choisis la formation MasterClass uniquement à 200.000F HT','Je paie moi-même','En  espèces','on','s','Art du Focus',2,1,NULL,NULL,'2020-03-18 15:25:52','2020-03-18 15:25:52'),(2,'Monsieur','Fallou','Gueye','fallougueye197@gmail.com',NULL,'777092285','777092285','wiki','technicien','etre bon en art oratoire','etre bon en leadership','etre bon en management 3.0','Ouagadougou-30 Mars au 03 Avril 2020','Je choisis la formation MasterClass uniquement à 200.000F HT','Je paie moi-même','En  espèces','on','fatou thiam','Art du Focus',2,2,NULL,NULL,'2020-03-18 15:48:41','2020-03-18 15:48:41'),(3,'Monsieur','s','s','f1@gmail.com',NULL,'s','777092285',NULL,NULL,'etre bon en art oratoire',NULL,NULL,'Ouagadougou-30 Mars au 03 Avril 2020','Je choisis la formation MasterClass uniquement à 200.000F HT','Je paie moi-même','Par mobile money','on','fatou thiam','Starterpers',3,3,NULL,NULL,'2020-03-18 16:07:41','2020-03-18 16:07:41'),(4,'Monsieur','Fallou','Gueye','fallou.g@wiki.com',NULL,'777092285','777092285','wiki','technicien','etre bon en art oratoire','etre bon en leadership','etre bon en management 3.0','Ouagadougou-30 Mars au 03 Avril 2020','Je choisis la formation MasterClass uniquement à 200.000F HT','Je paie moi-même','En  espèces','on','fatou thiam, wiki','WinnersWeek',1,4,NULL,NULL,'2020-03-18 16:15:17','2020-03-18 16:15:17');
+/*!40000 ALTER TABLE `inscriptions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `migrations`
+--
+
+DROP TABLE IF EXISTS `migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `migrations`
+--
+
+LOCK TABLES `migrations` WRITE;
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+INSERT INTO `migrations` VALUES (16,'2014_10_12_000000_create_users_table',1),(17,'2019_08_19_000000_create_failed_jobs_table',1),(18,'2020_03_17_101020_create_formations_table',1),(19,'2020_03_17_101112_create_categories_table',1),(20,'2020_03_17_101146_create_actualites_table',1),(21,'2020_03_17_101223_create_contacts_table',1),(22,'2020_03_17_101318_create_temoignages_table',1),(23,'2020_03_17_114903_create_inscriptions_table',1),(24,'2014_10_12_100000_create_password_resets_table',2);
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `password_resets`
+--
+
+DROP TABLE IF EXISTS `password_resets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `password_resets`
+--
+
+LOCK TABLES `password_resets` WRITE;
+/*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `temoignages`
+--
+
+DROP TABLE IF EXISTS `temoignages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `temoignages` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `client` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fonction` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `service` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tem_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tem_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `formation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `statut` tinyint(1) NOT NULL DEFAULT '0',
+  `formation_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `temoignages`
+--
+
+LOCK TABLES `temoignages` WRITE;
+/*!40000 ALTER TABLE `temoignages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `temoignages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `prenom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'s','s','sgg@gmail.com',NULL,NULL,NULL,'2020-03-18 15:25:52','2020-03-18 15:25:52'),(2,'Fallou','Gueye','fallougueye197@gmail.com',NULL,NULL,NULL,'2020-03-18 15:48:41','2020-03-18 15:48:41'),(3,'s','s','f1@gmail.com',NULL,NULL,NULL,'2020-03-18 16:07:41','2020-03-18 16:07:41'),(4,'Fallou','Gueye','fallou.g@wiki.com',NULL,NULL,NULL,'2020-03-18 16:15:17','2020-03-18 16:15:17');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-03-19  1:04:04
