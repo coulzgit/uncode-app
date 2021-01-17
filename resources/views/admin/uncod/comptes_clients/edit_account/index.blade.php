@@ -70,12 +70,12 @@
 
 <script type="text/javascript">
     function editAccount(){
-        var licence_id = $('#licence_id').val();
+                var licence_id = $('#licence_id').val();
                 var statut = $('#statut').val();
-                if($('#statut').hasClass('off')){
-                statut='OFF';
+                if($('#statut').hasClass('on')){
+                  statut='ON';
                 }else{
-                statut='ON';
+                  statut='OFF';
                 }
                 var data ={
                        'statut':statut,

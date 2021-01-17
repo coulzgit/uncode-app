@@ -1,7 +1,6 @@
 {
     "Welcome": "Bienvenue",
     "Please sign in to continue": "Authentifiez-vous pour continuer",
-    "Email": "Email",
     "Password": "Mot de passe",
     "Enter your email": "Entrer votre email",
     "Enter your password": "Entrer votre mot de passe",
@@ -46,9 +45,6 @@
     "User list": "Liste utilisateur",
     "Create a new customer account": "Créer un nouveau compte client",
     "Please enter the customer account data": "Veuiller saisir les données du compte client",
-
-    "Please enter the customer account data": "Veuiller saisir les données du compte client",
-    "Note: All fields are required": "Note: Tous les champs sont obligatoires",
     "License type": "Type de licence",
     "Basic": "Basic",
     "Premiun": "Premiun",
@@ -61,15 +57,20 @@
     "active": "actif",
     "unactive": "désactivé",
     "Search": "Chercher",
+
     "Choose one": "Choisissez-en un",
 
-    "Viewing invoices":"Affichage de factures",
-    "Projects configuration":"Configuration des projets",
-    "New project":"Nouveau projet",
-    "List of projects":"Liste des projets",
-    "Loading data":"Chargement de données"
-
-
+    "Choose one": "Choisissez-en un",
+    "Return": "Retour",
+    "GENERAL": "GENERAL",
+    "Account number": "N° du compte",
+    "Creation date": "Date de création",
+    "Account status": "Etat du compte",
+    "Customer": "Client",
+    "Number of projects": "Nombre de projet",
+    "USERS": "UTILISATEURS",
+    "PROJECTS": "PROJETS",
+    "Account Details": "Détails du comptes"
 
 
 }
