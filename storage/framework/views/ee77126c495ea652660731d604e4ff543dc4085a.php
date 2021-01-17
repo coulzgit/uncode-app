@@ -112,5 +112,4 @@
     }
 </script>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/new_account/index.blade.php ENDPATH**/ ?>

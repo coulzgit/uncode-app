@@ -94,5 +94,4 @@
 		<i class="ti ti-arrow-left"></i>
 		Retour
 	</a>
-</div>
-<?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/liste_comptes/details/content.blade.php ENDPATH**/ ?>
+</div><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/liste_comptes/details/content.blade.php ENDPATH**/ ?>

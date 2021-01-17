@@ -631,6 +631,7 @@ class ComposerStaticInitcccbe13b76a5e9a6aa8bc3468378adce
     public static $classMap = array (
         'App\\Actualite' => __DIR__ . '/../..' . '/app/Actualite.php',
         'App\\Categorie' => __DIR__ . '/../..' . '/app/Categorie.php',
+        'App\\Classes\\DateFormater' => __DIR__ . '/../..' . '/app/MyClasses/DateFormater.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Contact' => __DIR__ . '/../..' . '/app/Contact.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -659,6 +660,7 @@ class ComposerStaticInitcccbe13b76a5e9a6aa8bc3468378adce
         'App\\Http\\Controllers\\InvoicetypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/InvoicetypeController.php',
         'App\\Http\\Controllers\\IplineitemController' => __DIR__ . '/../..' . '/app/Http/Controllers/IplineitemController.php',
         'App\\Http\\Controllers\\IplineitemparamController' => __DIR__ . '/../..' . '/app/Http/Controllers/IplineitemparamController.php',
+        'App\\Http\\Controllers\\LoadingFileController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoadingFileController.php',
         'App\\Http\\Controllers\\MyController' => __DIR__ . '/../..' . '/app/Http/Controllers/MyController.php',
         'App\\Http\\Controllers\\ProjetController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjetController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',

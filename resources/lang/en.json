@@ -77,5 +77,22 @@
     "Configuration des projets":"Projects configuration",
     "Nouveau projet":"New project",
     "Liste des projets":"List of projects",
-    "Chargement de données":"Loading data"
+    "Chargement de données":"Loading data",
+    "Liste des projets":"List of projects ",
+    "Désignation":"Designation",
+    "Nom du projet":"Name of the project",
+    "Saisir le nom du projet":"Enter the project name",
+    "Sélectionner":"Select",
+    "Veuiller saisir les données du projet":"Please enter the project data",
+    "Echec":"Failed",
+    "Succès":"Success",
+    "Détails du projet":"Project details",
+    "Retour":"Cancel",
+    "Nom du projet":"Name of project",
+    "Compte":"Account",
+    "Date de création":"Creation date",
+    "Crée par":"Created by",
+    "Nombre de documents":"Number of documents",
+    "Modifier le projet":"Edit project",
+    "Supprimer le projet":"Delete project"
 }

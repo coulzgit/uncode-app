@@ -1,5 +1,3 @@
-
-
 <div class="row">
 	<div class="col-lg-12 col-md-12">
 		<div class="card">
@@ -52,5 +50,4 @@
 			</div>
 		</div>
 	</div>
-</div>
-<?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/new_account/form_add.blade.php ENDPATH**/ ?>
+</div><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/new_account/form_add.blade.php ENDPATH**/ ?>

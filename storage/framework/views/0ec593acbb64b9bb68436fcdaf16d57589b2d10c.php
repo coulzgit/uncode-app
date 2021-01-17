@@ -92,7 +92,7 @@ function sendEditAccount(data){
           }
         });
         $.ajax({
-          url:"<?php echo e(route('account.create', ['locale'=>app()-> getLocale()])); ?>",
+          url:"<?php echo e(route('accounts.create', ['locale'=>app()-> getLocale()])); ?>",
           method:'POST',
           data:data,
           dataType: 'json',

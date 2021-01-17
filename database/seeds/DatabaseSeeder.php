@@ -269,7 +269,6 @@ class DatabaseSeeder extends Seeder
         ];
         // TABLE PERMISSION
         [
-            //role-list|role-create|role-edit|role-delete
             Permission::create([         
                 'name'=>'role-list',//ID: 1
                 'guard_name'=>'web'
@@ -284,6 +283,60 @@ class DatabaseSeeder extends Seeder
             ]),
             Permission::create([         
                 'name'=>'role-delete',//ID: 4
+                'guard_name'=>'web'
+            ]),
+        ];
+        [
+            Permission::create([         
+                'name'=>'projet-list',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'projet-create',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'projet-edit',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'projet-delete',
+                'guard_name'=>'web'
+            ]),
+        ];
+        [
+            Permission::create([         
+                'name'=>'user-list',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'user-create',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'user-edit',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'user-delete',
+                'guard_name'=>'web'
+            ]),
+        ];
+        [
+            Permission::create([         
+                'name'=>'account-list',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'account-create',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'account-edit',
+                'guard_name'=>'web'
+            ]),
+            Permission::create([         
+                'name'=>'account-delete',
                 'guard_name'=>'web'
             ]),
         ];

@@ -110,12 +110,12 @@
 					<li class="sub-slide">
 
 						<li>
-							<a class="sub-slide-item" href="#">
+							<a class="sub-slide-item" href="{{route('projets.create',app()->getLocale())}}">
 								{{__('Nouveau projet')}}
 							</a>
 						</li>
 						<li>
-							<a class="sub-slide-item" href="#">
+							<a class="sub-slide-item" href="{{route('projets',app()->getLocale())}}">
 								{{__('Liste des projets')}}
 							</a>
 						</li>

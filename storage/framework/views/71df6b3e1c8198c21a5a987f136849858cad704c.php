@@ -40,6 +40,4 @@
 			</div>
 		</div>
 	</div>
-</div>
-
-<?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/edit_account/form_edit.blade.php ENDPATH**/ ?>
+</div><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/edit_account/form_edit.blade.php ENDPATH**/ ?>

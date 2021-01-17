@@ -102,5 +102,4 @@
 			</div>
 		</div>
 	</div>
-</div>
-<?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/liste_comptes/table.blade.php ENDPATH**/ ?>
+</div><?php /**PATH /Users/mac/Sites/projets/web/uncode-app/resources/views/admin/uncod/comptes_clients/liste_comptes/table.blade.php ENDPATH**/ ?>

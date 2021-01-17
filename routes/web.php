@@ -105,3 +105,35 @@ Route::group(
 	    Route::delete('/users/{user_id?}/delete', 'UserController@destroy')->name('users.delete');
 	}
 );
+
+// PROJET
+Route::group(
+	[
+		'prefix' => '{locale}', 
+		'where' =>['locale'=>'[a-zA-Z]{2}'],
+		'middleware' => ['auth','setlocale']
+	], 
+	function() {
+	    Route::get('/projets', 'ProjetController@index')->name('projets');
+	    Route::get('/projets/create', 'ProjetController@create')->name('projets.create');
+	    Route::post('/projets/create', 'ProjetController@store')->name('projets.create');
+
+	    Route::get('/projets/{projet_id?}/show', 'ProjetController@show')->name('projets.show');
+	    Route::get('/projets/{projet_id?}/edit', 'ProjetController@edit')->name('projets.edit');
+	    Route::post('/projets/{projet_id?}/edit', 'ProjetController@update')->name('projets.edit');
+	    Route::post('/projets/{projet_id?}/delete', 'ProjetController@delete')->name('projets.delete');
+	    Route::post('/projets/{projet_id?}/loading', 'ProjetController@loading')->name('projets.loading');
+	}
+);
+
+// LOADING FILE
+Route::group(
+	[
+		'prefix' => '{locale}', 
+		'where' =>['locale'=>'[a-zA-Z]{2}'],
+		'middleware' => ['auth','setlocale']
+	], 
+	function() {
+	    Route::get('/loadings', 'LoadingFileController@index')->name('loadings');
+	}
+);

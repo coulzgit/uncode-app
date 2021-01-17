@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Projet;
+use App\Models\Account;
+use App\Models\Doc;
+use App\User;
+use App\Classes\DateFormater;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ProjetController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:projet-list|projet-create|projet-edit|projet-delete', ['only' => ['index','show']]);
-        $this->middleware('permission:projet-create', ['only' => ['create','store']]);
-        $this->middleware('permission:projet-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:projet-delete', ['only' => ['destroy']]);
+        // $this->middleware('permission:projet-list|projet-create|projet-edit|projet-delete', ['only' => ['index','show']]);
+        // $this->middleware('permission:projet-create', ['only' => ['create','store']]);
+        // $this->middleware('permission:projet-edit', ['only' => ['edit','update']]);
+        // $this->middleware('permission:projet-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -21,9 +27,45 @@ class ProjetController extends Controller
      */
     public function index()
     {
-        $projets = Projet::latest()->paginate(5);
-            return view('projets.index',compact('projets'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        $projets = Projet::get();
+        $projets = $this->formaterProjetList($projets);
+        return view('admin.uncod.projets.index',compact('projets'));
+    }
+    private function formaterProjetList($projets){
+        $myCollect = collect([]);
+        try {
+            foreach ($projets as $key => $projet) {
+                $item = collect($projet);
+                $account = Account::find($projet->account_id);
+                $item->put('account',$account);
+                $created_by = User::find($projet->created_by);
+                $item->put('created_by',$created_by);
+
+                $dateFormater = new DateFormater();
+                $date_string= $dateFormater->formater($projet['created_at'],"min");
+                $item->put('created_at',$date_string);
+
+                $myCollect->push($item);
+            }
+        } catch (Exception $e) {
+            
+        }
+        return $myCollect;
+    }
+    private function formaterProjet($projet){
+        $item = collect($projet);
+        try {
+            $account = Account::find($projet->account_id);
+            $item->put('account',$account);
+            $created_by = User::find($projet->created_by);
+            $item->put('created_by',$created_by);
+            $dateFormater = new DateFormater();
+            $date_string= $dateFormater->formater($projet['created_at'],"min");
+            $item->put('created_at',$date_string); 
+        } catch (Exception $e) {
+            
+        }
+        return $item;
     }
 
     /**
@@ -33,7 +75,8 @@ class ProjetController extends Controller
      */
     public function create()
     {
-        return view('projets.create');
+        $accounts = Account::get();
+        return view('admin.uncod.projets.create',compact('accounts'));
     }
 
     /**
@@ -44,14 +87,35 @@ class ProjetController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'nom'=>'required',
-            'account_id'=>'required',
-            'created_by'=>'required'
-        ]);
-        Projet::create($request->all());
-        return redirect()->route('projets.index')
-            ->with('success','Projet created successfully.');
+        try {
+            $validator = Validator::make($request->all(), [
+                    'projet_name' => 'required',
+                    'account_id' => 'required'
+                ]
+            );
+            if (!$validator->passes()) {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
+            $user_id = Auth::user()->id;
+            $account_id=$request['account_id'];
+            $nom=$request['projet_name'];
+            
+            Projet::create([         
+                'account_id'=>$account_id,
+                'nom'=>$nom,
+                'created_by'=>$user_id
+            ]);
+
+            return array(
+                'responseCode'=>200
+            ) ;
+        } catch (Exception $e) {
+            return array(
+                'responseCode'=>404
+            ) ;
+        }
     }
 
     /**
@@ -60,10 +124,21 @@ class ProjetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $projet = Projet::find($id);
-        return view('projets.show',compact('projet'));
+    public function show(Request $request)
+    {   
+        $projet_id = $request['projet_id'];
+        $projet = Projet::with('docs')->find($projet_id);
+        if (empty($projet)) {
+            if($request->ajax())
+            {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
+            return redirect(app()-> getLocale().'/404');
+        }
+        $projet =$this->formaterProjet($projet);
+        return view('admin.uncod.projets.show',compact('projet'));
     }
 
     /**
@@ -72,9 +147,21 @@ class ProjetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {   $projet = Projet::find($id);
-        return view('projets.edit',compact('projet'));
+    public function edit(Request $request)
+    {   
+        $projet_id = $request['projet_id'];
+        $projet = Projet::find($projet_id);
+        if (empty($projet)) {
+            if($request->ajax())
+            {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
+            return redirect(app()-> getLocale().'/404');
+        }
+        $accounts = Account::get();
+        return view('admin.uncod.projets.edit',compact('projet','accounts'));
     }
 
     /**
@@ -86,13 +173,38 @@ class ProjetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        request()->validate([
-        'name' => 'required',
-        'detail' => 'required',
-        ]);
-        $projet->update($request->all());
-        return redirect()->route('projets.index')
-        ->with('success','Projet updated successfully');
+        try {
+            $validator = Validator::make($request->all(), [
+                    'projet_name' => 'required',
+                    'account_id' => 'required',
+                    'projet_id' => 'required'
+                ]
+            );
+            if (!$validator->passes()) {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
+            
+            $projet = Projet::find($request['projet_id']);
+            if (empty($projet)) {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
+            
+            $projet->account_id = $request['account_id'];
+            $projet->nom = $request['projet_name'];
+            $projet->save();
+
+            return array(
+                'responseCode'=>200
+            ) ;
+        } catch (Exception $e) {
+            return array(
+                'responseCode'=>404
+            ) ;
+        }
     }
 
     /**
@@ -101,11 +213,26 @@ class ProjetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $projet = Projet::find($id);
-        $projet->delete();
-            return redirect()->route('projets.index')
-            ->with('success','Projet deleted successfully');
+        $projet_id = $request['projet_id'];
+        $projet = Projet::find($projet_id);
+        if (empty($projet)) {
+            if($request->ajax())
+            {
+                return array(
+                    'responseCode'=>404
+                ) ;
+            }
+            return redirect(app()-> getLocale().'/404');
+        }
+        //$projet->delete();
+        if($request->ajax())
+        {
+            return array(
+                'responseCode'=>404
+            ) ;
+        }
+        return redirect()->back()->with('message','succes');
     }
 }

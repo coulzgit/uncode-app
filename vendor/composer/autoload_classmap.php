@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Actualite' => $baseDir . '/app/Actualite.php',
     'App\\Categorie' => $baseDir . '/app/Categorie.php',
+    'App\\Classes\\DateFormater' => $baseDir . '/app/MyClasses/DateFormater.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Contact' => $baseDir . '/app/Contact.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -36,6 +37,7 @@ return array(
     'App\\Http\\Controllers\\InvoicetypeController' => $baseDir . '/app/Http/Controllers/InvoicetypeController.php',
     'App\\Http\\Controllers\\IplineitemController' => $baseDir . '/app/Http/Controllers/IplineitemController.php',
     'App\\Http\\Controllers\\IplineitemparamController' => $baseDir . '/app/Http/Controllers/IplineitemparamController.php',
+    'App\\Http\\Controllers\\LoadingFileController' => $baseDir . '/app/Http/Controllers/LoadingFileController.php',
     'App\\Http\\Controllers\\MyController' => $baseDir . '/app/Http/Controllers/MyController.php',
     'App\\Http\\Controllers\\ProjetController' => $baseDir . '/app/Http/Controllers/ProjetController.php',
     'App\\Http\\Controllers\\RoleController' => $baseDir . '/app/Http/Controllers/RoleController.php',

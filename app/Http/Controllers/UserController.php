@@ -207,11 +207,6 @@ class UserController extends Controller
                 return redirect(app()-> getLocale().'/admin/dashboard')->with(['admin' => $admin]);
              }
 
-             elseif(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password'], 'nom_role'=>'client'])){
-                return redirect(app()-> getLocale().'/admin/dashboard/client')->with(['admin' => $admin]);;
-            }
-
-
             else{
                 //echo "failed"; die;
 

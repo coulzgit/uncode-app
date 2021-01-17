@@ -92,7 +92,7 @@ function sendEditAccount(data){
           }
         });
         $.ajax({
-          url:"{{route('account.create', ['locale'=>app()-> getLocale()])}}",
+          url:"{{route('accounts.create', ['locale'=>app()-> getLocale()])}}",
           method:'POST',
           data:data,
           dataType: 'json',
