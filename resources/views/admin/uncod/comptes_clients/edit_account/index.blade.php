@@ -12,7 +12,7 @@
 		<div class="left-content">
 			<div>
 			  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
-			  	Mise à jour du compte client n° {{ $account->code }}
+			  	{{__('Mise à jour du compte client n°') }} {{ $account->code }}
 			  </h2>
 
 			</div>

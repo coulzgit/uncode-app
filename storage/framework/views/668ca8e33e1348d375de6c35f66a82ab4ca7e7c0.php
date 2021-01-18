@@ -20,31 +20,44 @@
                             </label>
                         </div>
                         <div class="col-md-8 mg-t-5 mg-md-t-0">
-                        <select id="licence_id" class="form-control">
-                                <?php $__currentLoopData = $licences; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $licence): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($licence->nom); ?>">
-                                	<?php echo e($licence->nom); ?>
 
-                                </option>
 
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </select>
+                        <select name="licence_id" class="form-control" id="licence_id">
+                            <option value="none">
+                                <?php echo e(__('Select')); ?>
+
+                            </option>
+                            <?php $__currentLoopData = $licences; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $licence): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                
+
+                                <?php if($account['licence_id']==$licence->id): ?>
+                                      <option value="<?php echo e($licence->id); ?>" selected><?php echo e($licence->nom); ?></option>
+                                <?php else: ?>
+                                      <option value="<?php echo e($licence->id); ?>"><?php echo e($licence->nom); ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+
+
+                        
 
                         </div>
 
-                        <div class="row row-xs align-items-center mg-b-20">
-                            <div class="col-md-4">
-                                <label class="form-label mg-b-0">
-                                    <?php echo e(__('Activer ce compte automatiquement ?')); ?>
 
-                                </label>
-                            </div>
-                            <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                <div class="main-toggle main-toggle-success off" id="statut">
-                                    <span></span>
-                                </div>
+                    </div>
+                     <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">
+                                <?php echo e(__('Activer ce compte automatiquement ?')); ?>
+
+                            </label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <div class="<?php echo e('main-toggle main-toggle-success on'); ?>" id="statut">
+                                <span></span>
                             </div>
                         </div>
+
                     </div>
 
 

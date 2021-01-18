@@ -14,12 +14,12 @@
 
 
 			  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
-			  	Paramétrage d'un compte client
+			  	{{__('Paramétrage d\'un compte client') }}
 			  </h2>
-			  
+
 			</div>
 		</div>
-		
+
 	</div>
 	<!-- /breadcrumb -->
 @endsection

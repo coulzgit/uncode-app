@@ -74,11 +74,46 @@
     "Date de création": "Creation date",
     "Etat du compte": "Account status",
     "Client": "Customer",
-    "Nombre de projet": "Number of projects",
+    "Nombre de projet:": "Number of projects:",
+    "Nombre d'utilisateur:": "Number of users",
     "UTILISATEURS": "USERS",
     "PROJETS": "PROJECTS",
     "Détails du comptes": "Account Details",
-    "Prénom & nom": "Firstname"
+    "Prénom & nom": "First name & Last name",
+
+    "Détails du comptes N°:": "Account Details N°:",
+    "Client :": "Customer :",
+    "Etat du compte:": "Account status:",
+    "Date de création:": "Creation date:",
+    "N° du compte:": "Account number:",
+    "Propriétaire": "Owner",
+    "Crée par": "created by",
+    "Mise à jour du compte client n°": "Updating the customer account n°",
+    "Développer chaque section pour paramétrer un compte client.": "Expand each section to set up a customer account.",
+    "Nom de l'application": "Application name",
+    "Logo de l'application": "App logo",
+    "Choisir un fichier": "Choose a file",
+    "Personnalisation": "Customization",
+    "Configuration du compte client n°": "Setting up a customer account n°",
+    "Affichage des données de facture": "Viewing invoice data",
+    "Données d'entete": "Header data",
+    "Sélectionner les données d'en tete à afficher": "Select the header data to display",
+    "Données d'imputation": "Account assignment data",
+    "Assigner": "Assign",
+    "Nom du role": "Name's rule",
+    "Autorisation": "Permission",
+    "Afficher le rôle": "Show role",
+    "Oups": "Whoops",
+    "Il y a eu des problèmes avec votre entrée": "There were some problems with your input",
+    "Quels sont les permission souhaiteriez vous donner avec ce rôle": "What permissions would you like to give with this role",
+    "Veuiller saisir le role avec les permissions": "Please enter the role with permissions",
+    "Modifier un nouveau rôle": "Edit a new role",
+    "Créer un nouveau rôle": "Create a new role",
+    "Gestion des rôles": "Role Management"
+
+
+
+
 
 
 

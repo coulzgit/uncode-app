@@ -1,38 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-
 		<meta charset="UTF-8">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta http-equiv="X-UA-Compatible" content="IE=9" />
 		<meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
 		<meta name="Author" content="Spruko Technologies Private Limited">
 		<meta name="Keywords" content="admin,admin dashboard,admin dashboard template,admin panel template,admin template,admin theme,bootstrap 4 admin template,bootstrap 4 dashboard,bootstrap admin,bootstrap admin dashboard,bootstrap admin panel,bootstrap admin template,bootstrap admin theme,bootstrap dashboard,bootstrap form template,bootstrap panel,bootstrap ui kit,dashboard bootstrap 4,dashboard design,dashboard html,dashboard template,dashboard ui kit,envato templates,flat ui,html,html and css templates,html dashboard template,html5,jquery html,premium,premium quality,sidebar bootstrap 4,template admin bootstrap 4"/>
-		@include('admin.uncod.layouts.head')
-
+		<?php echo $__env->make('layouts.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 	</head>
-
-	<body class="main-body app sidebar-mini">
+	
+	<body class="main-body bg-primary-transparent">
 		<!-- Loader -->
 		<div id="global-loader">
-			<img src="{{URL::asset('assets/img/loader.svg')}}" class="loader-img" alt="Loader">
+			<img src="<?php echo e(URL::asset('assets/img/loader.svg')); ?>" class="loader-img" alt="Loader">
 		</div>
 		<!-- /Loader -->
-		@include('admin.uncod.layouts.main-sidebar')
-		<!-- main-content -->
-		<div class="main-content app-content">
-			@include('admin.uncod.layouts.main-header')
-		<!-- main-content -->
-
-			<!-- container -->
-			<div class="container-fluid">
-				@yield('page-header')
-				@yield('content')
-				@include('admin.uncod.layouts.sidebar-right')
-				@include('admin.uncod.layouts.models')
-            	@include('admin.uncod.layouts.footer')
-				@include('admin.uncod.layouts.footer-scripts')
-
+		<?php echo $__env->yieldContent('content'); ?>		
+		<?php echo $__env->make('layouts.footer-scripts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>	
 	</body>
-</html>
+</html><?php /**PATH /var/www/html/uncode2/resources/views/layouts/master2.blade.php ENDPATH**/ ?>

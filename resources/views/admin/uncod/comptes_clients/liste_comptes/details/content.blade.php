@@ -1,5 +1,5 @@
-<div style="display: flex;justify-content: left; " class="row row-sm">
-	<a class="btn btn-main-primary" href="{{route('accounts',app()->getLocale())}}">
+<div style="display: flex;justify-content: left; margin-left: 1px; margin-bottom:10px  " class="row row-sm">
+	<a class="btn btn-main-primary"  href="{{route('accounts',app()->getLocale())}}">
 		{{-- <i class="ti ti-arrow-left"></i> --}}
 		{{__('Retour') }}
 	</a>
@@ -24,7 +24,7 @@
 							<span style="color: #adadad" class="h6 ml-2">{{$account['account']->created_at}}</span>
 						</h6>
 						<h6 class="price">
-                            {{__('Etat du compte:') }}
+                            {{__('Etat du compte') }}
                              @if($account['account']->statut==0)
                              <span style="color: #adadad" class="h6 ml-2">{{__('désactivé')}}
                             </span>
@@ -33,14 +33,14 @@
                             @endif
 						</h6>
 						<h6 class="price">
-							{{__('Licence:') }}
+							{{__('Licence') }}
 							<span style="color: #adadad" class="h6 ml-2">{{ $account['licence']->nom }}</span>
 						</h6>
 					</div>
 					<!-- RIGHT -->
 					<div style="border: 1px solid #eee;border-radius: 5px;padding: 20px"  class="col-md-6">
 						<h6 class="price">
-                            {{__('Client :') }}
+                            {{__('Client') }}
                              @if($account['proprietaire']==null)
                             <span style="color: #adadad" class="h6 ml-2">{{__('...') }}</span>
                             @else
@@ -49,7 +49,7 @@
 
 						</h6>
 						<h6 class="price">
-							{{__("Nombre d'utilisateur:") }}
+							{{__('Nombre d\'utilisateur:') }}
 							<span style="color: #adadad" class="h6 ml-2">{{ count($account['users']) }}</span>
 						</h6>
 						<h6 class="price">
@@ -89,7 +89,7 @@
 	</div>
 </div>
 
-<div style="display: flex;justify-content: left;margin-bottom: 20px" class="row row-sm">
+<div style="display: flex;justify-content: left; margin-left: 1px; margin-bottom:10px" class="row row-sm">
 	<a class="btn btn-main-primary" href="{{route('account.list',app()->getLocale())}}">
 		{{-- <i class="ti ti-arrow-left"></i> --}}
 		{{__('Retour') }}

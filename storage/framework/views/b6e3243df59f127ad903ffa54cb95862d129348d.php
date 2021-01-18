@@ -1,5 +1,5 @@
-<div style="display: flex;justify-content: left; " class="row row-sm">
-	<a class="btn btn-main-primary" href="<?php echo e(route('accounts',app()->getLocale())); ?>">
+<div style="display: flex;justify-content: left; margin-left: 1px; margin-bottom:10px  " class="row row-sm">
+	<a class="btn btn-main-primary"  href="<?php echo e(route('accounts',app()->getLocale())); ?>">
 		
 		<?php echo e(__('Retour')); ?>
 
@@ -28,7 +28,7 @@
 							<span style="color: #adadad" class="h6 ml-2"><?php echo e($account['account']->created_at); ?></span>
 						</h6>
 						<h6 class="price">
-                            <?php echo e(__('Etat du compte:')); ?>
+                            <?php echo e(__('Etat du compte')); ?>
 
                              <?php if($account['account']->statut==0): ?>
                              <span style="color: #adadad" class="h6 ml-2"><?php echo e(__('désactivé')); ?>
@@ -39,7 +39,7 @@
                             <?php endif; ?>
 						</h6>
 						<h6 class="price">
-							<?php echo e(__('Licence:')); ?>
+							<?php echo e(__('Licence')); ?>
 
 							<span style="color: #adadad" class="h6 ml-2"><?php echo e($account['licence']->nom); ?></span>
 						</h6>
@@ -47,7 +47,7 @@
 					<!-- RIGHT -->
 					<div style="border: 1px solid #eee;border-radius: 5px;padding: 20px"  class="col-md-6">
 						<h6 class="price">
-                            <?php echo e(__('Client :')); ?>
+                            <?php echo e(__('Client')); ?>
 
                              <?php if($account['proprietaire']==null): ?>
                             <span style="color: #adadad" class="h6 ml-2"><?php echo e(__('...')); ?></span>
@@ -57,7 +57,7 @@
 
 						</h6>
 						<h6 class="price">
-							<?php echo e(__("Nombre d'utilisateur:")); ?>
+							<?php echo e(__('Nombre d\'utilisateur:')); ?>
 
 							<span style="color: #adadad" class="h6 ml-2"><?php echo e(count($account['users'])); ?></span>
 						</h6>
@@ -101,7 +101,7 @@
 	</div>
 </div>
 
-<div style="display: flex;justify-content: left;margin-bottom: 20px" class="row row-sm">
+<div style="display: flex;justify-content: left; margin-left: 1px; margin-bottom:10px" class="row row-sm">
 	<a class="btn btn-main-primary" href="<?php echo e(route('account.list',app()->getLocale())); ?>">
 		
 		<?php echo e(__('Retour')); ?>

@@ -6,28 +6,39 @@
 <link href="<?php echo e(URL::asset('assets/plugins/select2/css/select2.min.css')); ?>" rel="stylesheet">
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('page-header'); ?>
-	<!-- breadcrumb -->
-	<div class="breadcrumb-header justify-content-between">
-		<div class="left-content">
-			<div>
-			  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
-			  	<?php echo e(__('Mise à jour du compte client n°')); ?> <?php echo e($account->code); ?>
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <div>
+              <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
+                <?php echo e(__('Role Management')); ?>
 
-			  </h2>
+              </h2>
+                <div class="pull-riht">
+                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('role-create')): ?>
+                        <a class="btn btn-success" href="<?php echo e(route('roles.create',app()->getLocale())); ?>"> <?php echo e(('Create New Role ')); ?></a>
+                    <?php endif; ?>
+                </div>
+                <?php if($message = Session::get('success')): ?>
+                <div class="alert alert-success">
+                    <p><?php echo e($message); ?></p>
+                </div>
+                    <?php endif; ?>
 
-			</div>
-		</div>
 
-	</div>
-	<!-- /breadcrumb -->
+            </div>
+        </div>
+
+    </div>
+    <!-- /breadcrumb -->
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 
-<?php echo $__env->make('admin.uncod.comptes_clients.edit_account.form_edit', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-			</div>
-			<!-- /Container -->
-		</div>
-		<!-- /main-content -->
+<?php echo $__env->make('admin.params.roles.content_role', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            </div>
+            <!-- /Container -->
+        </div>
+        <!-- /main-content -->
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
 <!--Internal  Chart.bundle js -->
@@ -50,67 +61,24 @@
 <!--Internal  index js -->
 <script src="<?php echo e(URL::asset('assets/js/index.js')); ?>"></script>
 <script src="<?php echo e(URL::asset('assets/js/jquery.vmap.sampledata.js')); ?>"></script>
-<!-- Select2 -->
+
+
+
+<!--NEW: Select2 -->
 <script src="<?php echo e(URL::asset('assets/plugins/select2/js/select2.min.js')); ?>"></script>
-<!-- form-element -->
+<script src="<?php echo e(URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/jquery.maskedinput/jquery.maskedinput.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/spectrum-colorpicker/spectrum.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js')); ?>"></script>
+<script src="<?php echo e(URL::asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js')); ?>"></script>
 <script src="<?php echo e(URL::asset('assets/js/form-elements.js')); ?>"></script>
+
 <!-- TEST -->
 <script src="<?php echo e(asset('app-assets/js/vendors/jquery-3.2.1.min.js')); ?>"></script>
-<script type="text/javascript">
-
-	var licences = <?php echo json_encode($licences, 15, 512) ?>;
-	var account = <?php echo json_encode($account, 15, 512) ?>;
-	$(document).ready(function(){
-		console.log('licences',licences);
-		console.log('account',account);
-
-	});
-</script>
 
 
-<script type="text/javascript">
-    function editAccount(){
-                var licence_id = $('#licence_id').val();
-                var statut = $('#statut').val();
-                if($('#statut').hasClass('on')){
-                  statut='ON';
-                }else{
-                  statut='OFF';
-                }
-                var data ={
-                       'statut':statut,
-                       'licence_id':licence_id
-                 };
-                console.log('data',data);
-                // sendNewAccountData(data);
-    }
 
-function sendEditAccount(data){
-        $.ajaxSetup({
-          headers:{
-            'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
-          }
-        });
-        $.ajax({
-          url:"<?php echo e(route('account.create', ['locale'=>app()-> getLocale()])); ?>",
-          method:'POST',
-          data:data,
-          dataType: 'json',
-          encode  : true,
-          success:function(result){
 
-            if(result["responseCode"] === 200){
-            alert('success');
-            }else if(result["responseCode"] === 404){
-                alert('failed');
-            }
-          },
-          error:function(result){
-            alert('failed');
-          }
-        });
-    }
-</script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/uncode2/resources/views/admin/uncod/comptes_clients/edit_account/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin/uncod/layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/uncode2/resources/views/admin/params/roles/index.blade.php ENDPATH**/ ?>

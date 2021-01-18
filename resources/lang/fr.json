@@ -64,10 +64,55 @@
     "Creation date": "Date de création",
     "Account status": "Etat du compte",
     "Customer": "Client",
-    "Number of projects": "Nombre de projet",
+    "Number of projects:": "Nombre de projet:",
+    "Number of users": "Nombre d'utilisateur:",
     "USERS": "UTILISATEURS",
     "PROJECTS": "PROJETS",
-    "Account Details": "Détails du comptes"
+    "Account Details": "Détails du comptes",
+    "Account Details N°:": "Détails du comptes N°:",
+    "Customer :": "Client :",
+    "Account status:": "Etat du compte:",
+    "Creation date:": "Date de création:",
+    "Account number:": "N° du compte:",
+    "Owner": "Propriétaire",
+    "created by": "Crée par",
+    "Updating the customer account n°": "Mise à jour du compte client n°",
+    "Name": "Nom",
+    "First name & Last name": "Prénom & nom",
+    "Expand each section to set up a customer account.": "Développer chaque section pour paramétrer un compte client.",
+    "Application name": "Nom de l'application",
+    "App logo": "Logo de l'application",
+    "Choose a file": "Choisir un fichier",
+    "Customization": "Personnalisation",
+    "Setting up a customer account n°": "Configuration du compte client n°",
+    "Viewing invoice data": "Affichage des données de facture",
+    "Header data": "Données d'entete",
+    "Select the header data to display": "Sélectionner les données d'en tete à afficher",
+    "Account assignment data": "Données d'imputation",
+    "Assign": "Assigner",
+    "Name's rule": "Nom du role",
+    "Permission": "Autorisation",
+    "Whoops": "Oups",
+    "There were some problems with your input": "Il y a eu des problèmes avec votre entrée",
+    "What permissions would you like to give with this role": "Quels sont les permission souhaiteriez vous donner avec ce rôle",
+    "Please enter the role with permissions": "Veuiller saisir le role avec les permissions",
+    "Edit a new role": "Modifier un nouveau rôle",
+    "Create a new role": "Créer un nouveau rôle",
+    "Role Management": "Gestion des rôles"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

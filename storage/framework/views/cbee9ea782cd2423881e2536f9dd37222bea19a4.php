@@ -71,7 +71,7 @@
 	                                                <span class="label label-default"><?php echo e(__('actif')); ?></span>
 	                                        <?php endif; ?>
 	                                        </td>
-										<td class="center">
+										<td class="">
 											<a title="<?php echo e(__('Détails du compte')); ?>" href="<?php echo e(route('accounts.show',['account_id'=>$item['account']->id ,'locale'=>app()->getLocale()])); ?>" class="btn btn-sm btn-primary">
 
 												<i class="las la-search"></i>
