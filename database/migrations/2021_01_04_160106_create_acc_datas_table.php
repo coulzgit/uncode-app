@@ -16,7 +16,7 @@ class CreateAccDatasTable extends Migration
         Schema::create('acc_datas', function (Blueprint $table) {
 
             $table->id();
-            $table->string('data_index')->nullable(false);
+            // $table->string('data_index')->nullable(false);
             
             $table->string('doc_id',64)->nullable(false);
             //nvarchar

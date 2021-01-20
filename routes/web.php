@@ -135,5 +135,36 @@ Route::group(
 	], 
 	function() {
 	    Route::get('/loadings', 'LoadingFileController@index')->name('loadings');
+
+	    Route::get('/loading/docs', 'LoadingFileController@importDoc')->name('loading.docs');
+	    Route::get('/loading/action-log', 'LoadingFileController@importActionLog')->name('loading.action-log');
+	    Route::get('/loading/action-log-name', 'LoadingFileController@importActionLogName')->name('loading.action-log-name');
+	    Route::get('/loading/acc-data', 'LoadingFileController@importAccData')->name('loading.acc-data');
+	    Route::get('/loading/acc-data-name', 'LoadingFileController@importAccDataName')->name('loading.acc-data-name');
+	    Route::get('/loading/compagnie', 'LoadingFileController@importCompagnie')->name('loading.compagnie');
+	    Route::get('/loading/company-grid-field', 'LoadingFileController@importCompanyGridField')->name('loading.company-grid-field');
+	    Route::get('/loading/doc-data', 'LoadingFileController@importDataDoc')->name('loading.doc-data');
+	    Route::get('/loading/doc-attachment', 'LoadingFileController@importDocAttachment')->name('loading.doc-attachment');
+	    Route::get('/loading/doc-data-name', 'LoadingFileController@importDocDataName')->name('loading.doc-data-name');
+
+
+	    Route::post('/loading/docs', 'LoadingFileController@importDoc')->name('loading.docs');
+	    Route::post('/loading/action-log', 'LoadingFileController@importActionLog')->name('loading.action-log');
+	    Route::post('/loading/action-log-name', 'LoadingFileController@importActionLogName')->name('loading.action-log-name');
+	    Route::post('/loading/acc-data', 'LoadingFileController@importAccData')->name('loading.acc-data');
+	    Route::post('/loading/acc-data-name', 'LoadingFileController@importAccDataName')->name('loading.acc-data-name');
+	    Route::post('/loading/compagnie', 'LoadingFileController@importCompagnie')->name('loading.compagnie');
+	    Route::post('/loading/company-grid-field', 'LoadingFileController@importCompanyGridField')->name('loading.company-grid-field');
+	    Route::post('/loading/doc-data', 'LoadingFileController@importDataDoc')->name('loading.doc-data');
+	    Route::post('/loading/doc-attachment', 'LoadingFileController@importDocAttachment')->name('loading.doc-attachment');
+	    Route::post('/loading/doc-data-name', 'LoadingFileController@importDocDataName')->name('loading.doc-data-name');
+
+
+
+	    Route::get('/imports', 'LoadingFileController@imports')->name('imports');
+	    Route::get('/export/test', 'LoadingFileController@imports')->name('export.test');
+	    Route::post('/import/test', 'LoadingFileController@importTest')->name('import.test');
+
+	    
 	}
 );
