@@ -12,12 +12,12 @@
 		<div class="left-content">
 			<div>
 			  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
-			  	Détails du comptes N°: 00011
+			  {{__('Détails du comptes N°:')}}{{  $account['account']->code}}
 			  </h2>
-			  
+
 			</div>
 		</div>
-		
+
 	</div>
 	<!-- /breadcrumb -->
 @endsection
@@ -51,12 +51,12 @@
 <script src="{{URL::asset('assets/js/index.js')}}"></script>
 <script src="{{URL::asset('assets/js/jquery.vmap.sampledata.js')}}"></script>
 <!-- Select2 -->
-<script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>	
+<script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
 <!-- form-element -->
 <script src="{{URL::asset('assets/js/form-elements.js')}}"></script>
 <!-- TEST -->
 <script type="text/javascript">
-	
+
 	var account = @json($account);
 	$(document).ready(function(){
 		console.log('account',account);

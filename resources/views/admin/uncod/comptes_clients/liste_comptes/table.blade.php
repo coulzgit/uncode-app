@@ -62,7 +62,7 @@
 	                                                <span class="label label-default">{{__('actif')}}</span>
 	                                        @endif
 	                                        </td>
-										<td class="center">
+										<td class="">
 											<a title="{{__('Détails du compte')}}" href="{{route('accounts.show',['account_id'=>$item['account']->id ,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-primary">
 
 												<i class="las la-search"></i>
@@ -78,11 +78,11 @@
 											</a>
 											<a title="{{__('Liste utilisateur')}}" href="{{route('accounts.users',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-warning">
 												<i class="las la-users"></i>
-											</a>	
+											</a>
 											<a title="{{__('Supprimer le compte')}}" href="#" class="btn btn-sm btn-danger">
 												<i class="las la-trash"></i>
 											</a>
-											
+
 										</td>
 									</tr>
                                 @endforeach

@@ -21,7 +21,7 @@
 			  <!-- <p class="mg-b-0">Sales monitoring dashboard template.</p> -->
 			</div>
 		</div>
-		
+
 	</div>
 	<!-- /breadcrumb -->
 @endsection
@@ -29,7 +29,7 @@
 
 @include('admin.uncod.users.add.form')
 
-				
+
 			</div>
 			<!-- /Container -->
 		</div>
@@ -59,7 +59,7 @@
 
 
 <!--NEW: Select2 -->
-<script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>	
+<script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/jquery.maskedinput/jquery.maskedinput.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/spectrum-colorpicker/spectrum.js')}}"></script>
@@ -70,7 +70,7 @@
 <!-- TEST -->
 <script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
 <script type="text/javascript">
-	
+
 	var roles = @json($roles);
 	var account = @json($account);
 	$(document).ready(function(){
@@ -78,8 +78,34 @@
 		console.log('account',account);
 	});
 	function createUser(){
-        //Format data voir Trello
-        var data ={};
+        var account_id =account['id'];
+        var user_name = $('#user_name').val();
+        var role_id = $('#role_id').val();
+        var prenom = $('#prenom').val();
+        var nom = $('#nom').val();
+        var account_owner ="NON";//$('#account_owner').val();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var confirm_password = $('#confirm_password').val();
+        var photo = $('#photo').val();
+
+        // if($('#account_owner').hasClass('on')){
+        //   statut='ON';
+        // }else{
+        //   statut='OFF';
+        // }
+        var data ={
+              'account_id' : account_id,
+              'user_name' : user_name,
+              'prenom' : prenom,
+              'nom' : nom,
+              'account_owner' : account_owner,
+              'email' : email,
+              'password' : password,
+              'confirm_password' : confirm_password,
+              'photo':photo,
+              'role_id':role_id,
+        };
         console.log('data',data);
         //sendNewUserData(data);
   	}
