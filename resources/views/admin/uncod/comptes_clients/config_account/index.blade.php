@@ -77,7 +77,7 @@
 	});
 </script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     function editConfig(){
                 var account_id = $('#account_id').val();
                 var app_name = $('#app_name').val();
@@ -125,6 +125,6 @@ function sendAccountConfig(data){
           }
         });
     }
-</script>
+</script> --}}
 
 @endsection

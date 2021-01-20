@@ -21,7 +21,7 @@
 			  <!-- <p class="mg-b-0">Sales monitoring dashboard template.</p> -->
 			</div>
 		</div>
-		
+
 	</div>
 	<!-- /breadcrumb -->
 @endsection
@@ -29,7 +29,7 @@
 
 @include('admin.uncod.comptes_clients.add_user.form_add')
 
-				
+
 			</div>
 			<!-- /Container -->
 		</div>
@@ -59,7 +59,7 @@
 
 
 <!--NEW: Select2 -->
-<script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>	
+<script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/jquery.maskedinput/jquery.maskedinput.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/spectrum-colorpicker/spectrum.js')}}"></script>
@@ -70,14 +70,56 @@
 <!-- TEST -->
 <script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
 <script type="text/javascript">
-	
+
 	var roles = @json($roles);
 	$(document).ready(function(){
 		console.log('roles',roles);
 
 	});
 </script>
+<script type="text/javascript">
+    function AddUser(){
+                var licence_id = $('#licence_id').val();
+                var statut = $('#statut').val();
+                if($('#statut').hasClass('on')){
+                  statut='ON';
+                }else{
+                  statut='OFF';
+                }
+                var data ={
+                       'statut':statut,
+                       'licence_id':licence_id
+                 };
+                console.log('data',data);
+                // sendNewAccountData(data);
+    }
 
+function sendEditAccount(data){
+        $.ajaxSetup({
+          headers:{
+            'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
+          }
+        });
+        $.ajax({
+          url:"{{route('accounts.create', ['locale'=>app()-> getLocale()])}}",
+          method:'POST',
+          data:data,
+          dataType: 'json',
+          encode  : true,
+          success:function(result){
+
+            if(result["responseCode"] === 200){
+            alert('success');
+            }else if(result["responseCode"] === 404){
+                alert('failed');
+            }
+          },
+          error:function(result){
+            alert('failed');
+          }
+        });
+    }
+</script>
 
 
 

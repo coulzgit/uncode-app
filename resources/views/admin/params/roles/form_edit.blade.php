@@ -41,7 +41,7 @@
                                 {{__('Quels sont les permission souhaiteriez vous donner avec ce rôle')}}
                             </label>
                         </div>
-                        <div class="col-md-8 mg-t-5 mg-md-t-0 d-sm-flex">
+                        <div class="col-md-10 mg-t-8 d-sm-flex">
                             @foreach($permission as $value)
                             <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
                                 <div>

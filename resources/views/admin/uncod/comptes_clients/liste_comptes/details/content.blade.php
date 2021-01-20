@@ -55,16 +55,13 @@
 						<h6 class="price">
 							{{__('Nombre de projet:') }}
 							<span style="color: #adadad" class="h6 ml-2">{{ count($account['projets']) }}</span>
-							{{__('Nombre d\'utilisateur:')}}
-							<span style="color: #adadad" class="h6 ml-2">3</span>
+
 						</h6>
-						<h6 class="price">
-							{{__('Nombre de projet:')}}
-							<span style="color: #adadad" class="h6 ml-2">5</span>
-						</h6>
+
 					</div>
 				</div>
-			</div>
+            </div>
+            
 		</div>
 	</div>
 </div>
