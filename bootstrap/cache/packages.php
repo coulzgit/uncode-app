@@ -89,4 +89,15 @@
       0 => 'Spatie\\Permission\\PermissionServiceProvider',
     ),
   ),
+  'sukohi/fluent-csv' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Sukohi\\FluentCsv\\FluentCsvServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'FluentCsv' => 'Sukohi\\FluentCsv\\Facades\\FluentCsv',
+    ),
+  ),
 );

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "752d984510478600755119045d07b573",
+    "content-hash": "2edc7b625ff33b17c72a1c77b44453d2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1788,16 +1788,16 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.5.1",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "353f66d7555d8a90781f6f5e7091932f9a4250aa"
+                "reference": "3b9dff8aaf7323590c1d2e443db701eb1f9aa0d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/353f66d7555d8a90781f6f5e7091932f9a4250aa",
-                "reference": "353f66d7555d8a90781f6f5e7091932f9a4250aa",
+                "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/3b9dff8aaf7323590c1d2e443db701eb1f9aa0d3",
+                "reference": "3b9dff8aaf7323590c1d2e443db701eb1f9aa0d3",
                 "shasum": ""
             },
             "require": {
@@ -1805,8 +1805,9 @@
                 "php": "^7.2 || ^8.0"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.12.36",
-                "phpunit/phpunit": "^8.5.8"
+                "friendsofphp/php-cs-fixer": "^2.18",
+                "phpstan/phpstan": "^0.12.68",
+                "phpunit/phpunit": "^8.5.8 || ^9.3"
             },
             "type": "library",
             "autoload": {
@@ -1827,7 +1828,7 @@
             "description": "Mime-type detection for Flysystem",
             "support": {
                 "issues": "https://github.com/thephpleague/mime-type-detection/issues",
-                "source": "https://github.com/thephpleague/mime-type-detection/tree/1.5.1"
+                "source": "https://github.com/thephpleague/mime-type-detection/tree/1.7.0"
             },
             "funding": [
                 {
@@ -1839,7 +1840,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-18T11:50:25+00:00"
+            "time": "2021-01-18T20:58:21+00:00"
         },
         {
             "name": "maatwebsite/excel",
@@ -3069,16 +3070,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.10.5",
+            "version": "v0.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "7c710551d4a2653afa259c544508dc18a9098956"
+                "reference": "6f990c19f91729de8b31e639d6e204ea59f19cf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/7c710551d4a2653afa259c544508dc18a9098956",
-                "reference": "7c710551d4a2653afa259c544508dc18a9098956",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/6f990c19f91729de8b31e639d6e204ea59f19cf3",
+                "reference": "6f990c19f91729de8b31e639d6e204ea59f19cf3",
                 "shasum": ""
             },
             "require": {
@@ -3107,7 +3108,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.10.x-dev"
+                    "dev-main": "0.10.x-dev"
                 }
             },
             "autoload": {
@@ -3139,9 +3140,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.10.5"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.10.6"
             },
-            "time": "2020-12-04T02:51:30+00:00"
+            "time": "2021-01-18T15:53:43+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -3429,6 +3430,97 @@
                 }
             ],
             "time": "2020-11-09T14:08:36+00:00"
+        },
+        {
+            "name": "sukohi/csv-validator",
+            "version": "3.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SUKOHI/CsvValidator.git",
+                "reference": "72b020b474ddf989ead707a5fd34db2b6e576d04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SUKOHI/CsvValidator/zipball/72b020b474ddf989ead707a5fd34db2b6e576d04",
+                "reference": "72b020b474ddf989ead707a5fd34db2b6e576d04",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.7|^6.0|^7.0|^8.0",
+                "sukohi/fluent-csv": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sukohi\\CsvValidator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sukohi",
+                    "email": "capilano.sukohi@gmail.com"
+                }
+            ],
+            "description": "A Laravel package that allows you to validate csv data.",
+            "support": {
+                "issues": "https://github.com/SUKOHI/CsvValidator/issues",
+                "source": "https://github.com/SUKOHI/CsvValidator/tree/3.0.4"
+            },
+            "time": "2020-10-02T00:32:14+00:00"
+        },
+        {
+            "name": "sukohi/fluent-csv",
+            "version": "3.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SUKOHI/FluentCsv.git",
+                "reference": "4cacfacf06dcf7685960dd46a39d00bb238d8bec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SUKOHI/FluentCsv/zipball/4cacfacf06dcf7685960dd46a39d00bb238d8bec",
+                "reference": "4cacfacf06dcf7685960dd46a39d00bb238d8bec",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.7|^6.0|^7.0|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Sukohi\\FluentCsv\\FluentCsvServiceProvider"
+                    ],
+                    "aliases": {
+                        "FluentCsv": "Sukohi\\FluentCsv\\Facades\\FluentCsv"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sukohi\\FluentCsv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sukohi",
+                    "email": "capilano.sukohi@gmail.com"
+                }
+            ],
+            "description": "A Laravel package to generate or save csv file with encoding like SJIS-win.",
+            "support": {
+                "issues": "https://github.com/SUKOHI/FluentCsv/issues",
+                "source": "https://github.com/SUKOHI/FluentCsv/tree/3.0.5"
+            },
+            "time": "2020-09-25T21:17:40+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7169,16 +7261,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.13",
+            "version": "8.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "8e86be391a58104ef86037ba8a846524528d784e"
+                "reference": "c25f79895d27b6ecd5abfa63de1606b786a461a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8e86be391a58104ef86037ba8a846524528d784e",
-                "reference": "8e86be391a58104ef86037ba8a846524528d784e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c25f79895d27b6ecd5abfa63de1606b786a461a3",
+                "reference": "c25f79895d27b6ecd5abfa63de1606b786a461a3",
                 "shasum": ""
             },
             "require": {
@@ -7250,7 +7342,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.13"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/8.5.14"
             },
             "funding": [
                 {
@@ -7262,7 +7354,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-01T04:53:52+00:00"
+            "time": "2021-01-17T07:37:30+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

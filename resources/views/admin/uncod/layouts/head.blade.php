@@ -18,3 +18,8 @@
 <link href="{{URL::asset('assets/css/style-dark.css')}}" rel="stylesheet">
 <!---Skinmodes css-->
 <link href="{{URL::asset('assets/css/skin-modes.css')}}" rel="stylesheet" />
+<style type="text/css">
+	.my_spinner{
+		display: none;
+	}
+</style>

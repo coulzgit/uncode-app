@@ -63,6 +63,10 @@ class AddFkToMyTabsTable extends Migration
         Schema::table('ip_line_items', function (Blueprint $table) {
                 $table->foreignId('ID_DOC')->nullable()->constrained('docs');
         });
+        // // RELATION TABLE IP_LINE_ITEM_PARAMS
+        Schema::table('ip_line_item_params', function (Blueprint $table) {
+                $table->foreignId('ip_line_item_id')->nullable()->constrained('ip_line_items');
+        });
         // // RELATION TABLE ACCOUNTS
         Schema::table('accounts', function (Blueprint $table) {
                 $table->foreignId('licence_id')->nullable()->constrained('licences');

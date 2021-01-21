@@ -902,5 +902,23 @@ class DatabaseSeeder extends Seeder
                 'stamp_uid'=>'Administrateur UNCODE '
             ]),   
         ];
+        // TABLE TEST
+        [
+            App\Models\Test::create([
+                'project_id'=>1,
+                'account_id'=>2,
+                'name'=>'test1'
+            ]),
+            App\Models\Test::create([
+                'project_id'=>3,
+                'account_id'=>1,
+                'name'=>'test2'
+            ]),
+            App\Models\Test::create([
+                'project_id'=>1,
+                'account_id'=>1,
+                'name'=>'test3'
+            ]),
+        ];
     }
 }

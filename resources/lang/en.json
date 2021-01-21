@@ -134,10 +134,66 @@
     "Choisir une image": "Choose an image",
     "Feuilleter": "Browse",
     "Les détails de l'utilisateur N°": "Details of user N°",
-    "Les utilisateurs de ce compte": "Users of this account"
+    "Les utilisateurs de ce compte": "Users of this account",
 
 
 
+    "Affichage de factures":"Viewing invoices",
+    "Configuration des projets":"Projects configuration",
+    "Nouveau projet":"New project",
+    "Liste des projets":"List of projects",
+    "Chargement de données":"Loading data",
+    "Liste des projets":"List of projects ",
+    "Désignation":"Designation",
+    "Nom du projet":"Name of the project",
+    "Saisir le nom du projet":"Enter the project name",
+    "Sélectionner":"Select",
+    "Veuiller saisir les données du projet":"Please enter the project data",
+    "Echec":"Failed",
+    "Succès":"Success",
+    "Détails du projet":"Project details",
+    "Retour":"Cancel",
+    "Nom du projet":"Name of project",
+    "Compte":"Account",
+    "Date de création":"Creation date",
+    "Crée par":"Created by",
+    "Nombre de documents":"Number of documents",
+    "Modifier le projet":"Edit project",
+    "Supprimer le projet":"Delete project",
+    
+    "Projet":"Project",
+    "Veuiller sélectionner un projet":"Please select a project",
+    "TABLE DOCS":"DOCS TABLE",
+    "NOTE: Veuiller bien formater votre fichier (.CSV)":"NOTE: Please format your file (.CSV)",
+    "Comment formater mon fichier csv?":"How do I format my csv file?",
+    "Charger":"Load",
+    "Choisir un fichier":"Choice a file",
+    "Chargement du fichier doc(.xlsx, .csv)":"Loading the doc file (.xlsx, .csv)",
+    
+    "Chargement du fichier acc_data_name(.xlsx, .csv)":"Loading the acc_data_name file (.xlsx, .csv)",
+    "Chargement du fichier acc_data(.xlsx, .csv)":"Loading the acc_data file (.xlsx, .csv)",
+    "Chargement du fichier action_log_name(.xlsx, .csv)":"Loading the action_log_name file (.xlsx, .csv)",
+    "Chargement du fichier action_log(.xlsx, .csv)":"Loading the action_log file (.xlsx, .csv)",
+    "Chargement du fichier compagnie(.xlsx, .csv)":"Loading the compagnie file (.xlsx, .csv)",
+    "Chargement du fichier company_grid_field(.xlsx, .csv)":"Loading the company_grid_field file (.xlsx, .csv)",
+    "Chargement du fichier doc_attachment(.xlsx, .csv)":"Loading the doc_attachment file (.xlsx, .csv)",
+    "Chargement du fichier doc_data_name(.xlsx, .csv)":"Loading the doc_data_name file (.xlsx, .csv)",
+    "Chargement du fichier doc_data(.xlsx, .csv)":"Loading the doc_data file (.xlsx, .csv)",
+   
+    "Chargement du fichier doc_file(.xlsx, .csv)":"Loading the doc_file file (.xlsx, .csv)",
+    "Chargement du fichier ip_line_item(.xlsx, .csv)":"Loading the ip_line_item file (.xlsx, .csv)",
+    "Chargement du fichier ip_line_item_param(.xlsx, .csv)":"Loading the ip_line_item_param file (.xlsx, .csv)",
+    "Chargement du fichier invoice_type(.xlsx, .csv)":"Loading the invoice_type file (.xlsx, .csv)",
+   
 
-
+    "RESULTAT":"RESULT",
+    "Chargement réussie":"Successful loading",
+    "Chargement échoué":"Failed loading",
+    "Ligne":"Row",
+    "Colonne":"Column",
+    "Erreurs":"Errors",
+    "Valeurs":"Values",
+    "Chargement":"Loading",
+    "Projet obligatoire":"Project required",
+    "Fichier obligatoire":"File required"
 }

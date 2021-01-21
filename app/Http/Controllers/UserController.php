@@ -75,8 +75,9 @@ class UserController extends Controller
         }
 
         $roles = Role::pluck('name','name')->all();
+        $account_has_owner=User::where('account_owner',1)->exists();
         
-        return view('admin.uncod.users.add.index',compact('roles','account'));
+        return view('admin.uncod.users.add.index',compact('roles','account','account_has_owner'));
     }
     public function store(Request $request)
     {
@@ -138,7 +139,8 @@ class UserController extends Controller
         $account = Account::find($user->account_id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-        return view('admin.uncod.users.edit.index',compact('user','userRole','roles','account'));
+        $account_has_owner=User::where('account_owner',1)->exists();
+        return view('admin.uncod.users.edit.index',compact('user','userRole','roles','account','account_has_owner'));
     }
     public function update(Request $request, $id)
     {
