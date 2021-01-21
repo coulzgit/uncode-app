@@ -30,6 +30,11 @@ class TestImport implements ToModel, WithStartRow,WithValidation
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     use Importable;
+    protected $ID_DOC;
+
+    public function __construct($ID_DOC) {
+        $this->ID_DOC = $ID_DOC;
+    }
 
     public function model(array $row)
     {

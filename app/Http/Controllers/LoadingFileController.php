@@ -16,6 +16,10 @@ use App\Imports\DataDocImport;
 use App\Imports\DocDataNameImport;
 use App\Imports\AccDataImport;
 use App\Imports\AccDataNameImport;
+use App\Imports\IpLineItemImport;
+use App\Imports\IpLineItemParamImport;
+use App\Imports\InvoiceTypeImport;
+use App\Imports\DocFileImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Transactions\TransactionHandler;
 use Sukohi\CsvValidator\Rules\Csv;
@@ -409,7 +413,6 @@ class LoadingFileController extends Controller
     public function importDocAttachment(Request $request) 
     {
     	if ($request->method()=='GET') {
-    		$projets = Projet::with('account')->get();
         	return view('admin.uncod.loadings.doc_attachments.index');
     	}
 
@@ -450,8 +453,10 @@ class LoadingFileController extends Controller
 		     }
 		} 
     }
-    public function importTest() 
-    {
+    public function importIpLineItem(Request $request){
+    	if ($request->method()=='GET') {
+        	return view('admin.uncod.loadings.ip_line_items.index');
+    	}
     	ini_set('memory_limit', '2028MB');
         try {
         	$validator = Validator::make($request->all(), [
@@ -461,8 +466,8 @@ class LoadingFileController extends Controller
             if (!$validator->passes()) {
                 return redirect()->back()->with('error_not_file','error_not_file');
             }
-        	$acc_data_id=1;
-        	Excel::import(new AccDataNameImport($acc_data_id), request()->file('file'));
+        	$ID_DOC=1;
+        	Excel::import(new IpLineItemImport($ID_DOC), request()->file('file'));
         	return redirect()->back()->with('succes','succes');
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
 		     $failures = $e->failures();
@@ -485,6 +490,153 @@ class LoadingFileController extends Controller
 		     }
 		} 
     }
+	public function importIpLineItemParam(Request $request){
+		if ($request->method()=='GET') {
+        	return view('admin.uncod.loadings.ip_line_item_params.index');
+    	}
+		ini_set('memory_limit', '2028MB');
+        try {
+        	$validator = Validator::make($request->all(), [
+                    'file' => 'required|mimes:csv,xlsx',
+                ]
+            );
+            if (!$validator->passes()) {
+                return redirect()->back()->with('error_not_file','error_not_file');
+            }
+        	$ip_line_item_id=1;
+        	Excel::import(new IpLineItemParamImport($ip_line_item_id), request()->file('file'));
+        	return redirect()->back()->with('succes','succes');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+		     $failures = $e->failures();
+		     
+		     foreach ($failures as $failure) {
+		         $row=$failure->row();
+		         $attribute=$failure->attribute(); 
+		         $errors=$failure->errors(); // Actual error messages from Laravel validator
+		         $values=$failure->values(); // The values of the row that has failed.
+		         Log::info("My Error: row =".$row);
+		         Log::info("My Error: attribute =".$row);
+		         Log::info("My Error: errors=".json_encode($errors));
+		         Log::info("My Error: values=".json_encode($values));
+		          return redirect()->back()->with([
+		         	'row'=>$row,
+		         	'attribute'=>$attribute,
+		         	'errors'=>$errors,
+		         	'values'=>$values
+		         ]);
+		     }
+		} 
+	}
+	public function importInvoiceType(Request $request){
+		if ($request->method()=='GET') {
+        	return view('admin.uncod.loadings.invoice_types.index');
+    	}
+		ini_set('memory_limit', '2028MB');
+        try {
+        	$validator = Validator::make($request->all(), [
+                    'file' => 'required|mimes:csv,xlsx',
+                ]
+            );
+            if (!$validator->passes()) {
+                return redirect()->back()->with('error_not_file','error_not_file');
+            }
+        	$compagnie_id=1;
+        	Excel::import(new InvoiceTypeImport($compagnie_id), request()->file('file'));
+        	return redirect()->back()->with('succes','succes');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+		     $failures = $e->failures();
+		     
+		     foreach ($failures as $failure) {
+		         $row=$failure->row();
+		         $attribute=$failure->attribute(); 
+		         $errors=$failure->errors(); // Actual error messages from Laravel validator
+		         $values=$failure->values(); // The values of the row that has failed.
+		         Log::info("My Error: row =".$row);
+		         Log::info("My Error: attribute =".$row);
+		         Log::info("My Error: errors=".json_encode($errors));
+		         Log::info("My Error: values=".json_encode($values));
+		          return redirect()->back()->with([
+		         	'row'=>$row,
+		         	'attribute'=>$attribute,
+		         	'errors'=>$errors,
+		         	'values'=>$values
+		         ]);
+		     }
+		} 
+	}
+	public function importDocFile(Request $request){
+		if ($request->method()=='GET') {
+        	return view('admin.uncod.loadings.doc_files.index');
+    	}
+		ini_set('memory_limit', '2028MB');
+        try {
+        	$validator = Validator::make($request->all(), [
+                    'file' => 'required|mimes:csv,xlsx',
+                ]
+            );
+            if (!$validator->passes()) {
+                return redirect()->back()->with('error_not_file','error_not_file');
+            }
+        	$ID_DOC=1;
+        	Excel::import(new DocFileImport($ID_DOC), request()->file('file'));
+        	return redirect()->back()->with('succes','succes');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+		     $failures = $e->failures();
+		     
+		     foreach ($failures as $failure) {
+		         $row=$failure->row();
+		         $attribute=$failure->attribute(); 
+		         $errors=$failure->errors(); // Actual error messages from Laravel validator
+		         $values=$failure->values(); // The values of the row that has failed.
+		         Log::info("My Error: row =".$row);
+		         Log::info("My Error: attribute =".$row);
+		         Log::info("My Error: errors=".json_encode($errors));
+		         Log::info("My Error: values=".json_encode($values));
+		          return redirect()->back()->with([
+		         	'row'=>$row,
+		         	'attribute'=>$attribute,
+		         	'errors'=>$errors,
+		         	'values'=>$values
+		         ]);
+		     }
+		} 
+	}
+    public function importTest() 
+    {
+    	ini_set('memory_limit', '2028MB');
+        try {
+        	$validator = Validator::make($request->all(), [
+                    'file' => 'required|mimes:csv,xlsx',
+                ]
+            );
+            if (!$validator->passes()) {
+                return redirect()->back()->with('error_not_file','error_not_file');
+            }
+        	$ID_DOC=1;
+        	Excel::import(new IpLineItemImport($ID_DOC), request()->file('file'));
+        	return redirect()->back()->with('succes','succes');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+		     $failures = $e->failures();
+		     
+		     foreach ($failures as $failure) {
+		         $row=$failure->row();
+		         $attribute=$failure->attribute(); 
+		         $errors=$failure->errors(); // Actual error messages from Laravel validator
+		         $values=$failure->values(); // The values of the row that has failed.
+		         Log::info("My Error: row =".$row);
+		         Log::info("My Error: attribute =".$row);
+		         Log::info("My Error: errors=".json_encode($errors));
+		         Log::info("My Error: values=".json_encode($values));
+		          return redirect()->back()->with([
+		         	'row'=>$row,
+		         	'attribute'=>$attribute,
+		         	'errors'=>$errors,
+		         	'values'=>$values
+		         ]);
+		     }
+		} 
+    }
+
     
     
 

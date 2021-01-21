@@ -101,6 +101,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property integer $ID_DOC
  * @property Doc $doc
+ * @property IpLineItemParam[] $ipLineItemParams
  */
 class IpLineItem extends Model
 {
@@ -122,5 +123,13 @@ class IpLineItem extends Model
     public function doc()
     {
         return $this->belongsTo('App\Models\Doc', 'ID_DOC');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ipLineItemParams()
+    {
+        return $this->hasMany('App\Models\IpLineItemParam');
     }
 }

@@ -12,7 +12,7 @@
 		<div class="left-content">
 			<div>
 			  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
-			  	Mise à jour du compte client n° {{ $account->code }}
+			  	{{__('Mise à jour du compte client n°') }} {{ $account->code }}
 			  </h2>
 
 			</div>
@@ -70,12 +70,12 @@
 
 <script type="text/javascript">
     function editAccount(){
-        var licence_id = $('#licence_id').val();
+                var licence_id = $('#licence_id').val();
                 var statut = $('#statut').val();
-                if($('#statut').hasClass('off')){
-                statut='OFF';
+                if($('#statut').hasClass('on')){
+                  statut='ON';
                 }else{
-                statut='ON';
+                  statut='OFF';
                 }
                 var data ={
                        'statut':statut,

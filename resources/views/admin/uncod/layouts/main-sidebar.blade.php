@@ -192,6 +192,26 @@
 								{{__('Acc data name')}}
 							</a>
 						</li>
+						<li>
+							<a class="sub-slide-item" href="{{route('loading.ip-line-item',app()->getLocale())}}">
+								{{__('Ip line item')}}
+							</a>
+						</li>
+						<li>
+							<a class="sub-slide-item" href="{{route('loading.ip-line-item-param',app()->getLocale())}}">
+								{{__('Ip line item param')}}
+							</a>
+						</li>
+						<li>
+							<a class="sub-slide-item" href="{{route('loading.invoice-type',app()->getLocale())}}">
+								{{__('Invoice type')}}
+							</a>
+						</li>
+						<li>
+							<a class="sub-slide-item" href="{{route('loading.doc-file',app()->getLocale())}}">
+								{{__('Doc file')}}
+							</a>
+						</li>
 
 					</li>
 				</ul>

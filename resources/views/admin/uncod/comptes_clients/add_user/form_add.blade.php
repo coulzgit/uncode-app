@@ -5,7 +5,7 @@
 				<div class="main-content-label mg-b-5">
 					{{__('Veuiller saisir les données de l\'utilisateur')}}
 				</div>
-				<p style="color:red" class="mg-b-20">
+				<p style="color:blue" class="mg-b-20">
 					{{__('Note: Tous les champs sont obligatoires')}}
 				</p>
 				<div class="pd-30 pd-sm-40 bg-gray-200">
@@ -16,7 +16,7 @@
 						</label>
 						</div>
 						<div class="col-md-8 mg-t-5 mg-md-t-0">
-							<input disabled="" value="0011" class="form-control" placeholder="{{__('Saisir le numéro du compte')}}" type="text">
+							<input disabled="" value="{{ $account->code }}" class="form-control" placeholder="{{__('Saisir le numéro du compte')}}" type="text" id="licence_id" >
 						</div>
 					</div>
 
@@ -81,7 +81,7 @@
 					<div class="row row-xs align-items-center mg-b-20">
 						<div class="col-md-4">
 							<label class="form-label mg-b-0">
-								
+
 								{{__('Email')}}
 							</label>
 						</div>
@@ -94,37 +94,17 @@
 					<div class="row row-xs align-items-center mg-b-20">
 						<div class="col-md-4">
 							<label class="form-label mg-b-0">
-								
+
 								{{__('Role(s)')}}
 							</label>
 						</div>
 						<div class="col-md-8 mg-t-5 mg-md-t-0">
-							
+
 							<div class="row row-sm">
 								<div class="col-lg-6 mg-b-20 mg-lg-b-0">
-									
-									<select class="form-control select2" multiple="multiple">
-										<option value="Firefox">
-											role1
-										</option>
-										<option value="Chrome">
-											role2
-										</option>
-										<option value="Safari">
-											role3
-										</option>
-										<option value="Firefox">
-											role4
-										</option>
-										<option value="Chrome">
-											role5
-										</option>
-										<option value="Safari">
-											role6
-										</option>
-										
-									</select>
-								</div>			
+                                    
+
+								</div>
 							</div>
 						</div>
 					</div>
@@ -150,7 +130,7 @@
 					<button class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">
 						{{__('Sauvegarder')}}
 					</button>
-					
+
 					<a href="{{route('accounts',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">{{__('Annuler')}}</a>
 				</div>
 			</div>

@@ -146,6 +146,10 @@ Route::group(
 	    Route::get('/loading/doc-data', 'LoadingFileController@importDataDoc')->name('loading.doc-data');
 	    Route::get('/loading/doc-attachment', 'LoadingFileController@importDocAttachment')->name('loading.doc-attachment');
 	    Route::get('/loading/doc-data-name', 'LoadingFileController@importDocDataName')->name('loading.doc-data-name');
+	    Route::get('/loading/ip-line-item', 'LoadingFileController@importIpLineItem')->name('loading.ip-line-item');
+	    Route::get('/loading/ip-line-item-param', 'LoadingFileController@importIpLineItemParam')->name('loading.ip-line-item-param');
+	    Route::get('/loading/invoice-type', 'LoadingFileController@importInvoiceType')->name('loading.invoice-type');
+	    Route::get('/loading/doc-file', 'LoadingFileController@importDocFile')->name('loading.doc-file');
 
 
 	    Route::post('/loading/docs', 'LoadingFileController@importDoc')->name('loading.docs');
@@ -159,7 +163,10 @@ Route::group(
 	    Route::post('/loading/doc-attachment', 'LoadingFileController@importDocAttachment')->name('loading.doc-attachment');
 	    Route::post('/loading/doc-data-name', 'LoadingFileController@importDocDataName')->name('loading.doc-data-name');
 
-
+	    Route::post('/loading/ip-line-item', 'LoadingFileController@importIpLineItem')->name('loading.ip-line-item');
+	    Route::post('/loading/ip-line-item-param', 'LoadingFileController@importIpLineItemParam')->name('loading.ip-line-item-param');
+	    Route::post('/loading/invoice-type', 'LoadingFileController@importInvoiceType')->name('loading.invoice-type');
+	    Route::post('/loading/doc-file', 'LoadingFileController@importDocFile')->name('loading.doc-file');
 
 	    Route::get('/imports', 'LoadingFileController@imports')->name('imports');
 	    Route::get('/export/test', 'LoadingFileController@imports')->name('export.test');
