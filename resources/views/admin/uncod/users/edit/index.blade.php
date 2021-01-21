@@ -86,14 +86,13 @@
 	function editUser(){
         var account_id =account['id'];
         var user_name = $('#user_name').val();
-        var role_id = $('#role_id').val();
+        var roles = $('#roles').val();
         var prenom = $('#prenom').val();
         var nom = $('#nom').val();
         var account_owner ="NON";//$('#account_owner').val();
         var email = $('#email').val();
         var password = $('#password').val();
         var confirm_password = $('#confirm_password').val();
-        var photo = $('#photo').val();
 
         var data ={
             'account_id' : account_id,
@@ -104,8 +103,7 @@
               'email' : email,
               'password' : password,
               'confirm_password' : confirm_password,
-              'photo':photo,
-              'role_id':role_id,
+              'roles':roles,
         };
         console.log('data',data);
         //sendUserEditedData(data);

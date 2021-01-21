@@ -20,34 +20,39 @@
                         </div>
                     </div>
 
-                    <div class="row row-xs align-items-center mg-b-20">
-                        <div class="col-md-4">
-                            <label class="form-label mg-b-0">
-                                {{__('Propriétaire du compte ?')}}
-                            </label>
-                        </div>
-                        <div class="col-md-8 mg-t-5 mg-md-t-0">
-                            <div class="row mg-t-10">
+                     @if ($account_has_owner==1)
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-4">
+                                <label class="form-label mg-b-0">
+                                    {{__('Propriétaire du compte ?')}}
+                                </label>
+                            </div>
+                            <div class="col-md-8 mg-t-5 mg-md-t-0" id="account_has_owner">
+                                <div class="row mg-t-10">
+
                                     <div class="col-lg-3">
-                                        <label class="rdiobox" id="account_owner">
-                                            <input name="rdio" type="radio">
+                                        <label class="checkbox" >
+                                            <input id="account_owner" name="account_owner" type="checkbox">
                                             <span>
                                                 {{__('Oui')}}
                                             </span>
                                         </label>
                                     </div>
-                                    <div class="col-lg-3 mg-t-20 mg-lg-t-0">
-                                        <label class="rdiobox">
-                                            <input checked="" name="rdio" type="radio">
-                                            <span>
-                                                {{__('Non')}}
-                                            </span>
-                                        </label>
-                                    </div>
+
+
+                                        {{-- <div class="col-lg-3 mg-t-20 mg-lg-t-0">
+                                            <label class="rdiobox">
+                                                <input checked="" name="account_owner" type="radio">
+                                                <span>
+                                                    {{__('Non')}}
+                                                </span>
+                                            </label>
+                                        </div> --}}
 
                                 </div>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="row row-xs align-items-center mg-b-20">
                         <div class="col-md-4">
                             <label class="form-label mg-b-0">
@@ -132,24 +137,16 @@
                         </div>
                     </div>
 
-                    {{-- <div class="row row-xs align-items-center mg-b-20">
-                        <div class="col-md-4">
-                            <label class="form-label mg-b-0 custom-file-label" for="customFile">{{__('Choisir une image') }}
-                            </label>
-                        </div>
-                        <div class="custom-file col-md-8 mg-t-5 mg-md-t-0">
-                            <input id="photo" class="custom-file-input" id="customFile" type="file">
-                        </div>
-                    </div> --}}
 
-                    <div class="row  row-xs align-items-center mg-b-20" style="margin-left: 220px">
+
+                    {{-- <div class="row  row-xs align-items-center mg-b-20" style="margin-left: 220px">
                         <div class="col-md-8 mg-t-5 mg-md-t-0 ">
                             <div class="custom-file  ">
                                 <label class="custom-file-label form-label mg-b-0" for="customFile">{{__('Choisir une image') }}</label>
                                 <input id="photo" class="custom-file-input" id="customFile" type="file">
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
 
                     <button onclick="editUser()"class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">

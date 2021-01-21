@@ -19,35 +19,39 @@
 							<input disabled="" id="account_id" value="{{ $account->code }}" class="form-control" placeholder="{{__('Saisir le numéro du compte')}}" type="text">
 						</div>
 					</div>
+                    @if ($account_has_owner==1)
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-4">
+                                <label class="form-label mg-b-0">
+                                    {{__('Propriétaire du compte ?')}}
+                                </label>
+                            </div>
+                            <div class="col-md-8 mg-t-5 mg-md-t-0" id="account_has_owner">
+                                <div class="row mg-t-10">
 
-					<div class="row row-xs align-items-center mg-b-20">
-						<div class="col-md-4">
-							<label class="form-label mg-b-0">
-								{{__('Propriétaire du compte ?')}}
-							</label>
-						</div>
-						<div class="col-md-8 mg-t-5 mg-md-t-0">
-							<div class="row mg-t-10">
-									<div class="col-lg-3">
-										<label class="rdiobox" id="account_owner">
-											<input name="rdio" type="radio">
-											<span>
-												{{__('Oui')}}
-											</span>
-										</label>
-									</div>
-									<div class="col-lg-3 mg-t-20 mg-lg-t-0">
-										<label class="rdiobox">
-											<input checked="" name="rdio" type="radio">
-											<span>
-												{{__('Non')}}
-											</span>
-										</label>
-									</div>
+                                    <div class="col-lg-3">
+                                        <label class="checkbox" >
+                                            <input id="account_owner" name="account_owner" type="checkbox">
+                                            <span>
+                                                {{__('Oui')}}
+                                            </span>
+                                        </label>
+                                    </div>
 
-								</div>
-						</div>
-					</div>
+
+                                        {{-- <div class="col-lg-3 mg-t-20 mg-lg-t-0">
+                                            <label class="rdiobox">
+                                                <input checked="" name="account_owner" type="radio">
+                                                <span>
+                                                    {{__('Non')}}
+                                                </span>
+                                            </label>
+                                        </div> --}}
+
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="row row-xs align-items-center mg-b-20">
                         <div class="col-md-4">
                             <label class="form-label mg-b-0">
@@ -103,7 +107,7 @@
 								<div class="col-lg-6 mg-b-20 mg-lg-b-0">
 
 
-                                    <select class="form-control select2 " id="role_id" multiple="multiple">
+                                    <select class="form-control select2 " id="roles" multiple="multiple">
                                         @foreach ($roles as $key => $role)
                                         <option value="{{ $key }}">{{ $role }}</option>
                                         @endforeach
@@ -142,14 +146,14 @@
                         </div>
                     </div> --}}
 
-                    <div class="row  row-xs align-items-center mg-b-20" >
+                    {{-- <div class="row  row-xs align-items-center mg-b-20" >
                         <div class="col-md-8 mg-t-5 mg-md-t-0 "  style="margin-left:310px" >
                             <div class="custom-fil ">
                                 <label class="custom-file-label form-label mg-b-0"   style="" for="customFile">{{__('Choisir une image') }}</label>
                                 <input id="photo" class="custom-file-input" id="customFile" type="file">
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
 
 
