@@ -81,29 +81,52 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
-            ]);
+         $this->validate($request, [
+              'account_id'=>'required|integer',
+              'user_name'=>'required|max:50',
+              'prenom'=>'required|max:50',
+              'nom'=>'required|max:50',
+              'account_owner'=>'required',
+              'email'=>'required|email|unique:users,email',
+              'password'=>'required|same:confirm-password',
+              'roles' => 'required'
+        ]);
+
+        // $this->validate($request, [
+        //     'name' => 'required',
+        //     'email' => 'required|email|unique:users,email',
+        //     'password' => 'required|same:confirm-password',
+        //     'roles' => 'required'
+        //     ]);
+         $validator = Validator::make($request->all(), 
+            [
+              'account_id'=>'required|integer',
+              'user_name'=>'required|max:50',
+              'prenom'=>'required|max:50',
+              'nom'=>'required|max:50',
+              'account_owner'=>'required',
+              'email'=>'required|email|unique:users,email',
+              'password'=>'required|same:confirm-password',
+              'roles' => 'required'
+            ]
+        );
+        if (!$validator->passes()) {
+            return array(
+                'responseCode'=>404,
+                'message'=>'failed',
+                'errors'=>$validator->errors()
+            ) ;
+        }
+
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-         $input['user_name'] = $input['name'];
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
         $message="User created successfully";
-        if(app()->getLocale()=="fr"){
-            $message="Utilisateur crée avec réussie";
-        }
-        if($request->ajax())
-        {
-            return array(
-                'responseCode'=>404,
-                'message'=>$message
-            ) ;
-        }
-        return redirect()->back()->with('message',$message);
+        return array(
+            'responseCode'=>200,
+            'message'=>'succes'
+        ) ;
     }
     public function show(Request $request)
     {
