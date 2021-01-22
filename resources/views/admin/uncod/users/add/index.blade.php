@@ -27,8 +27,9 @@
 @endsection
 @section('content')
 
+<div class="col-lg-12" id="messages">
+</div>
 @include('admin.uncod.users.add.form')
-
 
 			</div>
 			<!-- /Container -->
@@ -80,22 +81,47 @@
 		console.log('account_has_owner',account_has_owner);
 	});
 	function createUser(){
+		var account_owner =0;
         var account_id =account['id'];
         var user_name = $('#user_name').val();
         var roles = $('#roles').val();
         var prenom = $('#prenom').val();
         var nom = $('#nom').val();
-        var account_owner ="NON";//$('#account_owner').val();
         var email = $('#email').val();
         var password = $('#password').val();
         var confirm_password = $('#confirm_password').val();
-        var account_owner = $('#account_owner').val();
-
-        // if($('#account_owner').hasClass('on')){
-        //   statut='ON';
-        // }else{
-        //   statut='OFF';
-        // }
+        if(!account_has_owner){
+        	account_owner=$('#account_owner').is(':checked')?1:0;
+        }
+        $('#user_name').css({'border':''});
+        $('#prenom').css({'border':''});
+        $('#nom').css({'border':''});
+        $('#email').css({'border':''});
+        $('#password').css({'border':''});
+        $('#confirm_password').css({'border':''});
+        $('#roles').css({'border':''});
+        if (!user_name) {
+        	$('#user_name').css({'border':'1px solid red'});
+        	return;
+        }if (!prenom) {
+        	$('#prenom').css({'border':'1px solid red'});
+        	return;
+        }if (!nom) {
+        	$('#nom').css({'border':'1px solid red'});
+        	return;
+        }if (!email) {
+        	$('#email').css({'border':'1px solid red'});
+        	return;
+        }if (!roles.length) {
+        	$('#roles').css({'border':'1px solid red!important'});
+        	return;
+        }if (!password) {
+        	$('#password').css({'border':'1px solid red'});
+        	return;
+        }if (!confirm_password) {
+        	$('#confirm_password').css({'border':'1px solid red'});
+        	return;
+        }
         var data ={
               'account_id' : account_id,
               'user_name' : user_name,
@@ -108,9 +134,12 @@
               'roles':roles,
         };
         console.log('data',data);
-        //sendNewUserData(data);
+        sendNewUserData(data);
   	}
   	function sendNewUserData(data){
+  		$('#message_succes').css({'display':'none'});
+  		$('#user_form_error').css({'display':'none'});
+
 	    $.ajaxSetup({
 	        headers:{
 	          'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
@@ -125,13 +154,15 @@
 	        success:function(result){
 
 	          if(result["responseCode"] === 200){
-	            alert('success');
-	          }else if(result["responseCode"] === 404){
-	              alert('failed');
+	           $('#messages').empty().append(result['html']);
+	          }else if(result["responseCode"] === 422){
+	              console.log("Errors: "+result['errors']);
+	              $('#messages').empty().append(result['html']);
 	          }
 	        },
 	        error:function(result){
 	          alert('failed');
+	          
 	        }
 	    });
   	}

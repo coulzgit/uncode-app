@@ -75,35 +75,46 @@ class UserController extends Controller
         }
 
         $roles = Role::pluck('name','name')->all();
-        $account_has_owner=User::where('account_owner',1)->exists();
+        $account_has_owner=true;
+        $account_has_owner = User::where('account_id',$account_id)
+        ->where('account_owner','=',1)
+        ->exists();
         
         return view('admin.uncod.users.add.index',compact('roles','account','account_has_owner'));
     }
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
-            ]);
+        
+         $validator = Validator::make($request->all(), 
+            [
+              'account_id'=>'required|integer',
+              'user_name'=>'required|max:50',
+              'prenom'=>'required|max:50',
+              'nom'=>'required|max:50',
+              'account_owner'=>'required',
+              'email'=>'required|email|unique:users,email',
+              'password'=>'required|same:confirm_password',
+              'roles' => 'required'
+            ]
+        );
+        if (!$validator->passes()) {
+            $returnHTML = view('admin.uncod.users.add.error_user_form')->with('errors', $validator->errors())->render();
+            return response()->json(array(
+                'responseCode'=>422, 
+                'html'=>$returnHTML)
+            );
+        }
+
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-         $input['user_name'] = $input['name'];
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
         $message="User created successfully";
-        if(app()->getLocale()=="fr"){
-            $message="Utilisateur crée avec réussie";
-        }
-        if($request->ajax())
-        {
-            return array(
-                'responseCode'=>404,
-                'message'=>$message
-            ) ;
-        }
-        return redirect()->back()->with('message',$message);
+        $returnHTML = view('admin.uncod.message_succes')->render();
+        return response()->json(array(
+            'responseCode'=>200, 
+            'html'=>$returnHTML)
+        );
     }
     public function show(Request $request)
     {
@@ -144,12 +155,25 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-        'user_name' => 'required',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'same:confirm-password',
-        'roles' => 'required'
-        ]);
+        $validator = Validator::make($request->all(), 
+            [
+              'user_name'=>'required|max:50',
+              'prenom'=>'required|max:50',
+              'nom'=>'required|max:50',
+              'account_owner'=>'required',
+              'email'=>'required|email|unique:users,email',
+              'password'=>'required|same:confirm_password',
+              'roles' => 'required'
+            ]
+        );
+        if (!$validator->passes()) {
+            $returnHTML = view('admin.uncod.users.add.error_user_form')->with('errors', $validator->errors())->render();
+            return response()->json(array(
+                'responseCode'=>422, 
+                'html'=>$returnHTML)
+            );
+        }
+
         $input = $request->all();
         if(!empty($input['password'])){ 
             $input['password'] = Hash::make($input['password']);
@@ -160,18 +184,12 @@ class UserController extends Controller
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $user->assignRole($request->input('roles'));
-        $message="User updated successfully";
-        if(app()->getLocale()=="fr"){
-            $message="Utilisateur modifié avec succès";
-        }
-        if($request->ajax())
-        {
-            return array(
-                'responseCode'=>404,
-                'message'=>$message
-            ) ;
-        }
-        return redirect()->back()->with('message',$message);
+
+        $returnHTML = view('admin.uncod.message_succes')->render();
+        return response()->json(array(
+            'responseCode'=>200, 
+            'html'=>$returnHTML)
+        );
     }
     public function destroy(Request $request)
     {
