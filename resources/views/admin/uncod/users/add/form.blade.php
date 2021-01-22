@@ -19,7 +19,7 @@
 							<input disabled="" id="account_id" value="{{ $account->code }}" class="form-control" placeholder="{{__('Saisir le numéro du compte')}}" type="text">
 						</div>
 					</div>
-                    @if ($account_has_owner==1)
+                    @if ($account_has_owner==false)
                         <div class="row row-xs align-items-center mg-b-20">
                             <div class="col-md-4">
                                 <label class="form-label mg-b-0">
