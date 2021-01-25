@@ -71,31 +71,62 @@
 <script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
 <script type="text/javascript">
 
-	var roles = @json($roles);
-	var account = @json($account);
-	var user = @json($user);
-	var userRole = @json($userRole);
-
-	$(document).ready(function(){
-		console.log('roles',roles);
-		console.log('account',account);
-		console.log('user',user);
-		console.log('userRole',userRole);
-	});
-
-	function editUser(){
+    var roles = @json($roles);
+    var account = @json($account);
+    var user = @json($user);
+    var userRole = @json($userRole);
+    var account_has_owner = @json($account_has_owner);
+    $(document).ready(function(){
+        console.log('roles',roles);
+        console.log('account',account);
+        console.log('user',user);
+        console.log('userRole',userRole);
+        console.log('account_has_owner',account_has_owner);
+    });
+    function editUser(){
+        var account_owner =0;
         var account_id =account['id'];
         var user_name = $('#user_name').val();
         var roles = $('#roles').val();
         var prenom = $('#prenom').val();
         var nom = $('#nom').val();
-        var account_owner ="NON";//$('#account_owner').val();
         var email = $('#email').val();
         var password = $('#password').val();
         var confirm_password = $('#confirm_password').val();
-
+        if(!account_has_owner){
+            account_owner=$('#account_owner').is(':checked')?1:0;
+        }
+        $('#user_name').css({'border':''});
+        $('#prenom').css({'border':''});
+        $('#nom').css({'border':''});
+        $('#email').css({'border':''});
+        $('#password').css({'border':''});
+        $('#confirm_password').css({'border':''});
+        $('#roles').css({'border':''});
+        if (!user_name) {
+            $('#user_name').css({'border':'1px solid red'});
+            return;
+        }if (!prenom) {
+            $('#prenom').css({'border':'1px solid red'});
+            return;
+        }if (!nom) {
+            $('#nom').css({'border':'1px solid red'});
+            return;
+        }if (!email) {
+            $('#email').css({'border':'1px solid red'});
+            return;
+        }if (!roles.length) {
+            $('#roles').css({'border':'1px solid red!important'});
+            return;
+        }if (!password) {
+            $('#password').css({'border':'1px solid red'});
+            return;
+        }if (!confirm_password) {
+            $('#confirm_password').css({'border':'1px solid red'});
+            return;
+        }
         var data ={
-            'account_id' : account_id,
+              'account_id' : account_id,
               'user_name' : user_name,
               'prenom' : prenom,
               'nom' : nom,
@@ -106,34 +137,38 @@
               'roles':roles,
         };
         console.log('data',data);
-        //sendUserEditedData(data);
-  	}
-  	function sendNewUserData(data){
-	    $.ajaxSetup({
-	        headers:{
-	          'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
-	        }
-	    });
+        sendUserEditedData(data);
+    }
+    function sendUserEditedData(data){
+        $('#message_succes').css({'display':'none'});
+        $('#user_form_error').css({'display':'none'});
+
+        $.ajaxSetup({
+            headers:{
+              'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
+            }
+        });
         $.ajax({
-	        url:"{{route('users.create', ['locale'=>app()-> getLocale()])}}",
-	        method:'POST',
-	        data:data,
-	        dataType: 'json',
-	        encode  : true,
-	        success:function(result){
+            url:"{{route('users.edit', ['locale'=>app()-> getLocale()])}}",
+            method:'POST',
+            data:data,
+            dataType: 'json',
+            encode  : true,
+            success:function(result){
 
-	          if(result["responseCode"] === 200){
-	            alert('success');
-	          }else if(result["responseCode"] === 404){
-	              alert('failed');
-	          }
-	        },
-	        error:function(result){
-	          alert('failed');
-	        }
-	    });
-  	}
+              if(result["responseCode"] === 200){
+               $('#messages').empty().append(result['html']);
+              }else if(result["responseCode"] === 422){
+                  console.log("Errors: "+result['errors']);
+                  $('#messages').empty().append(result['html']);
+              }
+            },
+            error:function(result){
+              alert('failed');
 
+            }
+        });
+    }
 </script>
 
 

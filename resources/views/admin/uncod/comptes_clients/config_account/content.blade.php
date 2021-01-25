@@ -1,4 +1,4 @@
-<form>
+
 <div class="row">
 	<div class="col-lg-12 col-md-12">
 		<div class="card overflow-hidden">
@@ -21,7 +21,7 @@
 								<div class="row col-lg-12">
 
 									<div class="col-lg-5">
-										<input id="account_id'" value=" {{ $account['account']->code }}" readonly="" type="text" class="form-control" name="accot_id" placeholder="Saisir le numéro du compte">
+										<input  value=" {{ $account['account']->code }}" readonly="" type="text" class="form-control" name="accot_id" placeholder="Saisir le numéro du compte">
 									</div>
 
 								</div>
@@ -49,10 +49,18 @@
 									<div class="col-lg-6">
 										<div class="form-group">
 											{{__('Logo de l\'application') }}
-											<div class="custom-file">
-												<input  class="custom-file-input" id="customFile app_logo" type="file">
+											{{-- <div class="custom-file">
+												<input  class="custom-file-input" id="app_logo customFile" type="file">
 												<label class="custom-file-label" for="customFile">{{__('Choisir un fichier') }}</label>
-											</div>
+                                            </div> --}}
+
+                                            <div class="form-group">
+                                                <div class="custom-file">
+
+                                                    <input required="" id="app_logo" type="file" name="file" class="form-control">
+
+                                                </div>
+                                            </div>
 
 										</div>
 
@@ -93,15 +101,28 @@
 
 
                                         <div class="card">
-                                            <div class="card-body p-0">
+                                            <div class="card-body p-0" id="doc_columns">
                                                 <div class="pd-t-20 pd-l-20 pd-r-20">
                                                     <div class="main-content-label">{{__('Sélectionner les données d\'en tete à afficher') }}</div>
                                                 </div>
-                                                @foreach ($account['doc_columns'] as $ite)
-                                                <div class="d-flex p-3 border-top">
-                                                    <label class="ckbox"><input checked="" type="checkbox" id="column_name"><span>{{ $ite['column_name'] }}</span></label>
+                                                     @foreach ($account['doc_columns'] as $item )
 
-                                                </div>
+                                                            @foreach ($doc_columns as $it)
+
+                                                                @if($it==$item['column_name'])
+                                                                    <div class="d-flex p-3 border-top flex-md-wrap">
+                                                                        <label class="ckbox"><input checked="" name="doc_column" doc_column="{{ $it }}" type="checkbox" ><span>{{ $it }}</span></label>
+
+                                                                    </div>
+                                                                @else
+                                                                    <div class="d-flex p-3 border-top flex-md-wrap">
+                                                                        <label class="ckbox"><input  type="checkbox" name="doc_column" doc_column="{{ $it }}"><span>{{ $it }}</span></label>
+
+                                                                    </div>
+                                                                    @endif
+                                                            @endforeach
+
+
                                                 @endforeach
 
 
@@ -124,25 +145,55 @@
 							</h4>
 						</div>
 						<div id="collapseFive2" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
-							<div class="panel-body border">
-								<div class="row col-lg-12">
-									 <div class="card">
-										<div class="card-body p-0">
-											<div class="pd-t-20 pd-l-20 pd-r-20">
-												<div class="main-content-label">{{__('Sélectionner les données d\'en tete à afficher') }}</div>
-											</div>
-											@foreach ($account['acc_data_columns']  as $it)
-											<div class="d-flex p-3 border-top">
-												<label class="ckbox"><input type="checkbox"><span>{{ $it['sort_order'] }}</span></label>
+							<div class="panel-body border" >
+								<div class="row col-lg-12" id="acc_data_columns" >
+                                        <div class="card col-6">
+                                            <div class="card-body p-0" >
+                                                <div class="pd-t-20 pd-l-20 pd-r-20">
+                                                <div class="main-content-label">{{__('Sélectionner les données d\'en tete à afficher') }}</div>
+                                                </div>
+                                                @foreach ($account['acc_data_columns'] as $item )
+                                                            @foreach ($acc_data_columns['list1']  as $te)
+                                                                        @if($te==$item['column_name'])
+                                                                                <div class="d-flex p-3 border-top">
+                                                                                    <label class="ckbox"><input  name="acc_data_column"  acc_data_column={{  $te  }} checked=""   type="checkbox"><span>{{ $te }}</span></label>
 
-											</div>
-											@endforeach
+                                                                                </div>
+                                                                        @else
+                                                                                <div class="d-flex p-3 border-top">
+                                                                                    <label class="ckbox"><input name="acc_data_column" acc_data_column={{  $te  }} type="checkbox"><span>{{ $te }}</span></label>
 
+                                                                                </div>
+                                                                        @endif
+                                                            @endforeach
+                                                    @endforeach
 
+                                            </div>
+                                        </div>
+                                        <div class="card col-6" >
+                                            <div class="card-body p-0">
+                                                <div class="pd-t-20 pd-l-20 pd-r-20">
+                                                    {{-- <div class="main-content-label">{{__('Sélectionner les données d\'en tete à afficher') }}</div> --}}
+                                                </div>
 
+                                                @foreach ($account['acc_data_columns'] as $item )
+                                                        @foreach ($acc_data_columns['list2']  as $te)
+                                                                    @if($te==$item['column_name'])
+                                                                            <div class="d-flex p-3 border-top">
+                                                                                <label class="ckbox"><input checked="" name="acc_data_column" acc_data_column={{  $te  }} type="checkbox"><span>{{ $te }}</span></label>
 
-										</div>
-									</div>
+                                                                            </div>
+                                                                    @else
+                                                                            <div class="d-flex p-3 border-top">
+                                                                                <label class="ckbox"><input name="acc_data_column"  acc_data_column={{ $te }} type="checkbox"><span>{{ $te }}</span></label>
+
+                                                                            </div>
+                                                                    @endif
+                                                        @endforeach
+                                                @endforeach
+
+                                            </div>
+                                        </div>
 
 								</div>
 
@@ -155,7 +206,12 @@
 		</div>
 	</div>
 </div>
-    <div class="card-footer ">
-    <button onclick="updateAccount()" class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">{{__('Sauvegarder')}}</button>
-    </div>
-</form>
+
+    <button onclick="showalert()" class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">{{__('Sauvegarder')}}</button>
+    <a href="{{route('accounts',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">{{__('Annuler')}}</a>
+
+
+
+
+
+
