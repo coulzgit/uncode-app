@@ -136,25 +136,7 @@
 						</div>
                     </div>
 
-                    {{-- <div class="row row-xs align-items-center mg-b-20">
-                        <div class="col-md-4">
-                            <label class="form-label mg-b-0 custom-file-label" for="customFile">{{__('Choisir une image') }}
-                            </label>
-                        </div>
-                        <div class="custom-file col-md-8 mg-t-5 mg-md-t-0">
-                            <input id="photo" class="custom-file-input" id="customFile" type="file">
-                        </div>
-                    </div> --}}
-
-                    {{-- <div class="row  row-xs align-items-center mg-b-20" >
-                        <div class="col-md-8 mg-t-5 mg-md-t-0 "  style="margin-left:310px" >
-                            <div class="custom-fil ">
-                                <label class="custom-file-label form-label mg-b-0"   style="" for="customFile">{{__('Choisir une image') }}</label>
-                                <input id="photo" class="custom-file-input" id="customFile" type="file">
-                            </div>
-                        </div>
-                    </div> --}}
-
+                    
 
 
 

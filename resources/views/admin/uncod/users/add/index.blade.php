@@ -73,11 +73,11 @@
 <script type="text/javascript">
 
 	var roles = @json($roles);
-	var account = @json($account);
+    var account = @json($account);
     var account_has_owner = @json($account_has_owner);
 	$(document).ready(function(){
 		console.log('roles',roles);
-		console.log('account',account);
+        console.log('account',account);
 		console.log('account_has_owner',account_has_owner);
 	});
 	function createUser(){
@@ -162,7 +162,7 @@
 	        },
 	        error:function(result){
 	          alert('failed');
-	          
+
 	        }
 	    });
   	}

@@ -37,10 +37,13 @@
 							<td class="sorting_1">{{ $item['account']['code'] }}</td>
 							<td>{{ $item->user_name }}</td>
 							<td>
-                                @if ($item['roles']==[])
-                                {{ ('...') }}
+                                @if (count($item['roles'])==0)
+                               {{('****')}}
                                 @else
-                                {{ '****'}}
+                                @foreach ($item['roles'] as $role)
+                                {{ $role->name }}
+                                @endforeach
+
                                 @endif
 
                             </td>
