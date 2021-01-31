@@ -15,6 +15,7 @@ class CreateDocAttachmentsTable extends Migration
     {
         Schema::create('doc_attachments', function (Blueprint $table) {
             $table->id();
+            $table->integer('projet_id')->nullable(true);
             $table->string('doc_id',64)->nullable(false);
             $table->string('attachment_name',256)->nullable(true);
             $table->string('attachment_file',250)->nullable(false);
@@ -25,6 +26,7 @@ class CreateDocAttachmentsTable extends Migration
             $table->string('attachment_encrypted')->nullable(true);
             $table->string('original_file_name',256)->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

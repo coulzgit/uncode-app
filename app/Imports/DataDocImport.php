@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\DataDoc;
+use App\MyClasses\LoadingManager;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 use Illuminate\Validation\Rule;
@@ -31,24 +32,41 @@ class DataDocImport implements ToModel , WithStartRow,WithValidation
     */
     use Importable;
     protected $ID_DOC;
+    protected $projet_id;
 
-    public function __construct($ID_DOC) {
-        $this->ID_DOC = $ID_DOC;
+    public function __construct($projet_id) {
+        $this->projet_id = $projet_id;
+        $this->ID_DOC = 1;
     }
     public function model(array $row)
     {               
-    //ID_DOC  doc_id  data_index  data_value  stamp_date  stamp_uid                        
+        $row['projet_id']=$this->projet_id;
+        //$loadingManager = new LoadingManager();
+        //$doc= $loadingManager->getDoc($row[0],$this->projet_id);
+        //Log::info("DOC: ".json_encode($doc));
+
+        // if (!empty($doc)) {
+        //     return new DataDoc([
+        //         'doc_id'=>$row[0],
+        //         'data_index'=>$row[1],
+        //         'data_value'=>$row[2],
+        //         'stamp_date'=>$row[3],
+        //         'stamp_uid'=>$row[4],
+        //         'ID_DOC'=>$this->ID_DOC,
+        //         'projet_id'=>$this->projet_id
+        //     ]);
+        // }
         return new DataDoc([
-            'doc_id'=>$row[0],
-            'data_index'=>$row[1],
-            'data_value'=>$row[2],
-            'stamp_date'=>$row[3],
-            'stamp_uid'=>$row[4],
-            'ID_DOC'=>$this->ID_DOC
-        ]);
+                'doc_id'=>$row[0],
+                'data_index'=>$row[1],
+                'data_value'=>$row[2],
+                'stamp_date'=>$row[3],
+                'stamp_uid'=>$row[4],
+                'ID_DOC'=>$this->ID_DOC,
+                'projet_id'=>$this->projet_id
+            ]);
     }
-
-
+    
     /**
      * @return int
      */

@@ -15,6 +15,7 @@ class CreateInvoiceTypesTable extends Migration
     {
         Schema::create('invoice_types', function (Blueprint $table) {
             $table->id();
+            $table->integer('projet_id')->nullable(true);
             $table->string('invoice_type_code')->nullable(false);
             $table->string('invoice_type_name')->nullable(true);
             $table->string('handle_code')->nullable(true);
@@ -23,6 +24,7 @@ class CreateInvoiceTypesTable extends Migration
             $table->string('credit_memo')->nullable(true);
             $table->string('INVOICE_TYPE_CAT')->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

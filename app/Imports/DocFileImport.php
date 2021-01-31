@@ -31,9 +31,11 @@ class DocFileImport implements ToModel, WithStartRow,WithValidation
     */
     use Importable;
     protected $ID_DOC;
+    protected $projet_id;
 
-    public function __construct($ID_DOC) {
-        $this->ID_DOC = $ID_DOC;
+    public function __construct($projet_id) {
+        $this->ID_DOC = 1;
+        $this->projet_id = $projet_id;
     }
 
     public function model(array $row)
@@ -48,7 +50,8 @@ class DocFileImport implements ToModel, WithStartRow,WithValidation
             'user_org_code'=>$row[5],   
             'file_encrypted'=>$row[6],  
             'external_ref'=>$row[7],
-            'ID_DOC'=>$this->ID_DOC
+            'ID_DOC'=>$this->ID_DOC,
+            'projet_id'=>$this->projet_id
         ]);
     }
    
@@ -69,7 +72,7 @@ class DocFileImport implements ToModel, WithStartRow,WithValidation
             '2'=>'required|max:256',    
             '3'=>'required|max:4', 
             '4'=>'required|max:100',   
-            '5'=>'required|max:10',   
+            '5'=>'nullable|max:10',   
             '6'=>'nullable|max:191',  
             '7'=>'nullable|max:60'
         ];

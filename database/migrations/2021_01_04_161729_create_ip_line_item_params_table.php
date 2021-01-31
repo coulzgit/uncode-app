@@ -15,7 +15,7 @@ class CreateIpLineItemParamsTable extends Migration
     {
         Schema::create('ip_line_item_params', function (Blueprint $table) {
             $table->id();
-            
+            $table->integer('projet_id')->nullable(true);
             $table->string('LIP_DATA_FIELD')->nullable(false);
             $table->string('LIP_COMP_NO')->nullable(true);
             $table->string('LIP_FIELD_LABEL')->nullable(true);
@@ -29,6 +29,7 @@ class CreateIpLineItemParamsTable extends Migration
             $table->string('LIP_RULES_FIELD')->nullable(true);
             $table->string('lip_col_order')->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

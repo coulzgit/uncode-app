@@ -20,7 +20,7 @@ use App\Models\Projet;
 use App\Models\Licence;
 use App\Models\DocColumnShow;
 use App\Models\AccDataColumnShow;
-//use App\Models\Role;
+use App\MyClasses\LoadingManager;
 
 use Auth;
 use Mail;
@@ -57,7 +57,8 @@ class UserController extends Controller
         $users = User::with('roles')
         ->where('account_id',$account_id)
         ->orderBy('id','DESC')->get();
-        return view('admin.uncod.users.index',compact('users'))
+        $projets = LoadingManager::getUserProjet();
+        return view('admin.uncod.users.index',compact('users','projets'))
         ->with('i', ($request->input('page', 1) - 1) * 5);
     } 
     public function create(Request $request)
@@ -79,8 +80,8 @@ class UserController extends Controller
         $account_has_owner = User::where('account_id',$account_id)
         ->where('account_owner','=',1)
         ->exists();
-        
-        return view('admin.uncod.users.add.index',compact('roles','account','account_has_owner'));
+        $projets = LoadingManager::getUserProjet();
+        return view('admin.uncod.users.add.index',compact('roles','projets','account','account_has_owner'));
     }
     public function store(Request $request)
     {
@@ -131,7 +132,8 @@ class UserController extends Controller
         }
         $account = Account::find($user->account_id);
         $userRole = $user->roles->pluck('name','name')->all();
-        return view('admin.uncod.users.show.index',compact('user','userRole','account'));
+        $projets = LoadingManager::getUserProjet();
+        return view('admin.uncod.users.show.index',compact('user','userRole','account','projets'));
     }
     public function edit(Request $request)
     {  
@@ -151,7 +153,8 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
         $account_has_owner=User::where('account_owner',1)->exists();
-        return view('admin.uncod.users.edit.index',compact('user','userRole','roles','account','account_has_owner'));
+        $projets = LoadingManager::getUserProjet();
+        return view('admin.uncod.users.edit.index',compact('user','userRole','roles','account','account_has_owner','projets'));
     }
     public function update(Request $request, $id)
     {
@@ -224,7 +227,8 @@ class UserController extends Controller
             if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])){
 
                 //echo "succes"; die;
-                return redirect(app()-> getLocale().'/admin/dashboard')->with(['admin' => $admin]);
+                $projets = LoadingManager::getUserProjet();
+                return redirect(app()-> getLocale().'/admin/dashboard')->with(['admin' => $admin,'projets'=>$projets]);
              }
 
             else{
@@ -237,6 +241,7 @@ class UserController extends Controller
     }
     public function dashboard()
     {
-        return view('admin/uncod.index');
+        $projets = LoadingManager::getUserProjet();
+        return view('admin/uncod.index',compact('projets'));
     }    
 }

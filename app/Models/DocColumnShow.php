@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $column_name
  * @property string $created_at
  * @property string $updated_at
+ * @property string $deleted_at
  * @property Account $account
+ * @property DocColumnShowName[] $docColumnShowNames
  */
 class DocColumnShow extends Model
 {
@@ -24,7 +26,7 @@ class DocColumnShow extends Model
     /**
      * @var array
      */
-    protected $fillable = ['account_id', 'column_name', 'created_at', 'updated_at'];
+    protected $fillable = ['account_id', 'column_name', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -32,5 +34,13 @@ class DocColumnShow extends Model
     public function account()
     {
         return $this->belongsTo('App\Models\Account');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function docColumnShowNames()
+    {
+        return $this->hasMany('App\Models\DocColumnShowName');
     }
 }

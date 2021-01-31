@@ -42,7 +42,7 @@ class User extends Authenticatable
      */
     protected $keyType = 'integer';
 
-    protected $fillable = ['account_id', 'user_name', 'prenom', 'nom', 'email', 'email_verified_at', 'password', 'account_owner', 'photo', 'remember_token', 'created_at', 'updated_at'];
+    protected $fillable = ['account_id', 'user_name', 'prenom', 'nom', 'email', 'email_verified_at', 'password', 'account_owner', 'photo', 'remember_token', 'created_at', 'updated_at', 'deleted_at'];
     protected $hidden = [
         'password', 'remember_token',
     ];

@@ -17,7 +17,7 @@ class CreateAccDatasTable extends Migration
 
             $table->id();
             // $table->string('data_index')->nullable(false);
-            
+            $table->integer('projet_id')->nullable(true);
             $table->string('doc_id',64)->nullable(false);
             //nvarchar
             $table->string('sort_order')->nullable(false);//smallInt
@@ -144,8 +144,8 @@ class CreateAccDatasTable extends Migration
             $table->string('reviewed')->nullable(true);
             $table->string('reviewer_id',60)->nullable(true);
             $table->string('reviewed_date')->nullable(true);
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

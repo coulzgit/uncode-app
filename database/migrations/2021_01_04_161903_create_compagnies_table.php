@@ -15,6 +15,7 @@ class CreateCompagniesTable extends Migration
     {
         Schema::create('compagnies', function (Blueprint $table) {
             $table->id();
+            $table->integer('projet_id')->nullable(true);
             $table->string('comp_index')->nullable(true);
             $table->string('comp_no')->nullable(false);
             $table->string('comp_name')->nullable(true);
@@ -37,6 +38,7 @@ class CreateCompagniesTable extends Migration
             $table->string('edipartnerid')->nullable(true);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

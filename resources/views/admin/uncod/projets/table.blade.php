@@ -34,7 +34,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($projets as $item)
+								@foreach($projetFormated as $item)
 									<tr role="row" class="odd">
 	                                    <td class="sorting_1">
 	                                     {{$item['nom']}}

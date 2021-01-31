@@ -17,9 +17,10 @@ class CreateProjetsTable extends Migration
             $table->id();
             $table->string('nom');
             $table->integer('created_by');
-            //$table->bigInteger('account_id');
+            
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -32,9 +32,11 @@ class AccDataNameImport implements ToModel , WithStartRow,WithValidation
     */
     use Importable;
     protected $acc_data_id;
+    protected $projet_id;
 
-    public function __construct($acc_data_id) {
-        $this->acc_data_id = $acc_data_id;
+    public function __construct($projet_id) {
+        $this->projet_id = $projet_id;
+        $this->acc_data_id = 1;
     }
     public function model(array $row)
     {            
@@ -63,7 +65,8 @@ class AccDataNameImport implements ToModel , WithStartRow,WithValidation
             'use_digitgrouping'=>$row[19],   
             'num_digits'=>$row[20],  
             'data_width'=>$row[21],
-            'ID_DOC'=>$this->acc_data_id
+            'ID_DOC'=>$this->acc_data_id,
+            'projet_id'=>$this->projet_id
         ]);
     }
 

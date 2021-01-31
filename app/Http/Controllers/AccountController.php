@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\User;
 use App\Models\Account;
@@ -10,6 +11,7 @@ use App\Models\Projet;
 use App\Models\Licence;
 use App\Models\DocColumnShow;
 use App\Models\AccDataColumnShow;
+use App\MyClasses\LoadingManager;
 
 use Auth;
 use Mail;
@@ -30,9 +32,13 @@ class AccountController extends Controller
     public function index()
     {
         $accounts = $this->getListComptes();
+        $loadingManager = new LoadingManager();
+        $projets= $loadingManager->getUserProjet();
         return view('admin.uncod.comptes_clients.liste_comptes.index',
             [
-                'accounts'=>$accounts
+                'accounts'=>$accounts,
+                'projets'=>$projets
+
             ]);
     }
 
@@ -44,9 +50,12 @@ class AccountController extends Controller
     public function create()
     {
         $licences = DB::table('licences')->get();
+        $loadingManager = new LoadingManager();
+        $projets= $loadingManager->getUserProjet();
         return view('admin.uncod.comptes_clients.new_account.index',
             [
-                'licences' => $licences
+                'licences' => $licences,
+                'projets' => $projets
         ]);
     }
 
@@ -100,7 +109,9 @@ class AccountController extends Controller
         }
         
         $account = $this->formatAccountData($account_id);
-        return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account]);
+        $loadingManager = new LoadingManager();
+        $projets= $loadingManager->getUserProjet();
+        return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account,'projets'=>$projets]);
     }
 
     /**
@@ -125,11 +136,13 @@ class AccountController extends Controller
             }
             return redirect(app()-> getLocale().'/404');
         }
-
+        $loadingManager = new LoadingManager();
+        $projets= $loadingManager->getUserProjet();
         return view('admin.uncod.comptes_clients.edit_account.index',
             [
                 'licences' => $licences,
-                'account' => $account]
+                'account' => $account,
+                'projets'=>$projets]
             );
         }
 
@@ -200,34 +213,20 @@ class AccountController extends Controller
         $accountData = $this->getAccountConfigured($account_id);
         $acc_data_columns=$this->getAccDataColumns();
         $doc_columns=$this->getDocColumns();
+        $loadingManager = new LoadingManager();
+        $projets= $loadingManager->getUserProjet();
 
         return view('admin.uncod.comptes_clients.config_account.index',[
                 'account'=>$accountData,
                 'doc_columns'=>$doc_columns,
-                'acc_data_columns'=>$acc_data_columns
+                'acc_data_columns'=>$acc_data_columns,
+                'projets'=>$projets
             ]
         );
     }
     public function saveConfig(Request $request)
     {
-        $app_name=$request['app_name'];
-        $app_logo=$request['app_logo'];
-        $doc_columns=$request['doc_columns'];
-        $acc_data_columns=$request['acc_data_columns'];
         
-        //Revoir
-        $message="Configuration account Sucessfully";
-        if(app()->getLocale()=="fr"){
-            $message="Configuration de compte Réussie";
-        }
-        if($request->ajax())
-        {
-            return array(
-                'responseCode'=>200,
-                'message'=>$message
-            ) ;
-        }
-        return redirect()->back()->with('message',$message);
     }
     private function getListComptes(){
         $accounts = [];
@@ -290,7 +289,9 @@ class AccountController extends Controller
         }
         
         $account = $this->formatAccountData($account_id);
-        return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account]);
+        $loadingManager = new LoadingManager();
+        $projets= $loadingManager->getUserProjet();
+        return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account,'projets'=>$projets]);
     }
     private function formatAccountData($account_id){
 

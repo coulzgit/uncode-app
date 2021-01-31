@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
+ * @property int $projet_id
  * @property string $log_index
  * @property string $doc_id
  * @property string $stamp_uid
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $log_comment
  * @property string $created_at
  * @property string $updated_at
+ * @property string $deleted_at
  * @property integer $ID_DOC
  * @property Doc $doc
  * @property ActionLogName[] $actionLogNames
@@ -29,7 +31,7 @@ class ActionLog extends Model
     /**
      * @var array
      */
-    protected $fillable = ['log_index', 'doc_id', 'stamp_uid', 'stamp_date', 'log_comment', 'created_at', 'updated_at', 'ID_DOC'];
+    protected $fillable = ['projet_id', 'log_index', 'doc_id', 'stamp_uid', 'stamp_date', 'log_comment', 'created_at', 'updated_at', 'deleted_at', 'ID_DOC'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

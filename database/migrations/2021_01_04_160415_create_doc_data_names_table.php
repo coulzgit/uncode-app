@@ -15,6 +15,7 @@ class CreateDocDataNamesTable extends Migration
     {
         Schema::create('doc_data_names', function (Blueprint $table) {
             $table->id();
+            $table->integer('projet_id')->nullable(true);
             $table->string('data_index')->nullable(false);
             $table->string('data_name',50)->nullable(true);
             $table->string('default_value',50)->nullable(true);
@@ -51,6 +52,7 @@ class CreateDocDataNamesTable extends Migration
             $table->string('data_width')->nullable(true);
             $table->string('fs_enablebatchlocking')->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

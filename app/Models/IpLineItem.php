@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
+ * @property int $projet_id
  * @property string $LIT_DOC_ID
  * @property string $LIT_ROWID
  * @property string $LIT_PRODUCT_CODE
@@ -99,6 +100,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $LIT_D10
  * @property string $created_at
  * @property string $updated_at
+ * @property string $deleted_at
  * @property integer $ID_DOC
  * @property Doc $doc
  * @property IpLineItemParam[] $ipLineItemParams
@@ -115,7 +117,7 @@ class IpLineItem extends Model
     /**
      * @var array
      */
-    protected $fillable = ['LIT_DOC_ID', 'LIT_ROWID', 'LIT_PRODUCT_CODE', 'LIT_ITEM_DESCRIPTION', 'LIT_ADD_KEY_CODE', 'LIT_DISCOUNT_PER', 'LIT_DISCOUNT_AMOUNT', 'LIT_VAT_PER', 'LIT_VAT_AMOUNT', 'LIT_QUANTITY', 'LIT_QUANTITY_UNIT', 'LIT_NET_SUM', 'LIT_GROSS_SUM', 'LIT_APRICE_NET', 'LIT_APRICE_GROSS', 'LIT_ORDER_NUMBER', 'LIT_ORDER_ROW_NUMBER', 'LIT_INFO_ITEM', 'LIT_STAMP_TIME', 'LIT_CALC_ITEM_TOTAL', 'LIT_MATCH_STATUS_INDEX', 'LIT_T1', 'LIT_T2', 'LIT_T3', 'LIT_T4', 'LIT_T5', 'LIT_T6', 'LIT_T7', 'LIT_T8', 'LIT_T9', 'LIT_T10', 'LIT_T11', 'LIT_T12', 'LIT_T13', 'LIT_T14', 'LIT_T15', 'LIT_T16', 'LIT_T17', 'LIT_T18', 'LIT_T19', 'LIT_T20', 'LIT_T21', 'LIT_T22', 'LIT_T23', 'LIT_T24', 'LIT_T25', 'LIT_T26', 'LIT_T27', 'LIT_T28', 'LIT_T29', 'LIT_T30', 'LIT_T31', 'LIT_T32', 'LIT_T33', 'LIT_T34', 'LIT_T35', 'LIT_T36', 'LIT_T37', 'LIT_T38', 'LIT_T39', 'LIT_T40', 'LIT_T41', 'LIT_T42', 'LIT_T43', 'LIT_T44', 'LIT_T45', 'LIT_T46', 'LIT_T47', 'LIT_T48', 'LIT_T49', 'LIT_T50', 'LIT_N1', 'LIT_N2', 'LIT_N3', 'LIT_N4', 'LIT_N5', 'LIT_N6', 'LIT_N7', 'LIT_N8', 'LIT_N9', 'LIT_N10', 'LIT_D1', 'LIT_D2', 'LIT_D3', 'LIT_D4', 'LIT_D5', 'LIT_D6', 'LIT_D7', 'LIT_D8', 'LIT_D9', 'LIT_D10', 'created_at', 'updated_at', 'ID_DOC'];
+    protected $fillable = ['projet_id', 'LIT_DOC_ID', 'LIT_ROWID', 'LIT_PRODUCT_CODE', 'LIT_ITEM_DESCRIPTION', 'LIT_ADD_KEY_CODE', 'LIT_DISCOUNT_PER', 'LIT_DISCOUNT_AMOUNT', 'LIT_VAT_PER', 'LIT_VAT_AMOUNT', 'LIT_QUANTITY', 'LIT_QUANTITY_UNIT', 'LIT_NET_SUM', 'LIT_GROSS_SUM', 'LIT_APRICE_NET', 'LIT_APRICE_GROSS', 'LIT_ORDER_NUMBER', 'LIT_ORDER_ROW_NUMBER', 'LIT_INFO_ITEM', 'LIT_STAMP_TIME', 'LIT_CALC_ITEM_TOTAL', 'LIT_MATCH_STATUS_INDEX', 'LIT_T1', 'LIT_T2', 'LIT_T3', 'LIT_T4', 'LIT_T5', 'LIT_T6', 'LIT_T7', 'LIT_T8', 'LIT_T9', 'LIT_T10', 'LIT_T11', 'LIT_T12', 'LIT_T13', 'LIT_T14', 'LIT_T15', 'LIT_T16', 'LIT_T17', 'LIT_T18', 'LIT_T19', 'LIT_T20', 'LIT_T21', 'LIT_T22', 'LIT_T23', 'LIT_T24', 'LIT_T25', 'LIT_T26', 'LIT_T27', 'LIT_T28', 'LIT_T29', 'LIT_T30', 'LIT_T31', 'LIT_T32', 'LIT_T33', 'LIT_T34', 'LIT_T35', 'LIT_T36', 'LIT_T37', 'LIT_T38', 'LIT_T39', 'LIT_T40', 'LIT_T41', 'LIT_T42', 'LIT_T43', 'LIT_T44', 'LIT_T45', 'LIT_T46', 'LIT_T47', 'LIT_T48', 'LIT_T49', 'LIT_T50', 'LIT_N1', 'LIT_N2', 'LIT_N3', 'LIT_N4', 'LIT_N5', 'LIT_N6', 'LIT_N7', 'LIT_N8', 'LIT_N9', 'LIT_N10', 'LIT_D1', 'LIT_D2', 'LIT_D3', 'LIT_D4', 'LIT_D5', 'LIT_D6', 'LIT_D7', 'LIT_D8', 'LIT_D9', 'LIT_D10', 'created_at', 'updated_at', 'deleted_at', 'ID_DOC'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
+ * @property string $name
  * @property string $guard_name
  * @property string $created_at
  * @property string $updated_at
- * @property RoleName[] $roleNames
+ * @property ModelHasRole[] $modelHasRoles
+ * @property RoleHasPermission[] $roleHasPermissions
  */
 class Role extends Model
 {
@@ -23,13 +25,21 @@ class Role extends Model
     /**
      * @var array
      */
-    protected $fillable = ['guard_name', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'guard_name', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function roleNames()
+    public function modelHasRoles()
     {
-        return $this->hasMany('App\Models\RoleName');
+        return $this->hasMany('App\Models\ModelHasRole');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function roleHasPermissions()
+    {
+        return $this->hasMany('App\Models\RoleHasPermission');
     }
 }

@@ -30,17 +30,20 @@ class CompanyGridFieldImport implements ToModel , WithStartRow,WithValidation
     */
     use Importable;
     protected $compagnie_id;
+    protected $projet_id;
     
 
-    public function __construct($compagnie_id) {
-        $this->compagnie_id=$compagnie_id;
+    public function __construct($projet_id) {
+        $this->compagnie_id=1;
+        $this->projet_id=$projet_id;
     }
     public function model(array $row)
     {                                         
         return new CompanyGridField([
           'comp_no'=>$row[0],    
           'acc_fields'=>$row[1], 
-          'compagnie_id'=>$this->compagnie_id 
+          'compagnie_id'=>$this->compagnie_id,
+          'projet_id'=>$this->projet_id  
 
         ]);
     }                      

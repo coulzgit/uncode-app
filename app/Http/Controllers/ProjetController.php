@@ -7,9 +7,10 @@ use App\Models\Projet;
 use App\Models\Account;
 use App\Models\Doc;
 use App\User;
-use App\Classes\DateFormater;
+use App\MyClasses\DateFormater;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\MyClasses\LoadingManager;
 
 class ProjetController extends Controller
 {
@@ -27,9 +28,10 @@ class ProjetController extends Controller
      */
     public function index()
     {
-        $projets = Projet::get();
-        $projets = $this->formaterProjetList($projets);
-        return view('admin.uncod.projets.index',compact('projets'));
+        //$projets = Projet::get();
+        $projets = LoadingManager::getUserProjet();
+        $projetFormated = $this->formaterProjetList($projets);
+        return view('admin.uncod.projets.index',compact('projets','projetFormated'));
     }
     private function formaterProjetList($projets){
         $myCollect = collect([]);
@@ -76,7 +78,8 @@ class ProjetController extends Controller
     public function create()
     {
         $accounts = Account::get();
-        return view('admin.uncod.projets.create',compact('accounts'));
+        $projets = LoadingManager::getUserProjet();
+        return view('admin.uncod.projets.create',compact('accounts','projets'));
     }
 
     /**
@@ -138,7 +141,8 @@ class ProjetController extends Controller
             return redirect(app()-> getLocale().'/404');
         }
         $projet =$this->formaterProjet($projet);
-        return view('admin.uncod.projets.show',compact('projet'));
+        $projets = LoadingManager::getUserProjet();
+        return view('admin.uncod.projets.show',compact('projet','projets'));
     }
 
     /**
@@ -161,7 +165,8 @@ class ProjetController extends Controller
             return redirect(app()-> getLocale().'/404');
         }
         $accounts = Account::get();
-        return view('admin.uncod.projets.edit',compact('projet','accounts'));
+        $projets = LoadingManager::getUserProjet();
+        return view('admin.uncod.projets.edit',compact('projet','accounts','projets'));
     }
 
     /**

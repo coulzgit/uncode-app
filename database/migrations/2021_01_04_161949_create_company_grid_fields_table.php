@@ -15,10 +15,11 @@ class CreateCompanyGridFieldsTable extends Migration
     {
         Schema::create('company_grid_fields', function (Blueprint $table) {
             $table->id();
-            // $table->integer('compagnie_id')->nullable(false);
+            $table->integer('projet_id')->nullable(true);
             $table->string('comp_no')->nullable(false);
             $table->string('acc_fields',500)->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

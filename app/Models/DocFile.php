@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
+ * @property int $projet_id
  * @property string $doc_id
  * @property string $doc_page
  * @property string $doc_file
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $external_ref
  * @property string $created_at
  * @property string $updated_at
+ * @property string $deleted_at
  * @property integer $ID_DOC
  * @property Doc $doc
  */
@@ -31,7 +33,7 @@ class DocFile extends Model
     /**
      * @var array
      */
-    protected $fillable = ['doc_id', 'doc_page', 'doc_file', 'file_format', 'file_resource', 'user_org_code', 'file_encrypted', 'external_ref', 'created_at', 'updated_at', 'ID_DOC'];
+    protected $fillable = ['projet_id', 'doc_id', 'doc_page', 'doc_file', 'file_format', 'file_resource', 'user_org_code', 'file_encrypted', 'external_ref', 'created_at', 'updated_at', 'deleted_at', 'ID_DOC'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

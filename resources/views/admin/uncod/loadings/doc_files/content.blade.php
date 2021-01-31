@@ -3,6 +3,35 @@
 	<form class="col-lg-12 col-md-12" action="{{ route('loading.doc-file',app()->getLocale()) }}" method="POST" name="importform" enctype="multipart/form-data">
 										@csrf
 	
+	<div class="col-lg-12 col-md-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="main-content-label mg-b-5">
+					{{__('Projet')}}
+				</div>
+				<p class="mg-b-20">
+					{{__('Veuiller sélectionner un projet')}}
+				</p>
+				<div class="pd-30 pd-sm-40 bg-gray-200">
+					<div class="row row-xs">
+						<div class="col-md-10">
+							<select required="" class="form-control" id="projet_id" name="projet_id">
+								<option value="none">{{__('Select')}}</option>
+								@foreach ($projets as $projet)
+									<option value="{{ $projet->id }}">
+										{{ $projet->nom }}
+										--{{__('Compte')}}--
+										{{ $projet->account->code }}--
+									</option>
+								@endforeach
+							</select>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<div class="col-lg-12 col-md-12">
 		<div class="card">

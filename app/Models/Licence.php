@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property string $created_at
  * @property string $updated_at
+ * @property string $deleted_at
  * @property Account[] $accounts
  */
 class Licence extends Model
@@ -24,13 +25,13 @@ class Licence extends Model
     /**
      * @var array
      */
-    protected $fillable = ['nom', 'description', 'created_at', 'updated_at'];
+    protected $fillable = ['nom', 'description', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function accounts()
     {
-        return $this->hasMany('App\Models\Account','account_id');
+        return $this->hasMany('App\Models\Account');
     }
 }

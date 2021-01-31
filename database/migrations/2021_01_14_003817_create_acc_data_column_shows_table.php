@@ -17,6 +17,7 @@ class CreateAccDataColumnShowsTable extends Migration
             $table->id();
             $table->string('column_name')->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

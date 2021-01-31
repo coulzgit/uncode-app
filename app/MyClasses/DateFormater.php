@@ -1,5 +1,5 @@
 <?php 
-namespace App\Classes;
+namespace App\MyClasses;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 

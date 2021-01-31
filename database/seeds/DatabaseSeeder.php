@@ -39,19 +39,26 @@ class DatabaseSeeder extends Seeder
                 'code'=>'00011',//ID:1
                 'statut'=>true,
                 'expired_at'=>'30-01-2021 00:00:00',
-                'licence_id'=>1
+                'licence_id'=>1,
+                'domaine_name'=>'domaine1',
+                'login_image'=>'login_image1'
             ]),
             App\Models\Account::create([
                 'code'=>'00012',//ID:2
                 'statut'=>true,
                 'expired_at'=>'30-01-2021 00:00:00',
-                'licence_id'=>1
+                'licence_id'=>1,
+                'domaine_name'=>'domaine2',
+                'login_image'=>'login_image2'
+
             ]),
             App\Models\Account::create([
                 'code'=>'00013',//ID:3
                 'statut'=>true,
                 'expired_at'=>'30-01-2021 00:00:00',
-                'licence_id'=>2
+                'licence_id'=>2,
+                'domaine_name'=>'domaine3',
+                'login_image'=>'login_image3'
             ])
         ];
         // TABLE DOC_COLUMN_SHOW
@@ -878,7 +885,13 @@ class DatabaseSeeder extends Seeder
         // TABLE DATA_DOC
         [
             App\Models\DataDoc::create([
-                 'ID_DOC'=>1, 
+                'doc_id'=>'00353913A0EB4D74B64C77ABFE7C81E4', 
+                'data_index'=>'4',
+                'data_value'=>'DATA_VALUE', 
+                'stamp_date'=>'2011-12-06 10:54:35 ', 
+                'stamp_uid'=>'Administrateur UNCODE '
+            ]),
+            App\Models\DataDoc::create([  
                 'doc_id'=>'00353913A0EB4D74B64C77ABFE7C81E4', 
                 'data_index'=>'4',
                 'data_value'=>'DATA_VALUE', 
@@ -886,15 +899,6 @@ class DatabaseSeeder extends Seeder
                 'stamp_uid'=>'Administrateur UNCODE '
             ]),
             App\Models\DataDoc::create([
-                'ID_DOC'=>1,   
-                'doc_id'=>'00353913A0EB4D74B64C77ABFE7C81E4', 
-                'data_index'=>'4',
-                'data_value'=>'DATA_VALUE', 
-                'stamp_date'=>'2011-12-06 10:54:35 ', 
-                'stamp_uid'=>'Administrateur UNCODE '
-            ]),
-            App\Models\DataDoc::create([
-                'ID_DOC'=>1,   
                 'doc_id'=>'00353913A0EB4D74B64C77ABFE7C81E4', 
                 'data_index'=>'4',
                 'data_value'=>'DATA_VALUE', 
@@ -902,23 +906,6 @@ class DatabaseSeeder extends Seeder
                 'stamp_uid'=>'Administrateur UNCODE '
             ]),   
         ];
-        // TABLE TEST
-        [
-            App\Models\Test::create([
-                'project_id'=>1,
-                'account_id'=>2,
-                'name'=>'test1'
-            ]),
-            App\Models\Test::create([
-                'project_id'=>3,
-                'account_id'=>1,
-                'name'=>'test2'
-            ]),
-            App\Models\Test::create([
-                'project_id'=>1,
-                'account_id'=>1,
-                'name'=>'test3'
-            ]),
-        ];
+        
     }
 }

@@ -17,7 +17,7 @@ class CreateAccDataNamesTable extends Migration
             
             $table->id();
             
-            // $table->string('data_index')->nullable(false);
+            $table->integer('projet_id')->nullable(true);
             $table->string('data_field',50)->nullable(true);
             $table->string('data_name',50)->nullable(true);
             $table->string('default_value',50)->nullable(true);
@@ -40,6 +40,7 @@ class CreateAccDataNamesTable extends Migration
             $table->string('num_digits')->nullable(true);
             $table->string('data_width')->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

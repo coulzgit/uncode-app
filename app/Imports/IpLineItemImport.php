@@ -31,9 +31,11 @@ class IpLineItemImport implements ToModel, WithStartRow,WithValidation
     */
     use Importable;
     protected $ID_DOC;
+    protected $projet_id;
 
-    public function __construct($ID_DOC) {
-        $this->ID_DOC = $ID_DOC;
+    public function __construct($projet_id) {
+        $this->projet_id = $projet_id;
+        $this->ID_DOC = 1;
     }
 
     public function model(array $row)
@@ -130,7 +132,8 @@ class IpLineItemImport implements ToModel, WithStartRow,WithValidation
             'LIT_D8'=>$row[88],  
             'LIT_D9'=>$row[89],  
             'LIT_D10'=>$row[90],
-            'ID_DOC'=>$this->ID_DOC
+            'ID_DOC'=>$this->ID_DOC,
+            'projet_id'=>$this->projet_id
         ]);
     }
    

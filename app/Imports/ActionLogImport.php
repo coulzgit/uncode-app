@@ -31,9 +31,11 @@ class ActionLogImport implements ToModel , WithStartRow,WithValidation
     */
     use Importable;
     protected $ID_DOC;
+    protected $projet_id;
 
-    public function __construct($ID_DOC) {
-        $this->ID_DOC = $ID_DOC;
+    public function __construct($projet_id) {
+        $this->projet_id = $projet_id;
+        $this->ID_DOC = 1;
     }
     public function model(array $row)
     {                                    
@@ -43,7 +45,8 @@ class ActionLogImport implements ToModel , WithStartRow,WithValidation
             'stamp_date'=>$row[2],
             'log_index'=>$row[3],
             'log_comment'=>$row[4],
-            'ID_DOC'=>$this->ID_DOC
+            'ID_DOC'=>$this->ID_DOC,
+            'projet_id'=>$this->projet_id
         ]);
     }
 

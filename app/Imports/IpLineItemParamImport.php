@@ -31,9 +31,11 @@ class IpLineItemParamImport implements ToModel, WithStartRow,WithValidation
     */
     use Importable;
     protected $ip_line_item_id;
+    protected $projet_id;
 
-    public function __construct($ip_line_item_id) {
-        $this->ip_line_item_id = $ip_line_item_id;
+    public function __construct($projet_id) {
+        $this->projet_id = $projet_id;
+        $this->ip_line_item_id = 1;
     }
 
     public function model(array $row)
@@ -51,7 +53,8 @@ class IpLineItemParamImport implements ToModel, WithStartRow,WithValidation
             'LIP_ASSOSIATION_FIELD'=>$row[9],   
             'LIP_RULES_FIELD'=>$row[10], 
             'lip_col_order'=>$row[11],
-            'ip_line_item_id'=>$this->ip_line_item_id   
+            'ip_line_item_id'=>$this->ip_line_item_id,
+            'projet_id'=>$this->projet_id   
         ]);
     }
    

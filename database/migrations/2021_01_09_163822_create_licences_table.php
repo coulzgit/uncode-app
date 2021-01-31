@@ -19,6 +19,7 @@ class CreateLicencesTable extends Migration
             $table->string('description')->nullable(true);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

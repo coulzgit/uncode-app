@@ -175,3 +175,17 @@ Route::group(
 	    
 	}
 );
+
+// FACTURE
+Route::group(
+	[
+		'prefix' => '{locale}', 
+		'where' =>['locale'=>'[a-zA-Z]{2}'],
+		'middleware' => ['auth','setlocale']
+	], 
+	function() {
+	    Route::get('/projects', 'FactureController@index')->name('projects');
+	    Route::get('/projects/{projet_id}/invoices', 'FactureController@projectInvoices')->name('projects.invoices');
+	    Route::get('/invoices/{invoice_id}/show', 'FactureController@show')->name('invoices.show');
+	}
+);

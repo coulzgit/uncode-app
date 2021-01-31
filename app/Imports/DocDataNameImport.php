@@ -32,9 +32,11 @@ class DocDataNameImport implements ToModel , WithStartRow,WithValidation
     */
     use Importable;
     protected $doc_data_id;
+    protected $projet_id;
 
-    public function __construct($doc_data_id) {
-        $this->doc_data_id = $doc_data_id;
+    public function __construct($projet_id) {
+        $this->projet_id = $projet_id;
+        $this->doc_data_id = 1;
     }
     public function model(array $row)
     {               
@@ -74,7 +76,8 @@ class DocDataNameImport implements ToModel , WithStartRow,WithValidation
             'num_digits'=>$row[32],  
             'data_width'=>$row[33],  
             'fs_enablebatchlocking'=>$row[34],
-            'doc_data_id'=>$this->doc_data_id
+            'doc_data_id'=>$this->doc_data_id,
+            'projet_id'=>$this->projet_id
         ]);
     }
 

@@ -97,12 +97,24 @@
                                                 <div class="pd-t-20 pd-l-20 pd-r-20">
                                                     <div class="main-content-label">{{__('Sélectionner les données d\'en tete à afficher') }}</div>
                                                 </div>
-                                                @foreach ($account['doc_columns'] as $ite)
-                                                <div class="d-flex p-3 border-top">
-                                                    <label class="ckbox"><input checked="" type="checkbox" id="column_name"><span>{{ $ite['column_name'] }}</span></label>
 
-                                                </div>
-                                                @endforeach
+
+
+@foreach ($doc_columns as $dc)
+    @foreach($account['doc_columns'] as $a_dc)
+        @if($dc == $a_dc->column_name)
+            <div class="d-flex p-3 border-top">
+	            <label class="ckbox">
+	            	<input type="checkbox" checked="true" name="column_name">
+	            	<span>{{$dc}}</span>
+	            </label>
+	        </div>
+	        @break
+        @endif
+    @endforeach
+@endforeach
+
+
 
 
 
@@ -131,12 +143,28 @@
 											<div class="pd-t-20 pd-l-20 pd-r-20">
 												<div class="main-content-label">{{__('Sélectionner les données d\'en tete à afficher') }}</div>
 											</div>
-											@foreach ($account['acc_data_columns']  as $it)
-											<div class="d-flex p-3 border-top">
-												<label class="ckbox"><input type="checkbox"><span>{{ $it['sort_order'] }}</span></label>
 
-											</div>
-											@endforeach
+
+@foreach ($acc_data_columns['list1'] as $adc)
+    @foreach($account['acc_data_columns'] as $a_adc)
+        @if($adc == $a_adc->column_name)
+            <div class="d-flex p-3 border-top">
+	            <label class="ckbox">
+	            	<input type="checkbox" checked="true" name="acc_data_column_name">
+	            	<span>{{$adc}}</span>
+	            </label>
+	        </div>
+	        @continue
+        @endif
+    @endforeach
+	<div class="d-flex p-3 border-top">
+        <label class="ckbox">
+        	<input type="checkbox" name="acc_data_column_name">
+        	<span>{{$adc}}</span>
+        </label>
+    </div>
+@endforeach
+
 
 
 

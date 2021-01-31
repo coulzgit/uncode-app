@@ -93,6 +93,14 @@ class AddFkToMyTabsTable extends Migration
         Schema::table('permission_names', function (Blueprint $table) {
             $table->foreignId('permission_id')->nullable()->constrained('permissions');
         });
+        // // RELATION TABLE DOC_COLUMN_SHOW_NAME
+        Schema::table('doc_column_show_names', function (Blueprint $table) {
+            $table->foreignId('doc_column_show_id')->nullable()->constrained('doc_column_shows');
+        });
+        // // RELATION TABLE ACC_DATA_COLUMN_SHOW_NAME
+        Schema::table('acc_data_column_show_names', function (Blueprint $table) {
+            $table->foreignId('acc_data_column_show_id')->nullable()->constrained('acc_data_column_shows');
+        });
     }
 
     /**
@@ -102,6 +110,5 @@ class AddFkToMyTabsTable extends Migration
      */
     public function down()
     {
-        
     }
 }

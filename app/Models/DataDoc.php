@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
+ * @property int $projet_id
  * @property string $data_index
  * @property string $doc_id
  * @property string $data_value
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $stamp_uid
  * @property string $created_at
  * @property string $updated_at
+ * @property string $deleted_at
  * @property integer $ID_DOC
  * @property Doc $doc
  * @property DocDataName[] $docDataNames
@@ -29,7 +31,7 @@ class DataDoc extends Model
     /**
      * @var array
      */
-    protected $fillable = ['data_index', 'doc_id', 'data_value', 'stamp_date', 'stamp_uid', 'created_at', 'updated_at', 'ID_DOC'];
+    protected $fillable = ['projet_id', 'data_index', 'doc_id', 'data_value', 'stamp_date', 'stamp_uid', 'created_at', 'updated_at', 'deleted_at', 'ID_DOC'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

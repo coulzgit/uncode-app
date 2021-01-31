@@ -31,7 +31,9 @@ class CompagnieImport implements ToModel , WithStartRow,WithValidation
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     use Importable;
-    public function __construct() {
+    protected $projet_id;
+    public function __construct($projet_id) {
+      $this->projet_id = $projet_id;
     }
     public function model(array $row)
     {  
@@ -56,7 +58,8 @@ class CompagnieImport implements ToModel , WithStartRow,WithValidation
           'comp_date3'=>$row[16],  
           'valid_start'=>$row[17],   
           'valid_end'=>$row[18],   
-          'edipartnerid'=>$row[19]  
+          'edipartnerid'=>$row[19],
+          'projet_id'=>$this->projet_id   
         ]);
     }                      
 

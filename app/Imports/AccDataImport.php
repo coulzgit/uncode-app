@@ -32,12 +32,15 @@ class AccDataImport implements ToModel , WithStartRow,WithValidation
     */
     use Importable;
     protected $ID_DOC;
+    protected $projet_id;
 
-    public function __construct($ID_DOC) {
-        $this->ID_DOC = $ID_DOC;
+    public function __construct($projet_id) {
+        $this->projet_id = $projet_id;
+        $this->ID_DOC = 1;
+
     }
     public function model(array $row)
-    {                
+    {               
         return new AccData([
             'doc_id'=>$row[0],  
             'sort_order'=>$row[1],  
@@ -161,7 +164,8 @@ class AccDataImport implements ToModel , WithStartRow,WithValidation
             'reviewed'=>$row[119],    
             'reviewer_id'=>$row[120], 
             'reviewed_date'=>$row[121], 
-            'ID_DOC'=>$this->ID_DOC
+            'ID_DOC'=>$this->ID_DOC,
+            'projet_id'=>$this->projet_id
         ]);
     }
 

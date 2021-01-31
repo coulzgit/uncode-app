@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
+ * @property int $projet_id
  * @property string $comp_index
  * @property string $comp_no
  * @property string $comp_name
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $edipartnerid
  * @property string $created_at
  * @property string $updated_at
+ * @property string $deleted_at
  * @property CompanyGridField[] $companyGridFields
  * @property InvoiceType[] $invoiceTypes
  */
@@ -43,7 +45,7 @@ class Compagnie extends Model
     /**
      * @var array
      */
-    protected $fillable = ['comp_index', 'comp_no', 'comp_name', 'comp_parent', 'comp_struct1', 'comp_struct2', 'comp_struct3', 'comp_struct4', 'comp_struct5', 'comp_struct6', 'comp_struct7', 'comp_struct8', 'comp_struct9', 'comp_struct10', 'comp_date1', 'comp_date2', 'comp_date3', 'valid_start', 'valid_end', 'edipartnerid', 'created_at', 'updated_at'];
+    protected $fillable = ['projet_id', 'comp_index', 'comp_no', 'comp_name', 'comp_parent', 'comp_struct1', 'comp_struct2', 'comp_struct3', 'comp_struct4', 'comp_struct5', 'comp_struct6', 'comp_struct7', 'comp_struct8', 'comp_struct9', 'comp_struct10', 'comp_date1', 'comp_date2', 'comp_date3', 'valid_start', 'valid_end', 'edipartnerid', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\MyClasses\LoadingManager;
 use DB;
 
 class RoleController extends Controller
@@ -20,14 +21,16 @@ class RoleController extends Controller
 	public function index(Request $request)
 	{
 		$roles = Role::orderBy('id','DESC')->paginate(5);
-		return view('admin.params.roles.index',compact('roles'))
+		$projets = LoadingManager::getUserProjet();
+		return view('admin.params.roles.index',compact('roles','projets'))
 		->with('i', ($request->input('page', 1) - 1) * 5);
 	}
 	public function create()
 	{
 
 		$permissions = Permission::get();
-		return view('admin.params.roles.create',compact('permissions'));
+		$projets = LoadingManager::getUserProjet();
+		return view('admin.params.roles.create',compact('permissions','projets'));
 	}
 	public function store(Request $request)
 	{
@@ -63,7 +66,8 @@ class RoleController extends Controller
 		$rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
 		->where("role_has_permissions.role_id",$role_id)
 		->get();
-		return view('admin.params.roles.show',compact('role','rolePermissions'));
+		$projets = LoadingManager::getUserProjet();
+		return view('admin.params.roles.show',compact('role','rolePermissions','projets'));
 	}
 	public function edit(Request $request)
 	{
@@ -84,7 +88,7 @@ class RoleController extends Controller
 		$rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$role_id)
 		->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
 		->all();
-		return view('admin.params.roles.edit',compact('role','permission','rolePermissions'));
+		return view('admin.params.roles.edit',compact('role','permission','rolePermissions','projets'));
 	}
 
 	public function update(Request $request, $id)

@@ -176,7 +176,14 @@
     "Values":"Valeurs",
     "Loading":"Chargement",
     "Project required":"Projet obligatoire",
-    "File required":"Fichier obligatoire"
+    "File required":"Fichier obligatoire",
+    "Invoices":"Factures",
+    "No project":"Pas de projet",
+    "Company grid field":"Compagnie grid field",
+    "Company":"Compagnie",
+    "Invoice details":"Détails facture",
+    "Invoice":"Facture",
+    "Attachments":"Pièces jointes"
 
 
 

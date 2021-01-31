@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property integer $id
  * @property integer $doc_data_id
+ * @property int $projet_id
  * @property string $data_index
  * @property string $data_name
  * @property string $default_value
@@ -44,6 +45,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $fs_enablebatchlocking
  * @property string $created_at
  * @property string $updated_at
+ * @property string $deleted_at
  * @property DataDoc $dataDoc
  */
 class DocDataName extends Model
@@ -58,7 +60,7 @@ class DocDataName extends Model
     /**
      * @var array
      */
-    protected $fillable = ['doc_data_id', 'data_index', 'data_name', 'default_value', 'data_type', 'list_index', 'order_index', 'lock_field', 'special_field', 'check_type', 'check_value_list', 'check_bind_index1', 'check_bind_index2', 'check_operator1', 'check_operator2', 'client_field', 'must_field', 'cell_format', 'max_length', 'min_length', 'comp_no', 'client_updateable', 'fs_field', 'fs_must_field', 'fs_order_index', 'fs_train_order_index', 'fs_length', 'fs_trainable', 'fs_alignment', 'fs_default_value', 'fs_data_type', 'fs_lock_field', 'use_digitgrouping', 'num_digits', 'data_width', 'fs_enablebatchlocking', 'created_at', 'updated_at'];
+    protected $fillable = ['doc_data_id', 'projet_id', 'data_index', 'data_name', 'default_value', 'data_type', 'list_index', 'order_index', 'lock_field', 'special_field', 'check_type', 'check_value_list', 'check_bind_index1', 'check_bind_index2', 'check_operator1', 'check_operator2', 'client_field', 'must_field', 'cell_format', 'max_length', 'min_length', 'comp_no', 'client_updateable', 'fs_field', 'fs_must_field', 'fs_order_index', 'fs_train_order_index', 'fs_length', 'fs_trainable', 'fs_alignment', 'fs_default_value', 'fs_data_type', 'fs_lock_field', 'use_digitgrouping', 'num_digits', 'data_width', 'fs_enablebatchlocking', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

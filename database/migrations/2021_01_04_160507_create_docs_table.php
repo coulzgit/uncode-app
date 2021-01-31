@@ -109,6 +109,7 @@ class CreateDocsTable extends Migration
             $table->string('parent_invoice_id',64)->nullable(true);
             $table->string('MC_MATCH_STATUS_INDEX')->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
 
         });
     }

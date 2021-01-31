@@ -88,11 +88,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $MC_MATCH_STATUS_INDEX
  * @property string $created_at
  * @property string $updated_at
+ * @property string $deleted_at
  * @property Projet $projet
  * @property AccData[] $accDatas
  * @property ActionLog[] $actionLogs
+ * @property DataDoc[] $dataDocs
  * @property DocAttachment[] $docAttachments
- * @property DocData[] $docDatas
  * @property DocFile[] $docFiles
  * @property IpLineItem[] $ipLineItems
  */
@@ -108,7 +109,7 @@ class Doc extends Model
     /**
      * @var array
      */
-    protected $fillable = ['projet_id', 'doc_id', 'scan_date', 'comp_no', 'doc_name', 'doc_pages', 'flow_fixed', 'supplier_num', 'invoice_num', 'voucher_num', 'invoice_date', 'invoice_last_date', 'invoice_sum', 'stamp_date', 'stamp_uid', 'status_index', 'order_num', 'last_acceptor', 'exchange_rate', 'invoice_currency', 'invoice_sum_calc', 'cash_date', 'accounting_period', 'supplier_name', 'attrib_t1', 'attrib_t2', 'attrib_t3', 'attrib_t4', 'attrib_t5', 'attrib_t6', 'attrib_t7', 'attrib_n', 'attrib_n2', 'attrib_n3', 'attrib_n4', 'attrib_d', 'attrib_d2', 'attrib_d3', 'attrib_d4', 'bff_resource', 'vat_sum', 'invoice_serial', 'invoice_type', 'prebooked', 'secondary_status', 'entry_date', 'voucher_group', 'voucher_period', 'user_serial', 'net_sum_calc', 'net_sum', 'with_comments', 'external_status', 'voucher_year', 'serial_year', 'gl_date', 'credit_memo', 'vat_sum_calc', 'hold_owner', 'lock_owner', 'lock_date', 'lock_index', 'contract_num', 'oneaction', 'transfer_check', 'autoflow_status_index', 'match_status_index', 'custom_action_status', 'preprocessing_timestamp', 'supplier_rep_code', 'supplier_rep_name', 'payment_date', 'delivery_note_number', 'reference_person', 'CM_REQUEST', 'invoice_origin', 'match_wait_until', 'invoice_category', 'parent_invoice_id', 'MC_MATCH_STATUS_INDEX', 'created_at', 'updated_at'];
+    protected $fillable = ['projet_id', 'doc_id', 'scan_date', 'comp_no', 'doc_name', 'doc_pages', 'flow_fixed', 'supplier_num', 'invoice_num', 'voucher_num', 'invoice_date', 'invoice_last_date', 'invoice_sum', 'stamp_date', 'stamp_uid', 'status_index', 'order_num', 'last_acceptor', 'exchange_rate', 'invoice_currency', 'invoice_sum_calc', 'cash_date', 'accounting_period', 'supplier_name', 'attrib_t1', 'attrib_t2', 'attrib_t3', 'attrib_t4', 'attrib_t5', 'attrib_t6', 'attrib_t7', 'attrib_n', 'attrib_n2', 'attrib_n3', 'attrib_n4', 'attrib_d', 'attrib_d2', 'attrib_d3', 'attrib_d4', 'bff_resource', 'vat_sum', 'invoice_serial', 'invoice_type', 'prebooked', 'secondary_status', 'entry_date', 'voucher_group', 'voucher_period', 'user_serial', 'net_sum_calc', 'net_sum', 'with_comments', 'external_status', 'voucher_year', 'serial_year', 'gl_date', 'credit_memo', 'vat_sum_calc', 'hold_owner', 'lock_owner', 'lock_date', 'lock_index', 'contract_num', 'oneaction', 'transfer_check', 'autoflow_status_index', 'match_status_index', 'custom_action_status', 'preprocessing_timestamp', 'supplier_rep_code', 'supplier_rep_name', 'payment_date', 'delivery_note_number', 'reference_person', 'CM_REQUEST', 'invoice_origin', 'match_wait_until', 'invoice_category', 'parent_invoice_id', 'MC_MATCH_STATUS_INDEX', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -137,17 +138,17 @@ class Doc extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function docAttachments()
+    public function dataDocs()
     {
-        return $this->hasMany('App\Models\DocAttachment', 'ID_DOC');
+        return $this->hasMany('App\Models\DataDoc', 'ID_DOC');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function docDatas()
+    public function docAttachments()
     {
-        return $this->hasMany('App\Models\DocData', 'ID_DOC');
+        return $this->hasMany('App\Models\DocAttachment', 'ID_DOC');
     }
 
     /**

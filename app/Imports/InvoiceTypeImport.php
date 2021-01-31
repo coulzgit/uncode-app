@@ -31,9 +31,11 @@ class InvoiceTypeImport implements ToModel, WithValidation,WithHeadingRow
     */
     use Importable;
     protected $compagnie_id;
+    protected $projet_id;
 
-    public function __construct($compagnie_id) {
-        $this->compagnie_id = $compagnie_id;
+    public function __construct($projet_id) {
+        $this->compagnie_id = 1;
+        $this->projet_id = $projet_id;
     }
 
     public function model(array $row)
@@ -46,7 +48,8 @@ class InvoiceTypeImport implements ToModel, WithValidation,WithHeadingRow
             'layer'=>$row['layer'],    
             'credit_memo'=>$row['credit_memo'],  
             'invoice_type_cat'=>$row['invoice_type_cat'],  
-            'compagnie_id'=>$this->compagnie_id 
+            'compagnie_id'=>$this->compagnie_id,
+            'projet_id'=>$this->projet_id  
         ]);
     }
    

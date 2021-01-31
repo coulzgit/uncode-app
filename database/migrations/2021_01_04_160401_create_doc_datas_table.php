@@ -15,6 +15,7 @@ class CreateDocDatasTable extends Migration
     {
         Schema::create('data_docs', function (Blueprint $table) {
             $table->id();
+            $table->integer('projet_id')->nullable(true);
             $table->string('data_index')->nullable(false);
             $table->string('doc_id',64)->nullable(false);
             $table->string('data_value',100)->nullable(true);
@@ -22,6 +23,7 @@ class CreateDocDatasTable extends Migration
             $table->string('stamp_uid',60)->nullable(true);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

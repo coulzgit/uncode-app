@@ -15,7 +15,7 @@ class CreateIpLineItemsTable extends Migration
     {
         Schema::create('ip_line_items', function (Blueprint $table) {
             $table->id();
-
+            $table->integer('projet_id')->nullable(true);
             
             $table->string('LIT_DOC_ID',64)->nullable(false);//REF: docs->doc_id
 
@@ -115,6 +115,7 @@ class CreateIpLineItemsTable extends Migration
             $table->string('LIT_D9')->nullable(true);
             $table->string('LIT_D10')->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
