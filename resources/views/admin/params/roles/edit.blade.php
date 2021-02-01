@@ -70,16 +70,19 @@
         console.log('permission',permission);
         console.log('rolePermissions',rolePermissions);
     });
-    function createRole(){
+    function updateRole(){
         //Exemple de format data
+        var name=$('#name').val();
+        var permissions=$('#permissions').val();
+
         var data ={
                'name':"role_name",
                'permissions':[1,3,4]//list id permission
          };
         console.log('data',data);
-        //sendNewRoleData(data);
+        //sendUpdateRoleData(data);
     }
-    function sendNewRoleData(data){
+    function sendUpdateRoleData(data){
         $.ajaxSetup({
           headers:{
             'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')

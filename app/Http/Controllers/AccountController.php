@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\User;
 use App\Models\Account;
@@ -98,7 +99,7 @@ class AccountController extends Controller
         if (empty($account)) {
             return redirect(app()-> getLocale().'/404');
         }
-        
+
         $account = $this->formatAccountData($account_id);
         return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account]);
     }
@@ -210,32 +211,81 @@ class AccountController extends Controller
     }
     public function saveConfig(Request $request)
     {
-        $app_name=$request['app_name'];
-        $app_logo=$request['app_logo'];
-        $doc_columns=$request['doc_columns'];
-        $acc_data_columns=$request['acc_data_columns'];
-        
-        //Revoir
-        $message="Configuration account Sucessfully";
-        if(app()->getLocale()=="fr"){
-            $message="Configuration de compte Réussie";
-        }
-        if($request->ajax())
-        {
+        $app_name = $request['app_name'];
+        $app_logo = $request['app_logo'];
+        $doc_columns = $request['doc_columns'];
+        $acc_data_columns = $request['acc_data_columns'];
+        $domaine_name = $request['domaine_name'];
+        $login_image = $request['login_image'];
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'account_id' => 'required',
+                'doc_columns' => 'array|min:6|max:6',
+                'acc_data_columns' => 'array|min:6|max:6'
+            ]
+        );
+        // $validator = Validator::make(
+        //     $request->all(),
+        //     [
+        //         'account_id' => 'required',
+        //         'doc_columns' => 'array|max:6',
+        //         'acc_data_columns' => 'array|max:6'
+        //     ]
+        // );
+
+        if (!$validator->passes()) {
             return array(
-                'responseCode'=>200,
-                'message'=>$message
-            ) ;
+                'responseCode' => 404,
+                'errors' => $validator->errors()
+            );
         }
-        return redirect()->back()->with('message',$message);
+        $account_id = $request['account_id'];
+        $account = Account::find($account_id);
+        if (empty($account)) {
+            return array(
+                'responseCode' => 404
+            );
+        }
+
+        $account->app_name = $request['app_name'];
+        $account->app_logo = $request['app_logo'];
+        $account->domaine_name = $request['domaine_name'];
+        $account->login_image = $request['login_image'];
+        $account->save();
+        //UPDATE DOC_COLUMN & ACC_DATA_COLUMN OF THE ACCOUNT
+        $doc_columns = $request['doc_columns'];
+        $acc_data_columns = $request['acc_data_columns'];
+        if (!empty($doc_columns)) {
+            DB::table('doc_column_shows')->where('account_id', $account_id)->delete();
+
+            foreach ($doc_columns as $key => $value) {
+                $input['column_name'] = $value;
+                $input['account_id'] = $account_id;
+                DocColumnShow::create($input);
+            }
+        }
+        if (!empty($acc_data_columns)) {
+            DB::table('acc_data_column_shows')->where('account_id', $account_id)->delete();
+
+            foreach ($acc_data_columns as $key => $value) {
+                $input['column_name'] = $value;
+                $input['account_id'] = $account_id;
+                AccDataColumnShow::create($input);
+            }
+        }
+        return array(
+            'responseCode' => 200
+        );
     }
     private function getListComptes(){
         $accounts = [];
         try {
-            
+
             $accounts = Account::where('statut', true)->get();
             $accounts = $this->formaterListAccount($accounts);
-    
+
         } catch (Exception $e) {}
         return $accounts;
     }
@@ -246,14 +296,14 @@ class AccountController extends Controller
                $myCollect->push($this->formatAccountData($account['id']));
             }
         } catch (Exception $e) {
-            
+
         }
         return $myCollect;
 
     }
     private function getAccountConfigured($account_id){
         $myCollect = collect([]);
-        
+
         try {
             $account = Account::find($account_id);
             $myCollect->put('account',$account);
@@ -263,12 +313,12 @@ class AccountController extends Controller
             $myCollect->put('doc_columns',$doc_columns);
             $myCollect->put('acc_data_columns',$acc_data_columns);
         } catch (Exception $e) {
-            
+
         }
         return $myCollect;
     }
     private function getAccDataColumns(){
-        
+
         $acc_data_columns=collect([]);
 
             $acc_data_columns->put('list1',['sort_order', 'brutto', 'brutto_calc', 'vat', 'vat_pros', 'accepted', 'acceptor_id', 'accepted_date', 't1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10', 't11', 't12', 't13', 't14', 't15', 't16', 't17', 't18', 't19', 't20', 't21', 't22', 't23', 't24', 't25', 't26', 't27', 't28', 't29', 't30', 't31', 't32', 't33', 't34', 't35', 't36', 't37', 't38', 't39', 't40', 't41', 't42', 't43', 't44', 't45', 't46', 't47', 't48', 't49', 't50', 't51', 't52', 't53', 't54', 't55', 't56', 't57']);
@@ -277,7 +327,7 @@ class AccountController extends Controller
         return $acc_data_columns;
     }
     private function getDocColumns(){
-        
+
         $doc_columns=collect(['doc_id', 'scan_date', 'comp_no', 'supplier_num', 'invoice_num', 'voucher_num', 'invoice_date', 'invoice_last_date', 'invoice_sum', 'status_index', 'order_num', 'exchange_rate', 'invoice_currency', 'invoice_sum_calc', 'supplier_name', 'attrib_t1', 'attrib_t2', 'attrib_t3', 'attrib_t4', 'attrib_t5', 'attrib_t6', 'attrib_t7', 'attrib_n', 'attrib_n2', 'attrib_n3', 'attrib_n4', 'attrib_d', 'attrib_d2', 'attrib_d3', 'attrib_d4', 'vat_sum', 'invoice_type', 'prebooked', 'entry_date', 'net_sum_calc', 'net_sum', 'vat_sum_calc', 'contract_num', 'payment_date', 'invoice_category']);
         return $doc_columns;
     }
@@ -288,14 +338,14 @@ class AccountController extends Controller
         if (empty($account)) {
             return redirect(app()-> getLocale().'/404');
         }
-        
+
         $account = $this->formatAccountData($account_id);
         return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account]);
     }
     private function formatAccountData($account_id){
 
         $myCollect = collect([]);
-        
+
         try {
             $account = Account::find($account_id);
             $myCollect->put('account',$account);
@@ -310,11 +360,11 @@ class AccountController extends Controller
             $myCollect->put('licence',$licence);
 
         } catch (Exception $e) {
-            
+
         }
         return $myCollect;
     }
-    private function getProjetByAccount($account_id){ 
+    private function getProjetByAccount($account_id){
         $myCollect = collect([]);
         try {
             $projets = Projet::where('account_id',$account_id)->get();
@@ -329,7 +379,7 @@ class AccountController extends Controller
 
             }
         } catch (Exception $e) {
-            
+
         }
         return $myCollect;
     }
@@ -434,7 +484,7 @@ class AccountController extends Controller
             }
             return $day_num.' '.$month_name_min.' '.$year_num;
         }
-        
+
 
         //$periods = CarbonPeriod::create($start,$end);
 
@@ -562,10 +612,10 @@ class AccountController extends Controller
         //     }
         //     $myItem->put("month_name_min",$month_name_min);
 
-        //     $myCollect->push($myItem); 
+        //     $myCollect->push($myItem);
         // }
         // return $myCollect;
     }
-    
-   
+
+
 }

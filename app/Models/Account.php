@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $app_name
  * @property string $app_logo
  * @property string $expired_at
+ * @property string $domaine_name
+ * @property string $login_image
  * @property string $created_at
  * @property string $updated_at
  * @property Licence $licence
@@ -24,7 +26,7 @@ class Account extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -32,7 +34,7 @@ class Account extends Model
     /**
      * @var array
      */
-    protected $fillable = ['licence_id', 'code', 'statut', 'app_name', 'app_logo', 'expired_at', 'created_at', 'updated_at'];
+    protected $fillable = ['licence_id', 'code', 'statut', 'app_name', 'app_logo', 'expired_at', 'domaine_name', 'login_image', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

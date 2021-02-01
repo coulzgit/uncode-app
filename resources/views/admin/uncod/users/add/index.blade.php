@@ -79,7 +79,12 @@
 		console.log('roles',roles);
         console.log('account',account);
 		console.log('account_has_owner',account_has_owner);
-	});
+    });
+
+
+
+
+
 	function createUser(){
 		var account_owner =0;
         var account_id =account['id'];
@@ -90,6 +95,13 @@
         var email = $('#email').val();
         var password = $('#password').val();
         var confirm_password = $('#confirm_password').val();
+         var fd = new FormData();
+        var files = $('#image')[0].files[0];
+        fd.append('file',files);
+
+        // var img = new FormData();
+        // img.append( 'file', input.files[0] );
+        var image = $('#image').val();
         if(!account_has_owner){
         	account_owner=$('#account_owner').is(':checked')?1:0;
         }
@@ -100,6 +112,7 @@
         $('#password').css({'border':''});
         $('#confirm_password').css({'border':''});
         $('#roles').css({'border':''});
+        $('#image').css({'border':''});
         if (!user_name) {
         	$('#user_name').css({'border':'1px solid red'});
         	return;
@@ -121,6 +134,9 @@
         }if (!confirm_password) {
         	$('#confirm_password').css({'border':'1px solid red'});
         	return;
+        }if (!image) {
+        	$('#image').css({'border':'1px solid red'});
+        	return;
         }
         var data ={
               'account_id' : account_id,
@@ -132,7 +148,10 @@
               'password' : password,
               'confirm_password' : confirm_password,
               'roles':roles,
+              'image':image,
+
         };
+        console.log(FormData)
         console.log('data',data);
         sendNewUserData(data);
   	}

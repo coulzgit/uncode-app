@@ -39,9 +39,9 @@ class UserController extends Controller
         $this->middleware('guest');
     }
 
-    
+
 /* ##########  USER - RULES - PERMISSIONS ########## */
-    public function index(Request $request) 
+    public function index(Request $request)
     {
         $account_id = $request['account_id'];
         $account = Account::find($account_id);
@@ -59,9 +59,9 @@ class UserController extends Controller
         ->orderBy('id','DESC')->get();
         return view('admin.uncod.users.index',compact('users'))
         ->with('i', ($request->input('page', 1) - 1) * 5);
-    } 
+    }
     public function create(Request $request)
-    {   
+    {
         $account_id = $request['account_id'];
         $account = Account::find($account_id);
         if (empty($account)) {
@@ -79,40 +79,43 @@ class UserController extends Controller
         $account_has_owner = User::where('account_id',$account_id)
         ->where('account_owner','=',1)
         ->exists();
-        
+
         return view('admin.uncod.users.add.index',compact('roles','account','account_has_owner'));
     }
     public function store(Request $request)
     {
-        
-         $validator = Validator::make($request->all(), 
+
+         $validator = Validator::make($request->all(),
             [
-              'account_id'=>'required|integer',
-              'user_name'=>'required|max:50',
-              'prenom'=>'required|max:50',
-              'nom'=>'required|max:50',
-              'account_owner'=>'required',
-              'email'=>'required|email|unique:users,email',
-              'password'=>'required|same:confirm_password',
-              'roles' => 'required'
+                'account_id'=>'required|integer',
+                'user_name'=>'required|max:50',
+                'prenom'=>'required|max:50',
+                'nom'=>'required|max:50',
+                'account_owner'=>'required',
+                'email'=>'required|email|unique:users,email',
+                'password'=>'required|same:confirm_password',
+                //'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'roles' => 'required'
             ]
         );
         if (!$validator->passes()) {
             $returnHTML = view('admin.uncod.users.add.error_user_form')->with('errors', $validator->errors())->render();
             return response()->json(array(
-                'responseCode'=>422, 
+                'responseCode'=>422,
                 'html'=>$returnHTML)
             );
         }
 
         $input = $request->all();
+        // $input['image'] = time() . '.' . $request->image->getClientOriginalExtension();
+        // $request->image->move(public_path('images'), $input['image']);
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
         $message="User created successfully";
         $returnHTML = view('admin.uncod.message_succes')->render();
         return response()->json(array(
-            'responseCode'=>200, 
+            'responseCode'=>200,
             'html'=>$returnHTML)
         );
     }
@@ -134,7 +137,7 @@ class UserController extends Controller
         return view('admin.uncod.users.show.index',compact('user','userRole','account'));
     }
     public function edit(Request $request)
-    {  
+    {
         $user_id = $request['user_id'];
         Log::info('user_id: '.$user_id);
         $user = User::find($user_id);
@@ -155,7 +158,7 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), 
+        $validator = Validator::make($request->all(),
             [
               'user_name'=>'required|max:50',
               'prenom'=>'required|max:50',
@@ -169,16 +172,16 @@ class UserController extends Controller
         if (!$validator->passes()) {
             $returnHTML = view('admin.uncod.users.add.error_user_form')->with('errors', $validator->errors())->render();
             return response()->json(array(
-                'responseCode'=>422, 
+                'responseCode'=>422,
                 'html'=>$returnHTML)
             );
         }
 
         $input = $request->all();
-        if(!empty($input['password'])){ 
+        if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
-            $input = Arr::except($input,array('password'));    
+            $input = Arr::except($input,array('password'));
         }
         $user = User::find($id);
         $user->update($input);
@@ -187,7 +190,7 @@ class UserController extends Controller
 
         $returnHTML = view('admin.uncod.message_succes')->render();
         return response()->json(array(
-            'responseCode'=>200, 
+            'responseCode'=>200,
             'html'=>$returnHTML)
         );
     }
@@ -237,6 +240,11 @@ class UserController extends Controller
     }
     public function dashboard()
     {
-        return view('admin/uncod.index');
-    }    
+        $accounts = Account::all();
+        return view('admin/uncod.index', compact('accounts'));
+    }
+
+
+
+
 }

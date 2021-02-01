@@ -108,20 +108,20 @@
 
 
                                     <select class="form-control select2 " id="roles" multiple="multiple">
-                                        @foreach ($roles as $key => $role)
-                                            @if (count($user['roles']))
-                                                @foreach ($user['roles'] as $row)
-                                                    @if ($role==$row->name)
-                                                        <option value="{{ $key }}" selected>{{ $role }}</option>
-                                                    @endif
-                                                @endforeach
-                                            @else
-                                            <option value="{{ $key }}">{{ $role }}</option>
+                                            @foreach ($roles as $key => $role)
+                                                @if (count($user['roles']))
+                                                    @foreach ($user['roles'] as $row)
+                                                        @if ($role==$row->name)
+                                                            <option value="{{ $key }}" selected>{{ $role }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                <option value="{{ $key }}">{{ $role }}</option>
 
-                                            @endif
+                                                @endif
 
 
-                                        @endforeach
+                                            @endforeach
 
 
                                     </select>

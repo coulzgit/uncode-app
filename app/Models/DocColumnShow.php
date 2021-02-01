@@ -14,9 +14,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DocColumnShow extends Model
 {
+    public $table = 'doc_column_shows';
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';

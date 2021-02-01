@@ -14,9 +14,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AccDataColumnShow extends Model
 {
+    public $table = 'acc_data_column_shows';
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';

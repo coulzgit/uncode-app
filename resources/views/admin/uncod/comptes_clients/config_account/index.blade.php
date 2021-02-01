@@ -22,6 +22,18 @@
     <!-- /breadcrumb -->
 @endsection
 @section('content')
+<div id="success_msg" style="padding: 12px; display:none" class="row">
+    <div  style="background: #bff1cd; border: 1px solid #bff1cd;border-radius: 5px;height: 50px;padding-top: 5px" class="col-lg-12 col-md-12">
+            <span id="success_msgcontent" >{{__('Chargement réussie')}}</span>
+    </div>
+</div>
+
+<div id="failed_msg" style="padding: 12px; display:none" class="row">
+    <div  style="background: red; border: 1px solid #bff1cd;border-radius: 5px;height: 50px;padding-top: 5px" class="col-lg-12 col-md-12">
+            <span id="failed_msgcontent" >{{__('Chargement réussie')}}</span>
+    </div>
+</div>
+
 
 @include('admin.uncod.comptes_clients.config_account.content')
             </div>
@@ -123,7 +135,7 @@
                 'acc_data_columns':acc_data_column_array
              };
             console.log('data',data);
-           // sendNewAccountData(data);
+           sendNewAccountData(data);
         }
         function sendNewAccountData(data){
             $.ajaxSetup({
@@ -132,7 +144,7 @@
               }
             });
             $.ajax({
-              url:"{{route('accounts.config', ['locale'=>app()-> getLocale()])}}",
+              url:"{{route('accounts.config.save', ['locale'=>app()-> getLocale()])}}",
               method:'POST',
               data:data,
               dataType: 'json',
@@ -140,9 +152,31 @@
               success:function(result){
 
                 if(result["responseCode"] === 200){
-                  alert('success');
+                //   alert('success');
+                    $('#success_msg').css({'display':'block'});
+                    $('#failed_msg').css({'display':'none'});
+
                 }else if(result["responseCode"] === 404){
-                    alert('failed');
+                    // alert('failed');
+                     $('#success_msg').css({'display':'none'});
+                    $('#failed_msg').css({'display':'block'});
+                    if(result['errors'].hasOwnProperty('doc_columns')){
+                        $('#failed_msgcontent').empty().append("{{__('Les Données d\'entete ne peuvent pas contenir plus de 6 éléments.') }}");
+
+
+                    }
+                     if(result['errors'].hasOwnProperty('acc_data_columns')){
+                        $('#failed_msgcontent').empty().append("{{__('Les Données d\'imputation ne peuvent pas contenir plus de 6 éléments.') }}");
+
+
+                    }
+
+
+
+
+
+
+                    console.log(result);
                 }
               },
               error:function(result){

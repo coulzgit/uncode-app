@@ -1,5 +1,5 @@
 <!-- Title -->
-<title> Uncode-Invoce Archive Uncode </title>
+<title> Uncode</title>
 <!-- Favicon -->
 <link rel="icon" href="{{URL::asset('assets/img/brand/favicon.png')}}" type="image/x-icon"/>
 <!-- Icons css -->

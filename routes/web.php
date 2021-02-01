@@ -6,16 +6,28 @@ Route::get('/', function () {
     return redirect(app()-> getLocale());
 });
 
-Auth::routes();
+
+Route::group(
+    [
+        'prefix' => '{locale}',
+        'where' => ['locale' => '[a-zA-Z]{2}'],
+        'middleware' => 'setlocale'
+    ],
+    function () {
+        Auth::routes();
+
+    }
+);
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/signIn', 'UserController@login');
 Route::group(
 	[
-		'prefix' => '{locale}', 
+		'prefix' => '{locale}',
 		'where' =>['locale'=>'[a-zA-Z]{2}'],
 		'middleware' => 'setlocale'
-	], 
+	],
 	function () {
 		Route::get('/', function () {
 		    return view('admin/uncod/.signin');
@@ -25,7 +37,7 @@ Route::group(
 
 Route::group(
 	[
-		'prefix' => '{locale}', 
+		'prefix' => '{locale}',
 		'where' =>['locale'=>'[a-zA-Z]{2}'],
 		'middleware' => ['setlocale','auth']
 	]
@@ -44,12 +56,18 @@ Route::group(
 );
 
 // ACCOUNT
+
+// Route::domain('{subdomain}.' . config('app.short_url'))->group(function () {
+//     Route::get('/accounts', 'AccountController@index')->name('accounts');
+// });
+
 Route::group(
 	[
-		'prefix' => '{locale}', 
+		'prefix' => '{locale}',
 		'where' =>['locale'=>'[a-zA-Z]{2}'],
-		'middleware' => ['auth','setlocale']
-	], 
+		'middleware' => ['auth','setlocale'],
+	],
+
 	function() {
 	    Route::get('/accounts', 'AccountController@index')->name('accounts');
 	    Route::get('/accounts/create', 'AccountController@create')->name('accounts.create');
@@ -60,7 +78,7 @@ Route::group(
 	    Route::post('/accounts/{account_id?}/edit', 'AccountController@update')->name('accounts.edit');
 
 	    Route::get('/accounts/{account_id?}/config', 'AccountController@config')->name('accounts.config');
-	    Route::post('/accounts/{account_id?}/config', 'AccountController@saveConfig')->name('accounts.config');
+	    Route::post('/accounts/config', 'AccountController@saveConfig')->name('accounts.config.save');
 	    Route::get('/accounts/{account_id}/adduser', 'UserController@create')->name('accounts.adduser');
 	    Route::get('/accounts/{account_id}/users', 'UserController@index')->name('accounts.users');
 	    Route::delete('/accounts/{account_id?}/delete', 'AccountController@destroy')->name('accounts.delete');
@@ -70,10 +88,10 @@ Route::group(
 // ROLE
 Route::group(
 	[
-		'prefix' => '{locale}', 
+		'prefix' => '{locale}',
 		'where' =>['locale'=>'[a-zA-Z]{2}'],
 		'middleware' => ['auth','setlocale']
-	], 
+	],
 	function() {
 	    Route::get('/roles', 'RoleController@index')->name('roles');
 	    Route::get('/roles/create', 'RoleController@create')->name('roles.create');
@@ -89,15 +107,17 @@ Route::group(
 // USER
 Route::group(
 	[
-		'prefix' => '{locale}', 
+		'prefix' => '{locale}',
 		'where' =>['locale'=>'[a-zA-Z]{2}'],
 		'middleware' => ['auth','setlocale']
-	], 
+	],
 	function() {
 	    Route::get('/users/{account_id}', 'UserController@index')->name('users');
 	    Route::get('/users/{account_id}/create', 'UserController@create')->name('users.create');
 
-	    Route::post('/users/create', 'UserController@store')->name('users.create');
+        Route::post('/users/create', 'UserController@store')->name('users.create');
+
+
 
 	    Route::get('/users/{user_id?}/show', 'UserController@show')->name('users.show');
 	    Route::get('/users/{user_id?}/edit', 'UserController@edit')->name('users.edit');
@@ -109,10 +129,10 @@ Route::group(
 // PROJET
 Route::group(
 	[
-		'prefix' => '{locale}', 
+		'prefix' => '{locale}',
 		'where' =>['locale'=>'[a-zA-Z]{2}'],
 		'middleware' => ['auth','setlocale']
-	], 
+	],
 	function() {
 	    Route::get('/projets', 'ProjetController@index')->name('projets');
 	    Route::get('/projets/create', 'ProjetController@create')->name('projets.create');
@@ -129,13 +149,12 @@ Route::group(
 // LOADING FILE
 Route::group(
 	[
-		'prefix' => '{locale}', 
+		'prefix' => '{locale}',
 		'where' =>['locale'=>'[a-zA-Z]{2}'],
 		'middleware' => ['auth','setlocale']
-	], 
+	],
 	function() {
 	    Route::get('/loadings', 'LoadingFileController@index')->name('loadings');
-
 	    Route::get('/loading/docs', 'LoadingFileController@importDoc')->name('loading.docs');
 	    Route::get('/loading/action-log', 'LoadingFileController@importActionLog')->name('loading.action-log');
 	    Route::get('/loading/action-log-name', 'LoadingFileController@importActionLogName')->name('loading.action-log-name');
@@ -172,6 +191,6 @@ Route::group(
 	    Route::get('/export/test', 'LoadingFileController@imports')->name('export.test');
 	    Route::post('/import/test', 'LoadingFileController@importTest')->name('import.test');
 
-	    
+
 	}
 );

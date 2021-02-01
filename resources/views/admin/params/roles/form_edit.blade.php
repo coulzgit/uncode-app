@@ -13,7 +13,7 @@
         </div>
         @endif
 
-        {!! Form::model($role, ['method' => 'PATCH']) !!}
+        {!! Form::model($role, ['method' => 'POST']) !!}
 
         <div class="card">
             <div class="card-body">
@@ -32,7 +32,7 @@
                             </label>
                         </div>
                         <div class="col-md-8 mg-t-5 mg-md-t-0">
-                        {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}                        </div>
+                        {!! Form::text('name', null, array('placeholder' => 'Name','id'=>'name','class' => 'form-control')) !!}                        </div>
                     </div>
 
                     <div class="row row-xs align-items-center mg-b-20">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-10 mg-t-8 d-sm-flex">
                             @foreach($permission as $value)
-                            <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
+                            <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('id'=>'permissions','class' => 'name')) }}
                                 <div>
                                     {{ $value->name }}
                                 </div>

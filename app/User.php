@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Role;
+use App\Notifications\CustomResetPasswordNotification;
+
+use Illuminate\Auth\Passwords\PasswordBroker;
 
 /**
  * @property integer $id
@@ -28,7 +31,7 @@ use Spatie\Permission\Models\Role;
  */
 
 
-   
+
 
 class User extends Authenticatable
 {
@@ -42,7 +45,7 @@ class User extends Authenticatable
      */
     protected $keyType = 'integer';
 
-    protected $fillable = ['account_id', 'user_name', 'prenom', 'nom', 'email', 'email_verified_at', 'password', 'account_owner', 'photo', 'remember_token', 'created_at', 'updated_at'];
+    protected $fillable = ['account_id', 'image', 'user_name', 'prenom', 'nom', 'email', 'email_verified_at', 'password', 'account_owner',  'remember_token', 'created_at', 'updated_at'];
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -69,4 +72,15 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Account');
     }
 
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPasswordNotification($token));
+    }
 }

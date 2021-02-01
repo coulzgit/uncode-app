@@ -136,11 +136,23 @@
 						</div>
                     </div>
 
-                    
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">{{__('Image')}}
+                            </label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0 custom-file">
+
+                            <input required="" type="file" id="image" name="image" class="form-control">
+
+                        </div>
+                    </div>
 
 
 
-					<button onclick="createUser()"class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">
+
+
+					<button onclick="createUser()"class="btn btn-main-primary upload-image pd-x-30 mg-r-5 mg-t-5">
 						{{__('Sauvegarder')}}
 					</button>
 

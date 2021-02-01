@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Notifications\CustomResetPasswordNotification;
+
 /**
  * @property integer $id
  * @property integer $account_id
@@ -24,7 +26,7 @@ class User extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -40,5 +42,17 @@ class User extends Model
     public function account()
     {
         return $this->belongsTo('App\Models\Account');
+    }
+
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPasswordNotification($token));
     }
 }
