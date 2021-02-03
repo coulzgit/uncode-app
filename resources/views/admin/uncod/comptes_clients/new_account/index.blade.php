@@ -22,7 +22,12 @@
 	<!-- /breadcrumb -->
 @endsection
 @section('content')
-
+<div id="msg_succes" class="row col-lg-12" style="background: #bff1cd; border: 1px solid #bff1cd;border-radius: 5px;height: 50px;padding-top: 5px;display: none;">
+    {{__('Réussie')}}
+</div>
+<div id="msg_error" class="row col-lg-12" style="background:red; border: 1px solid #bff1cd;border-radius: 5px;height: 50px;padding-top: 5px;display: none;">
+    {{__('Echec')}}
+</div>
 @include('admin.uncod.comptes_clients.new_account.form_add')
 			</div>
 			<!-- /Container -->
@@ -86,29 +91,33 @@
         sendNewAccountData(data);
     }
     function sendNewAccountData(data){
-        $.ajaxSetup({
-          headers:{
-            'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
-          }
-        });
-        $.ajax({
-          url:"{{route('accounts.create', ['locale'=>app()-> getLocale()])}}",
-          method:'POST',
-          data:data,
-          dataType: 'json',
-          encode  : true,
-          success:function(result){
+      $('#msg_succes').css({'display':'none'});
+      $('#msg_error').css({'display':'none'});
+      $.ajaxSetup({
+        headers:{
+          'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
+        }
+      });
+      $.ajax({
+        url:"{{route('accounts.create', ['locale'=>app()-> getLocale()])}}",
+        method:'POST',
+        data:data,
+        dataType: 'json',
+        encode  : true,
+        success:function(result){
 
-            if(result["responseCode"] === 200){
-              alert('success');
-            }else if(result["responseCode"] === 404){
-                alert('failed');
-            }
-          },
-          error:function(result){
-            alert('failed');
+          if(result["responseCode"] === 200){
+            $('#msg_succes').css({'display':'flex'});
+            $('#msg_error').css({'display':'none'});
+          }else if(result["responseCode"] === 404){
+            $('#msg_succes').css({'display':'none'});
+            $('#msg_error').css({'display':'flex'});
           }
-        });
+        },
+        error:function(result){
+          alert('failed');
+        }
+      });
     }
 </script>
 @endsection

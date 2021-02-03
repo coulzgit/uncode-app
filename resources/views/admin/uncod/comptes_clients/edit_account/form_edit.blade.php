@@ -9,7 +9,7 @@
                     {{__('Note: Tous les champs sont obligatoires')}}
                 </p>
                 <div class="pd-30 pd-sm-40 bg-gray-200">
-                    <form>
+                    
                     <div class="row row-xs align-items-center mg-b-20">
                         <div class="col-md-4">
                             <label class="form-label mg-b-0">
@@ -35,17 +35,6 @@
                                 @endif
                             @endforeach
                         </select>
-
-
-                        {{-- <select id="licence_id" value="" class="form-control">
-                                @foreach ($licences as $licence)
-                                <option value="{{ $licence->id }}">
-                                	{{ $licence->nom }}
-                                </option>
-
-                                @endforeach
-                            </select> --}}
-
                         </div>
 
 
@@ -57,7 +46,7 @@
                             </label>
                         </div>
                         <div class="col-md-8 mg-t-5 mg-md-t-0">
-                            <div class="{{ 'main-toggle main-toggle-success on' }}" id="statut">
+                            <div class="main-toggle main-toggle-success off" id="statut">
                                 <span></span>
                             </div>
                         </div>

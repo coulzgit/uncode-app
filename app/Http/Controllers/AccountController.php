@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Validator;
 
 use App\User;
 use App\Models\Account;
+use App\Models\Uncode;
 use App\Models\Projet;
 use App\Models\Licence;
 use App\Models\DocColumnShow;
 use App\Models\AccDataColumnShow;
 use App\MyClasses\LoadingManager;
+use App\Helpers\DBHelper;
 
 use Auth;
 use Mail;
@@ -20,15 +22,12 @@ use DB;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Log;
+use Image;
 
 
 class AccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $accounts = $this->getListComptes();
@@ -42,11 +41,6 @@ class AccountController extends Controller
             ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $licences = DB::table('licences')->get();
@@ -59,14 +53,9 @@ class AccountController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+       
         $licence_id=$request['licence_id'];
         $account_code=random_int(10000,99999);
         $account_statut=false;
@@ -93,12 +82,7 @@ class AccountController extends Controller
         return redirect()->back()->with('message',$message);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Request $request)
     {
         $account_id = $request['account_id'];
@@ -114,12 +98,7 @@ class AccountController extends Controller
         return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account,'projets'=>$projets]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit(Request $request, $id)
     {
 
@@ -146,13 +125,7 @@ class AccountController extends Controller
             );
         }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         $account_id=$request['account_id'];
@@ -181,15 +154,17 @@ class AccountController extends Controller
         if(app()->getLocale()=="fr"){
             $message="Modification de compte Réussie";
         }
+        if($request->ajax())
+        {
+            return array(
+                'responseCode'=>200,
+                'message'=>$message
+            ) ;
+        }
         return redirect()->back()->with('message',$message);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy(Request $request)
     {
         $account_id=$request['account_id'];
@@ -211,10 +186,9 @@ class AccountController extends Controller
     public function config(Request $request){
         $account_id = $request['account_id'];
         $accountData = $this->getAccountConfigured($account_id);
-        $acc_data_columns=$this->getAccDataColumns();
-        $doc_columns=$this->getDocColumns();
-        $loadingManager = new LoadingManager();
-        $projets= $loadingManager->getUserProjet();
+        $acc_data_columns=DBHelper::getAccDataColumns();
+        $doc_columns=DBHelper::getDocColumns();
+        $projets= DBHelper::getUserProjet();
 
         return view('admin.uncod.comptes_clients.config_account.index',[
                 'account'=>$accountData,
@@ -232,7 +206,7 @@ class AccountController extends Controller
         $accounts = [];
         try {
             
-            $accounts = Account::where('statut', true)->get();
+            $accounts = Account::all();
             $accounts = $this->formaterListAccount($accounts);
     
         } catch (Exception $e) {}
@@ -275,6 +249,7 @@ class AccountController extends Controller
              $acc_data_columns->put('list2',['t58', 't59', 't60', 't61', 't62', 't63', 't64', 't65', 't66', 't67', 't68', 't69', 't70', 't71', 't72', 't73', 't74', 't75', 't76', 't77', 't78', 't79', 't80', 't81', 't82', 't83', 't84', 't85', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10', 'n11', 'n12', 'n13', 'n14', 'n15', 'n16', 'n17', 'n18', 'n19', 'n20', 'stamp_date', 'stamp_uid', 'net_sum', 'net_calc', 'layer', 'reviewed', 'reviewer_id', 'reviewed_date']);
         return $acc_data_columns;
     }
+    
     private function getDocColumns(){
         
         $doc_columns=collect(['doc_id', 'scan_date', 'comp_no', 'supplier_num', 'invoice_num', 'voucher_num', 'invoice_date', 'invoice_last_date', 'invoice_sum', 'status_index', 'order_num', 'exchange_rate', 'invoice_currency', 'invoice_sum_calc', 'supplier_name', 'attrib_t1', 'attrib_t2', 'attrib_t3', 'attrib_t4', 'attrib_t5', 'attrib_t6', 'attrib_t7', 'attrib_n', 'attrib_n2', 'attrib_n3', 'attrib_n4', 'attrib_d', 'attrib_d2', 'attrib_d3', 'attrib_d4', 'vat_sum', 'invoice_type', 'prebooked', 'entry_date', 'net_sum_calc', 'net_sum', 'vat_sum_calc', 'contract_num', 'payment_date', 'invoice_category']);
@@ -435,138 +410,224 @@ class AccountController extends Controller
             }
             return $day_num.' '.$month_name_min.' '.$year_num;
         }
-        
+    }
 
-        //$periods = CarbonPeriod::create($start,$end);
-
-        // $myCollect = collect([]);
-        // foreach ($periods as $date) {
-        //     $myDate = $date->format('Y-m-d');
-        //     $day = Carbon::parse($myDate)->format('l');
-        //     $month = Carbon::parse($myDate)->format('F');
-        //     $day_num=substr($myDate,8,2) ;//2020-09-24
-        //     $month_num=substr($myDate,5,2) ;//2020-09-24
-
-        //     $myItem = collect([]);
-        //     if($day=="Monday"){
-        //         $horaires = Horaire::where("user_id",$institut->user_id)
-        //         ->where("codeDay","L")
-        //         ->where("statut","normale")
-        //         ->get();
-        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
-        //         $myItem->put("codeDay","L");
-        //         $myItem->put("date",$myDate);
-
-        //         $day_name_min="Mon";
-        //         if(app()-> getLocale()=="fr"){
-        //             $day_name_min="Lun";
-        //         }
-        //         $myItem->put("day_name_min",$day_name_min);
-
-        //     }elseif($day=="Tuesday"){
-        //         $horaires = Horaire::where("user_id",$institut->user_id)
-        //         ->where("codeDay","M")
-        //         ->where("statut","normale")
-        //         ->get();
-        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
-        //         $myItem->put("codeDay","M");
-        //         $myItem->put("date",$myDate);
-        //         $myItem->put("hours",$hoursDispo);
-
-        //         $day_name_min="Tue";
-        //         if(app()-> getLocale()=="fr"){
-        //             $day_name_min="Mar";
-        //         }
-        //         $myItem->put("day_name_min",$day_name_min);
-        //     }elseif($day=="Wednesday"){
-        //         $horaires = Horaire::where("user_id",$institut->user_id)
-        //         ->where("codeDay","Me")
-        //         ->where("statut","normale")
-        //         ->get();
-        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
-        //         $myItem->put("codeDay","Me");
-        //         $myItem->put("date",$myDate);
-        //         $myItem->put("hours",$hoursDispo);
-
-        //         $day_name_min="Wed";
-        //         if(app()-> getLocale()=="fr"){
-        //             $day_name_min="Mer";
-        //         }
-        //         $myItem->put("day_name_min",$day_name_min);
-        //     }elseif($day=="Thursday"){
-        //         $horaires = Horaire::where("user_id",$institut->user_id)
-        //         ->where("codeDay","J")
-        //         ->where("statut","normale")
-        //         ->get();
-        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
-        //         $myItem->put("codeDay","J");
-        //         $myItem->put("date",$myDate);
-        //         $myItem->put("hours",$hoursDispo);
-
-        //         $day_name_min="Thu";
-        //         if(app()-> getLocale()=="fr"){
-        //             $day_name_min="Jeu";
-        //         }
-        //         $myItem->put("day_name_min",$day_name_min);
-        //     }elseif($day=="Friday"){
-        //         $horaires = Horaire::where("user_id",$institut->user_id)
-        //         ->where("codeDay","V")
-        //         ->where("statut","normale")
-        //         ->get();
-        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
-        //         $myItem->put("codeDay","V");
-        //         $myItem->put("date",$myDate);
-        //         $myItem->put("hours",$hoursDispo);
-
-        //         $day_name_min="Fri";
-        //         if(app()-> getLocale()=="fr"){
-        //             $day_name_min="Ven";
-        //         }
-        //         $myItem->put("day_name_min",$day_name_min);
-        //     }elseif($day=="Saturday"){
-        //         $horaires = Horaire::where("user_id",$institut->user_id)
-        //         ->where("codeDay","S")
-        //         ->where("statut","normale")
-        //         ->get();
-        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
-        //         $myItem->put("codeDay","S");
-        //         $myItem->put("date",$myDate);
-        //         $myItem->put("hours",$hoursDispo);
-
-        //         $day_name_min="Sat";
-        //         if(app()-> getLocale()=="fr"){
-        //             $day_name_min="Sam";
-        //         }
-        //         $myItem->put("day_name_min",$day_name_min);
-        //     }elseif($day=="Sunday"){
-        //         $horaires = Horaire::where("user_id",$institut->user_id)
-        //         ->where("codeDay","D")
-        //         ->where("statut","normale")
-        //         ->get();
-        //         $hoursDispo = $this->getHourDispo($horaires,$myDate);
-        //         $myItem->put("codeDay","D");
-        //         $myItem->put("date",$myDate);
-        //         $myItem->put("hours",$hoursDispo);
-
-        //         $day_name_min="Sun";
-        //         if(app()-> getLocale()=="fr"){
-        //             $day_name_min="Dim";
-        //         }
-        //         $myItem->put("day_name_min",$day_name_min);
-        //     }
-        //     $myItem->put("month",$month);
-        //     $myItem->put("day_num",$day_num);
-        //     $myItem->put("month_num",$month_num);
-        //     $month_name_min = $monthsArray[$month]["n_m_en"];
-        //     if(app()-> getLocale()=="fr"){
-        //         $month_name_min = $monthsArray[$month]["n_m_fr"];
-        //     }
-        //     $myItem->put("month_name_min",$month_name_min);
-
-        //     $myCollect->push($myItem); 
-        // }
-        // return $myCollect;
+    public function marqueBlanche(Request $request){
+        $loadingManager = new LoadingManager();
+        $projets= $loadingManager->getUserProjet();
+        $accounts = Account::where("statut",1)->get();
+        return view('admin.uncod.comptes_clients.marque_blanche.index',
+            [
+                'projets'=>$projets,
+                'accounts'=>$accounts
+            ]
+        );
     }
     
+    public function saveMarqueBlanche(Request $request){
+        $validator = Validator::make($request->all(), [
+                    'app_name' => 'required',
+                    'accountID' => 'required',
+                    'app_logo' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+                ]
+            );
+        if (!$validator->passes()) {
+             return redirect()->back()->withErrors('errors',$validator->errors());
+        }
+        $account_id= $request["accountID"];
+        $account = Account::find($account_id);
+        if (empty($account)) {
+            return redirect(app()-> getLocale().'/404');
+        }
+        $accountWithSameDomaine=Account::where("domaine_name",$request["domaine_name"])
+        ->where("id","<>",$account_id)->first();
+        if (!empty($accountWithSameDomaine)) {
+            return redirect()->back()->with('domaine_name_error','already used');
+        }
+
+        $originalImage= $request->file('app_logo');
+        $currentDate = Carbon::now()->toDateString();
+        $imagename = $currentDate.'-'.uniqid().'.'.$originalImage->getClientOriginalExtension();
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/uncode/marque_blanches/miniatures/';
+        $originalPath = public_path().'/uncode/marque_blanches/';
+        $thumbnailImage->save($originalPath.time().$imagename);
+        $thumbnailImage->resize(500, null, function ($constraint) {
+        $constraint->aspectRatio();
+        });
+        $thumbnailImage->save($thumbnailPath.time().$imagename); 
+        $account["app_logo"]= $imagename;
+
+        $account["app_name"]=$request["app_name"];
+        $account["domaine_name"]=$request["domaine_name"];
+        $account->save();
+        return redirect()->back()->with('succes','succes');   
+    }
+
+    public function displayData(Request $request){
+        $projets= DBHelper::getUserProjet();
+        $accounts = Account::where("statut",1)->get();
+        $acc_data_columns=DBHelper::getAccDataColumns();
+        $doc_columns=DBHelper::getDocColumns();
+
+        $acc_data_names=DBHelper::getAccDataNames(1);
+        $doc_data_names=DBHelper::getDocDataNames(1);
+        
+        return view('admin.uncod.comptes_clients.display_data.index',
+            [
+                'projets'=>$projets,
+                'accounts'=>$accounts,
+                'acc_data_columns'=>$acc_data_columns,
+                'doc_columns'=>$doc_columns,
+                'acc_data_names'=>$acc_data_names,
+                'doc_data_names'=>$doc_data_names
+            ]
+        );
+    }
+    public  function saveDisplayData(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                    'projet_id' => 'required',
+                    'donne_entetes' => 'required|array|min:7|max:7',
+                    'donne_imputations' => 'required|array|min:7|max:7'
+                ]
+            );
+        Log::info("donne_entetes: ".json_encode($request["donne_entetes"]));
+        if (!$validator->passes()) {
+            Log::info("Error: ".json_encode($validator->errors()));
+             return redirect()->back()->with('error','error');
+        }
+        $projet_id= $request["projet_id"];
+        $projet = Projet::find($projet_id);
+        if (empty($projet)) {
+            return redirect(app()-> getLocale().'/404');
+        }
+        DB::table('doc_column_shows')->where('account_id',$projet->account_id)
+        ->where('projet_id',$projet_id)->delete();
+        foreach ($request["donne_entetes"] as $key => $value) {
+            DocColumnShow::create(
+                [
+                    "account_id"=>$projet->account_id,
+                    "projet_id"=>$projet_id,
+                    "column_name"=>$value       
+                ]
+            );
+        }
+        DB::table('acc_data_column_shows')->where('account_id',$projet->account_id)
+        ->where('projet_id',$projet_id)
+        ->delete();
+        foreach ($request["donne_imputations"] as $key => $value) {
+            AccDataColumnShow::create(
+                [
+                    "account_id"=>$projet->account_id,
+                    "projet_id"=>$projet_id,
+                    "column_name"=>$value   
+                ]
+            );
+        }
+        return redirect()->back()->with('succes','succes');
+    }
+    public function getDataNamesAjax(Request $request){
+        $validator = Validator::make($request->all(), [
+                    'projet_id' => 'required'
+                ]
+            );
+        if (!$validator->passes()) {
+            return array(
+                'responseCode'=>404,
+                'error'=>'error'
+            ) ;
+        }
+        $acc_data_names = DBHelper::getAccDataNames($request['projet_id']);
+        $doc_data_names = DBHelper::getDocDataNames($request['projet_id']);
+
+
+        $acc_data_columns=DBHelper::getAccDataColumns();
+        $doc_columns=DBHelper::getDocColumns();
+
+        $returnDEHTML = view('admin.uncod.comptes_clients.display_data.donne_entete_select')->with(
+            [
+                'doc_columns'=> $doc_columns,
+                'doc_data_names'=> $doc_data_names
+            ])->render();
+
+        $returnDIHTML = view('admin.uncod.comptes_clients.display_data.donne_imputation_select')->with(
+            [
+                'acc_data_columns'=> $acc_data_columns,
+                'acc_data_names'=> $acc_data_names
+            ])->render();
+            return response()->json(array(
+                'responseCode'=>200, 
+                'htmlDE'=>$returnDEHTML,
+                'htmlDI'=>$returnDIHTML)
+            );
+
+    }
+    public function customiser(Request $required){
+        $uncode = DB::table('uncodes')->first();
+        $projets= DBHelper::getUserProjet();
+        return view('admin.uncod.parametrages.index',
+            [
+                'uncode'=>$uncode,
+                'projets'=>$projets,
+            ]
+        );
+    }
+    public function saveCustomiser(Request $request){
+
+        $validator = Validator::make($request->all(), [
+                    'app_name' => 'required',
+                    'email' => 'required',
+                    'app_favicon' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+                    'app_logo' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+                ]
+            );
+        if (!$validator->passes()) {
+             return redirect()->back()->withErrors('errors',$validator->errors());
+        }
+        
+        $uncode = Uncode::first();
+        if (empty($uncode)) {
+            return redirect(app()-> getLocale().'/404');
+        }
+        //SAVE LOGO
+        $originalImage= $request->file('app_logo');
+        $currentDate = Carbon::now()->toDateString();
+        $imagename = $currentDate.'-'.uniqid().'.'.$originalImage->getClientOriginalExtension();
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/uncode/marque_blanches/miniatures/';
+        $originalPath = public_path().'/uncode/marque_blanches/';
+        $thumbnailImage->save($originalPath.time().$imagename);
+        $thumbnailImage->resize(500, null, function ($constraint) {
+        $constraint->aspectRatio();
+        });
+        $thumbnailImage->save($thumbnailPath.time().$imagename);
+        $uncode->app_logo= $imagename; 
+        
+        //SAVE FAVICON
+        $originalImage= $request->file('app_favicon');
+        $currentDate = Carbon::now()->toDateString();
+        $imagename = $currentDate.'-'.uniqid().'.'.$originalImage->getClientOriginalExtension();
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/uncode/marque_blanches/miniatures/';
+        $originalPath = public_path().'/uncode/marque_blanches/';
+        $thumbnailImage->save($originalPath.time().$imagename);
+        $thumbnailImage->resize(500, null, function ($constraint) {
+        $constraint->aspectRatio();
+        });
+        $thumbnailImage->save($thumbnailPath.time().$imagename); 
+        $uncode->favicon= $imagename;
+
+        $uncode->app_name=$request["app_name"];
+        $uncode->email=$request["email"];
+        $uncode->contact_url=$request["contact_url"];
+        $uncode->telephone1=$request["telephone1"];
+        $uncode->telephone2=$request["telephone2"];
+
+        $uncode->save();
+        return redirect()->back()->with('succes','succes');
+
+    }
+     
    
 }

@@ -70,9 +70,7 @@
 											<a title="{{__('Modifier le compte')}}" href="{{route('accounts.edit',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-info">
 												<i class="las la-pen"></i>
 											</a>
-											<a title="{{__('Configurer le compte')}}" href="{{route('accounts.config',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-success">
-												<i class="las la-tools"></i>
-											</a>
+											
 											<a title="{{__('Ajouter un utilisateur')}}" href="{{route('accounts.adduser',['account_id'=>$item['account']->id,'locale'=>app()->getLocale()])}}" class="btn btn-sm btn-secondary">
 												<i class="las la-user-plus"></i>
 											</a>

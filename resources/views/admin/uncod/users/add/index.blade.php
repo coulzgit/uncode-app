@@ -29,6 +29,26 @@
 
 <div class="col-lg-12" id="messages">
 </div>
+@if(session()->has('succes'))
+    <div style="padding: 12px" class="row">
+      <div style="background: #bff1cd; border: 1px solid #bff1cd;border-radius: 5px;height: 50px;padding-top: 5px" class="col-lg-12 col-md-12">
+        <span>{{__('Réussie')}}</span>
+      </div>
+    </div>
+@endif
+@if(session()->has('errors'))
+  <div style="padding: 12px" class="row">
+    <div id="user_form_error" style="background: #ff7c92; border: 1px solid #ff7c92;border-radius: 5px;min-height: 50px;padding-top: 5px" class="col-lg-12 col-md-12">
+      @if($errors)
+         @foreach ($errors->all() as $error)
+            <div>{{ $error }}</div>
+        @endforeach
+      @endif
+    </div>
+  </div>
+  
+@endif
+
 @include('admin.uncod.users.add.form')
 
 			</div>

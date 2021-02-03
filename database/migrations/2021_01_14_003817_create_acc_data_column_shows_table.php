@@ -15,6 +15,7 @@ class CreateAccDataColumnShowsTable extends Migration
     {
         Schema::create('acc_data_column_shows', function (Blueprint $table) {
             $table->id();
+            $table->integer('projet_id')->nullable(true);
             $table->string('column_name')->nullable(true);
             $table->timestamps();
             $table->softDeletes();

@@ -16,6 +16,19 @@ class DatabaseSeeder extends Seeder
     {
         // TABLE LICENCE
         [
+            App\Models\Uncode::create([
+                'app_logo'=>'uncode_logo.png',
+                'favicon'=>'uncode_favicon.png',
+                'app_name'=>'Uncode',
+                'contact_url'=>'https://www.uncode.co/fr/contact/',
+                'telephone1'=>'',
+                'telephone2'=>'',
+                'domaine'=>'',
+                'email'=>'archive@uncode.co'
+            ]),
+        ];
+        // TABLE LICENCE
+        [
             App\Models\Licence::create([
                 'nom'=>'Prenium',//ID:1
                 'description'=>'prenium'
@@ -35,13 +48,21 @@ class DatabaseSeeder extends Seeder
         ];
         // TABLE ACCOUNT
         [
+
             App\Models\Account::create([
                 'code'=>'00011',//ID:1
                 'statut'=>true,
                 'expired_at'=>'30-01-2021 00:00:00',
                 'licence_id'=>1,
                 'domaine_name'=>'domaine1',
-                'login_image'=>'login_image1'
+                'login_image'=>'login_image1',
+                'app_name'=>'App_name1',
+                'app_logo'=>'app_logo1.png',
+                'favicon'=>'app_favicon1.png',
+                'contact_url'=>'contact1',
+                'telephone1'=>'',
+                'email'=>'',
+                'with_white_mark'=>true
             ]),
             App\Models\Account::create([
                 'code'=>'00012',//ID:2
@@ -49,7 +70,14 @@ class DatabaseSeeder extends Seeder
                 'expired_at'=>'30-01-2021 00:00:00',
                 'licence_id'=>1,
                 'domaine_name'=>'domaine2',
-                'login_image'=>'login_image2'
+                'login_image'=>'login_image2',
+                'app_name'=>'App_name2',
+                'app_logo'=>'app_logo2.png',
+                'favicon'=>'app_favicon2.png',
+                'contact_url'=>'contact2',
+                'telephone1'=>'',
+                'email'=>'',
+                'with_white_mark'=>true
 
             ]),
             App\Models\Account::create([

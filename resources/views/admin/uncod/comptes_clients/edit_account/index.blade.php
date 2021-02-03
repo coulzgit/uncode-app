@@ -22,7 +22,12 @@
 	<!-- /breadcrumb -->
 @endsection
 @section('content')
-
+<div id="msg_succes" class="row col-lg-12" style="background: #bff1cd; border: 1px solid #bff1cd;border-radius: 5px;height: 50px;padding-top: 5px;display: none;">
+    {{__('Réussie')}}
+</div>
+<div id="msg_error" class="row col-lg-12" style="background:red; border: 1px solid #bff1cd;border-radius: 5px;height: 50px;padding-top: 5px;display: none;">
+    {{__('Echec')}}
+</div>
 @include('admin.uncod.comptes_clients.edit_account.form_edit')
 			</div>
 			<!-- /Container -->
@@ -63,36 +68,43 @@
 	$(document).ready(function(){
 		console.log('licences',licences);
 		console.log('account',account);
+    if (account['statut']==true) {
+      $('#statut').removeClass('off');
+      $('#statut').addClass('on');
+    }
 
 	});
 </script>
 
 
 <script type="text/javascript">
-    function editAccount(){
-                var licence_id = $('#licence_id').val();
-                var statut = $('#statut').val();
-                if($('#statut').hasClass('on')){
-                  statut='ON';
-                }else{
-                  statut='OFF';
-                }
-                var data ={
-                       'statut':statut,
-                       'licence_id':licence_id
-                 };
-                console.log('data',data);
-                // sendNewAccountData(data);
+    function updateAccount(){
+      var licence_id = $('#licence_id').val();
+      var statut = $('#statut').val();
+      if($('#statut').hasClass('on')){
+        statut='ON';
+      }else{
+        statut='OFF';
+      }
+      var data ={
+        'account_id':account['id'],
+             'statut':statut,
+             'licence_id':licence_id
+       };
+      console.log('data',data);
+      sendEditAccount(data);
     }
 
-function sendEditAccount(data){
+    function sendEditAccount(data){
+      $('#msg_succes').css({'display':'none'});
+      $('#msg_error').css({'display':'none'});
         $.ajaxSetup({
           headers:{
             'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
           }
         });
         $.ajax({
-          url:"{{route('accounts.create', ['locale'=>app()-> getLocale()])}}",
+          url:"{{route('accounts.update', ['locale'=>app()-> getLocale()])}}",
           method:'POST',
           data:data,
           dataType: 'json',
@@ -100,9 +112,11 @@ function sendEditAccount(data){
           success:function(result){
 
             if(result["responseCode"] === 200){
-            alert('success');
+              $('#msg_succes').css({'display':'flex'});
+              $('#msg_error').css({'display':'none'});
             }else if(result["responseCode"] === 404){
-                alert('failed');
+                $('#msg_succes').css({'display':'none'});
+                $('#msg_error').css({'display':'flex'});
             }
           },
           error:function(result){

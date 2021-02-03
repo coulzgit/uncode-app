@@ -58,12 +58,19 @@ Route::group(
 	    Route::get('/accounts/{account_id?}/show', 'AccountController@show')->name('accounts.show');
 	    Route::get('/accounts/{account_id?}/edit', 'AccountController@edit')->name('accounts.edit');
 	    Route::post('/accounts/{account_id?}/edit', 'AccountController@update')->name('accounts.edit');
+	    Route::post('/accounts/update', 'AccountController@update')->name('accounts.update');
 
 	    Route::get('/accounts/{account_id?}/config', 'AccountController@config')->name('accounts.config');
 	    Route::post('/accounts/{account_id?}/config', 'AccountController@saveConfig')->name('accounts.config');
 	    Route::get('/accounts/{account_id}/adduser', 'UserController@create')->name('accounts.adduser');
 	    Route::get('/accounts/{account_id}/users', 'UserController@index')->name('accounts.users');
 	    Route::delete('/accounts/{account_id?}/delete', 'AccountController@destroy')->name('accounts.delete');
+
+	    Route::get('/white-mark', 'AccountController@marqueBlanche')->name('white-mark');
+	    Route::post('/white-mark/save', 'AccountController@saveMarqueBlanche')->name('white-mark.save');
+	    Route::get('/display-data', 'AccountController@displayData')->name('display-datas');
+	    Route::post('/display-data/save', 'AccountController@saveDisplayData')->name('display-data.save');
+	    Route::post('/data-names', 'AccountController@getDataNamesAjax')->name('data-names');
 	}
 );
 
@@ -187,5 +194,19 @@ Route::group(
 	    Route::get('/projects', 'FactureController@index')->name('projects');
 	    Route::get('/projects/{projet_id}/invoices', 'FactureController@projectInvoices')->name('projects.invoices');
 	    Route::get('/invoices/{invoice_id}/show', 'FactureController@show')->name('invoices.show');
+	    Route::post('/data-search', 'FactureController@getDataSearchAjax')->name('data-search');
+	}
+);
+// UNCODE
+Route::group(
+	[
+		'prefix' => '{locale}', 
+		'where' =>['locale'=>'[a-zA-Z]{2}'],
+		'middleware' => ['auth','setlocale']
+	], 
+	function() {
+	    Route::get('/customiser', 'AccountController@customiser')->name('customiser');
+	    Route::post('/customiser/save', 'AccountController@saveCustomiser')->name('customiser.save');
+	   
 	}
 );

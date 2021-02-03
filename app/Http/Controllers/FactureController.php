@@ -11,6 +11,9 @@ use App\Models\AccData;
 use App\Models\Projet;
 use App\Models\IpLineItem;
 use App\Models\IpLineItemParam;
+
+use App\Models\ActionLog;
+use App\Models\ActionLogName;
 use App\Models\Licence;
 use App\Models\DocColumnShow;
 use App\Models\AccDataColumnShow;
@@ -18,7 +21,7 @@ use App\Models\DocDataName;
 use App\Models\AccDataName;
 use App\Models\DocColumnShowName;
 use App\Models\AccDataColumnShowName;
-use App\MyClasses\LoadingManager;
+use App\Helpers\DBHelper;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use Mail;
@@ -37,14 +40,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class FactureController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        $projets = LoadingManager::getUserProjet();
+        $projets = DBHelper::getUserProjet();
         //$factureData = $this->factureData();
 
         return view('admin.uncod.factures.index',
@@ -57,28 +56,28 @@ class FactureController extends Controller
         if (!$this->validProjetId($projet_id)) {
             return redirect(app()-> getLocale().'/404');
         }
-        //$projets =  $this->getUserProjet();
-        $projets = LoadingManager::getUserProjet();
+        $projets = DBHelper::getUserProjet();
         $invoices = $this->getInvoices($request['projet_id']);
-        $donne_entete_names = $this->getDonneEnteteNames();
+        $donne_entete_names = DBHelper::getDonneEnteteNamesByProjet($projet_id);
         $invoices = $this->getInvoices($projet_id);
+        $doc_data_names = DBHelper::getDocDataNames($request['projet_id']);
+
+        $search_data_textes=DBHelper::getSearchDataTexte();
+        $search_data_dates=DBHelper::getSearchDataDate();
+        $search_data_montants=DBHelper::getSearchDataMontant();
+
         return view('admin.uncod.factures.index',
             compact(
                 'projets',
                 'invoices',
-                'donne_entete_names')   
+                'donne_entete_names',
+                'doc_data_names',
+                'search_data_textes',
+                'search_data_dates',
+                'search_data_montants',
+                'projet_id'
+            )   
         );
-    }
-    private function getDonneEnteteNames(){
-        $doc_column_shows=$this->getDocColumnShow();
-        $acc_data_colomn_shows=$this->getAccDataColumnShow();
-
-        $doc_column_shows = collect($doc_column_shows);
-        $acc_data_colomn_shows = collect($acc_data_colomn_shows);
-
-        $results=$doc_column_shows->merge($acc_data_colomn_shows);
-        
-        return $results; 
     }
     private function validProjetId($projet_id){
         $projet = Projet::find($projet_id);
@@ -88,46 +87,9 @@ class FactureController extends Controller
         }
         return Auth::user()->account_id==$projet->account_id;
     }
-    private function getDocColumnShow(){
-
-        $results=[];
-        try {
-            $columnShows= DocColumnShow::where('account_id',Auth::user()->account_id)->get();
-
-            foreach ($columnShows as $key => $value) {
-                $item=Collect($value);
-                $data_name=DocColumnShowName::where('doc_column_show_id', $value->id)
-                ->where('code_lang',app()->getLocale())
-                ->first();
-                $value['libelle']=$data_name;
-                $results[]=$value;
-            }
-        } catch (Exception $e) {
-            Log::error('FactureController/getDocColumnShow: '.$e);
-        }
-        return $results;
-    }
-    private function getAccDataColumnShow(){
-        $results=[];
-        try {
-            $columnShows= AccDataColumnShow::where('account_id',Auth::user()->account_id)->get();
-
-            foreach ($columnShows as $key => $value) {
-                $item=Collect($value);
-                $data_name=AccDataColumnShowName::where('acc_data_column_show_id',$value->id)
-                ->where('code_lang',app()->getLocale())
-                ->first();
-                $value['libelle']=$data_name;
-                $results[]=$value;
-            }
-        } catch (Exception $e) {
-            Log::error('FactureController/getAccDataColumnShow: '.$e);
-        }
-        return $results;
-    }
     private function getInvoices($projet_id){
         $invoices=[];
-        $donne_entete_names=$this->getDocColumnShow();
+        $donne_entete_names=DBHelper::getDocColumnShow();
         try {
 
             $docs = DB::table('docs')
@@ -141,18 +103,8 @@ class FactureController extends Controller
                 $donne_entete_names[5]->column_name,
                 $donne_entete_names[6]->column_name)
             ->get();
-             //$docs = collect($docs);
-             //$docs = $docs->collapse();
              $invoices=$this->formateInvoices($docs);
-            //$invoices=$docs;
-
-            //$pageSize = 20;
-            //$invoices = CollectionHelper::paginate($docs, $pageSize);
-
-            //$collection = collect($docs);
-            //$invoices = $collection->paginate(20);
-
-            //$invoices = $this->paginate($collection);
+            
         } catch (Exception $e) {
             Log::error('FactureController/getInvoices: '.$e);
         }
@@ -161,7 +113,10 @@ class FactureController extends Controller
     private function formateInvoices($docs){
         $results = Collect([]);
         try {
-            $acc_data_colomns=$this->getAccDataColumnShow();
+            $acc_data_colomns=DBHelper::getAccDataColumnShow();
+            if (empty($acc_data_colomns)) {
+                return $results;
+            }
             foreach ($docs as $key => $doc) {
                 $acc_data = AccData::where('doc_id',$doc->doc_id)
                 ->where('projet_id',$doc->projet_id)
@@ -195,58 +150,15 @@ class FactureController extends Controller
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
 
     }
-    private function getUserProjet(){
-        $projets=Projet::with('account')
-            ->where('account_id',Auth::user()->id)
-            ->get();
-        return $projets;
-    }
-    private function getDonneEntete(){
-        $results=Collect([]);
-        $doc_column_shows=DocColumnShow::where('account_id',Auth::user()->id)
-            ->get();
-        try {
-            $projets=Projet::with('docs')
-            ->where('account_id',Auth::user()->id)
-            ->get();
-            // $docs=Doc::where('account_id',Auth::user()->id)
-            // ->groupBy('projet_id')
-            // ->get();
-            $results=$projets;
-           
-        } catch (Exception $e) {
-            Log::error('FactureController/getDonneEntete: '.$e);
-        }
-        return $results;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Request $request)
     {
         $ID_DOC = $request["invoice_id"];
@@ -257,7 +169,7 @@ class FactureController extends Controller
         }
         $invoice = $this->formateInvoice($doc);
 
-        $projets = LoadingManager::getUserProjet();
+        $projets = DBHelper::getUserProjet();
         return view('admin.uncod.factures.details.index',
             [
                 'projets'=>$projets,
@@ -294,12 +206,27 @@ class FactureController extends Controller
             $ip_line_items = IpLineItem::where("LIT_DOC_ID",$doc->doc_id)
                 ->where("projet_id",$doc->projet_id)
                 ->get();
+            $ip_line_item_params = DBHelper::getIpLineItemParams($doc->projet_id); 
 
-            $ip_line_item_params = IpLineItemParam::where("projet_id",$doc->projet_id)
+            $action_logs = ActionLog::where("doc_id",$doc->doc_id)
+                ->where("projet_id",$doc->projet_id)
                 ->get();
-            $ip_line_item_params = Collect($ip_line_item_params);
-            $ip_line_item_params = $ip_line_item_params->groupBy("LIP_DATA_FIELD");
+            $action_log_collect=Collect([]);
+            $lan_code="EN";
+            if (app()->getLocale()=="fr") {
+                $lan_code = "FR";
+            }
+            foreach ($action_logs as $key => $action_log) {
+                $action_log_name=ActionLogName::where("log_index",$action_log->log_index)
+                ->where("lan_code",$lan_code)
+                ->first();
+                $action_log['action_log_name']=$action_log_name;
 
+                $action_log_collect->push($action_log);
+            }
+
+            $action_log_names =DBHelper::getActionLogNames($doc->projet_id);
+            $doc_data_names=DBHelper::getDocDataNames($doc->projet_id);
 
             $result->put("doc",$doc);
             $result->put("data_docs",$data_docs_collect);
@@ -308,44 +235,66 @@ class FactureController extends Controller
 
             $result->put("ip_line_items",$ip_line_items);
             $result->put("ip_line_item_params",$ip_line_item_params);
+            $result->put("action_logs",$action_log_collect);
+            $result->put("action_log_names",$action_log_names);
+            $result->put("doc_data_names",$doc_data_names);
+
+            
             
         } catch (Exception $e) {
             Log::error('FactureController/formateInvoice: '.$e);
         }
         return $result; 
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
+    }
+    public function getDataSearchAjax(Request $request){
+        $validator = Validator::make($request->all(), [
+                    'projet_id' => 'required',
+                    'searchArray' => 'required|array|min:1'
+                ]
+            );
+        if (!$validator->passes()) {
+            return array(
+                'responseCode'=>404,
+                'error'=>'error'
+            ) ;
+        }
+
+        $projet_id=$request["projet_id"];
+        $searchArray=$request["searchArray"];
+        
+        $donne_entete_names = DBHelper::getDonneEnteteNamesByProjet($projet_id);
+        $docs=DBHelper::invoiceFiltre($projet_id,$searchArray);
+        $invoices=$this->formateInvoices($docs);
+        
+        $search_data_textes=DBHelper::getSearchDataTexte();
+        $search_data_dates=DBHelper::getSearchDataDate();
+        $search_data_montants=DBHelper::getSearchDataMontant();
+
+
+        $return_html = view('admin.uncod.factures.table_content')->with(
+            [
+                'donne_entete_names'=> $donne_entete_names,
+                'invoices'=> $invoices,
+                'search_data_textes'=> $search_data_textes,
+                'search_data_dates'=> $search_data_dates,
+                'search_data_montants'=> $search_data_montants
+            ])->render();
+        return response()->json(array(
+            'responseCode'=>200, 
+            'return_html'=>$return_html)
+        );
+        
     }
 }

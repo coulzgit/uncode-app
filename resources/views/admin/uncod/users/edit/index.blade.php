@@ -75,12 +75,15 @@
 	var account = @json($account);
 	var user = @json($user);
 	var userRole = @json($userRole);
+	var account_has_owner = @json($account_has_owner);
+	
 
 	$(document).ready(function(){
 		console.log('roles',roles);
 		console.log('account',account);
 		console.log('user',user);
 		console.log('userRole',userRole);
+		console.log('account_has_owner',account_has_owner);
 	});
 
 	function editUser(){

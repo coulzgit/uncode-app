@@ -55,7 +55,7 @@
 <!-- TEST -->
 <script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
 <script type="text/javascript">
-
+	var langue = $('html').attr('lang');
 	var projets = @json($projets);
 	var invoice = @json($invoice);
 	
@@ -63,6 +63,12 @@
 		console.log('projets',projets);
 		console.log('invoice',invoice);
 	});
+	function goToInvoices(){
+		//http://127.0.0.1:8002/en/projects/1/invoices
+		var my_url = langue+"/projects/"+invoice["doc"]["projet_id"]+"/invoices";
+        window.location.href=window.location.protocol+"//"+window.location.hostname+":"+window.location.port+"/"+my_url;
+        return false;
+	}
 
 </script>
 

@@ -1,5 +1,25 @@
-<div class="table-responsive hoverable-table">
+<style type="text/css">
+	.dataTables_length{
+		display: none!important;
+	}
+	.dataTables_filter{
+		display: none!important;
+	}
+	.hide{
+		display: none;
+	}
+	.show{
+		display: flex;
+	}
+</style>
+<div style ="" class="table-responsive hoverable-table">
+	
+	@include('admin.uncod.factures.section_recherche')
+	<div id="mytab">
+		
+	
 	<table id="example-delete" class="table text-md-nowrap">
+
 		<thead>
 			<tr>
 				<th class="wd-15p border-bottom-0">
@@ -77,7 +97,7 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="tbody_invoices">
 			@foreach($invoices as $invoice)
 				<tr style="cursor: pointer;" class="uncode-invoice" id="{{$invoice['id']}}">
 					
@@ -124,7 +144,7 @@
 	</table>
 
 	
-
+	</div>
 	
 	
 </div>

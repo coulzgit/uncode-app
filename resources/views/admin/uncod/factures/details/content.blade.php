@@ -1,7 +1,7 @@
 <!-- row -->
 <div style="margin-bottom: 10px" class="row row-sm">
 	<div class="col-lg-12">
-	<a href="" class="btn btn-primary">{{__('Retourn')}}</a>
+	<button onclick="goToInvoices()" class="btn btn-primary">{{__('Retourn')}}</button>
 	</div>
 </div>
 <div class="row row-sm">

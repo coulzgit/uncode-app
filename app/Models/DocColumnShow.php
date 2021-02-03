@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property integer $id
  * @property integer $account_id
+ * @property int $projet_id
  * @property string $column_name
  * @property string $created_at
  * @property string $updated_at
@@ -26,7 +27,7 @@ class DocColumnShow extends Model
     /**
      * @var array
      */
-    protected $fillable = ['account_id', 'column_name', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['account_id', 'projet_id', 'column_name', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

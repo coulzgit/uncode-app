@@ -29,6 +29,7 @@ use DB;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Log;
+use Image;
 
 class UserController extends Controller
 {
@@ -83,7 +84,7 @@ class UserController extends Controller
         $projets = LoadingManager::getUserProjet();
         return view('admin.uncod.users.add.index',compact('roles','projets','account','account_has_owner'));
     }
-    public function store(Request $request)
+    public function store(Request $request,$account_id)
     {
         
          $validator = Validator::make($request->all(), 
@@ -92,30 +93,36 @@ class UserController extends Controller
               'user_name'=>'required|max:50',
               'prenom'=>'required|max:50',
               'nom'=>'required|max:50',
-              'account_owner'=>'required',
+              //'account_owner'=>'required',
               'email'=>'required|email|unique:users,email',
               'password'=>'required|same:confirm_password',
-              'roles' => 'required'
+              'roles' => 'required',
+              'user_photo' => 'required|image|mimes:jpeg,jpg,png|max:2048',
             ]
         );
         if (!$validator->passes()) {
-            $returnHTML = view('admin.uncod.users.add.error_user_form')->with('errors', $validator->errors())->render();
-            return response()->json(array(
-                'responseCode'=>422, 
-                'html'=>$returnHTML)
-            );
+            return redirect()->back()->with('errors',$validator->errors());
         }
-
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
+
+        //SAVE PHOTO
+        $originalImage= $request->file('user_photo');
+        $currentDate = Carbon::now()->toDateString();
+        $imagename = $currentDate.'-'.uniqid().'.'.$originalImage->getClientOriginalExtension();
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/uncode/marque_blanches/miniatures/';
+        $originalPath = public_path().'/uncode/marque_blanches/';
+        $thumbnailImage->save($originalPath.time().$imagename);
+        $thumbnailImage->resize(500, null, function ($constraint) {
+        $constraint->aspectRatio();
+        });
+        $thumbnailImage->save($thumbnailPath.time().$imagename);
+        $input["photo"]= $imagename; 
+
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-        $message="User created successfully";
-        $returnHTML = view('admin.uncod.message_succes')->render();
-        return response()->json(array(
-            'responseCode'=>200, 
-            'html'=>$returnHTML)
-        );
+        return redirect()->back()->with('succes','succes');
     }
     public function show(Request $request)
     {

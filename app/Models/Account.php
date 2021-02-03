@@ -12,8 +12,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $app_name
  * @property string $app_logo
  * @property string $expired_at
- * @property string $domaine_name
  * @property string $login_image
+ * @property string $favicon
+ * @property string $contact_url
+ * @property string $telephone1
+ * @property string $telephone2
+ * @property string $domaine_name
+ * @property string $sub_domaine
+ * @property string $email
+ * @property boolean $with_white_mark
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
@@ -35,7 +42,7 @@ class Account extends Model
     /**
      * @var array
      */
-    protected $fillable = ['licence_id', 'code', 'statut', 'app_name', 'app_logo', 'expired_at', 'domaine_name', 'login_image', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['licence_id', 'code', 'statut', 'app_name', 'app_logo', 'expired_at', 'login_image', 'favicon', 'contact_url', 'telephone1', 'telephone2', 'domaine_name', 'sub_domaine', 'email', 'with_white_mark', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

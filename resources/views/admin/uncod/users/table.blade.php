@@ -17,13 +17,13 @@
 						<tr role="row">
 
 
-                            <th class="wd-15p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="First name: activate to sort column descending" style="width: 105px;">{{ ('N° COMPTE') }}</th>
+                            <th class="wd-15p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="First name: activate to sort column descending" style="width: 105px;">{{ __('N° COMPTE') }}</th>
 
-                            <th class="wd-15p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Last name: activate to sort column ascending" style="width: 105px;">{{ ('UserName') }}</th>
-                            <th class="wd-20p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 153px;">{{ ('Role') }}</th>
-                            <th class="wd-15p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 104px;">{{ ('Email') }}</th>
-                            <th class="wd-10p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 56px;">{{ ('Propritaire') }}</th>
-                            <th class="wd-25p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="E-mail: activate to sort column ascending" style="width: 201px;">{{ ('Actions') }}</th>
+                            <th class="wd-15p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Last name: activate to sort column ascending" style="width: 105px;">{{ __('Utilisateur') }}</th>
+                            <th class="wd-20p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 153px;">{{ __('Role') }}</th>
+                            <th class="wd-15p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 104px;">{{ __('Email') }}</th>
+                            <th class="wd-10p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 56px;">{{ __('Propritaire') }}</th>
+                            <th class="wd-25p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="E-mail: activate to sort column ascending" style="width: 201px;">{{ __('Actions') }}</th>
 
                         </tr>
 					</thead>
@@ -37,8 +37,10 @@
 							<td class="sorting_1">{{ $item['account']['code'] }}</td>
 							<td>{{ $item->user_name }}</td>
 							<td>
-                                @if ($item['roles']==[])
-                                {{ ('...') }}
+                                @if (count($item['roles']))
+                                	@foreach($item['roles'] as $role)
+                                		{{$role->name}} <br>
+                                	@endforeach
                                 @else
                                 {{ '****'}}
                                 @endif

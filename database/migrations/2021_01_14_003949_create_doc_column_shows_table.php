@@ -15,6 +15,7 @@ class CreateDocColumnShowsTable extends Migration
     {
         Schema::create('doc_column_shows', function (Blueprint $table) {
             $table->id();
+            $table->integer('projet_id')->nullable(true);
             $table->string('column_name')->nullable(true);
             $table->timestamps();
             $table->softDeletes();

@@ -7,7 +7,7 @@
 			</div>
 			
 		</div>
-		<div class="card-body">
+		<div style="" class="card-body">
 			@include('admin.uncod.factures.table')
 			
 
