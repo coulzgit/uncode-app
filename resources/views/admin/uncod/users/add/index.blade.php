@@ -27,8 +27,6 @@
 @endsection
 @section('content')
 
-<div class="col-lg-12" id="messages">
-</div>
 @if(session()->has('succes'))
     <div style="padding: 12px" class="row">
       <div style="background: #bff1cd; border: 1px solid #bff1cd;border-radius: 5px;height: 50px;padding-top: 5px" class="col-lg-12 col-md-12">
@@ -100,91 +98,6 @@
 		console.log('account',account);
 		console.log('account_has_owner',account_has_owner);
 	});
-	function createUser(){
-		var account_owner =0;
-        var account_id =account['id'];
-        var user_name = $('#user_name').val();
-        var roles = $('#roles').val();
-        var prenom = $('#prenom').val();
-        var nom = $('#nom').val();
-        var email = $('#email').val();
-        var password = $('#password').val();
-        var confirm_password = $('#confirm_password').val();
-        if(!account_has_owner){
-        	account_owner=$('#account_owner').is(':checked')?1:0;
-        }
-        $('#user_name').css({'border':''});
-        $('#prenom').css({'border':''});
-        $('#nom').css({'border':''});
-        $('#email').css({'border':''});
-        $('#password').css({'border':''});
-        $('#confirm_password').css({'border':''});
-        $('#roles').css({'border':''});
-        if (!user_name) {
-        	$('#user_name').css({'border':'1px solid red'});
-        	return;
-        }if (!prenom) {
-        	$('#prenom').css({'border':'1px solid red'});
-        	return;
-        }if (!nom) {
-        	$('#nom').css({'border':'1px solid red'});
-        	return;
-        }if (!email) {
-        	$('#email').css({'border':'1px solid red'});
-        	return;
-        }if (!roles.length) {
-        	$('#roles').css({'border':'1px solid red!important'});
-        	return;
-        }if (!password) {
-        	$('#password').css({'border':'1px solid red'});
-        	return;
-        }if (!confirm_password) {
-        	$('#confirm_password').css({'border':'1px solid red'});
-        	return;
-        }
-        var data ={
-              'account_id' : account_id,
-              'user_name' : user_name,
-              'prenom' : prenom,
-              'nom' : nom,
-              'account_owner' : account_owner,
-              'email' : email,
-              'password' : password,
-              'confirm_password' : confirm_password,
-              'roles':roles,
-        };
-        console.log('data',data);
-        sendNewUserData(data);
-  	}
-  	function sendNewUserData(data){
-  		$('#message_succes').css({'display':'none'});
-  		$('#user_form_error').css({'display':'none'});
-
-	    $.ajaxSetup({
-	        headers:{
-	          'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
-	        }
-	    });
-        $.ajax({
-	        url:"{{route('users.create', ['locale'=>app()-> getLocale()])}}",
-	        method:'POST',
-	        data:data,
-	        dataType: 'json',
-	        encode  : true,
-	        success:function(result){
-
-	          if(result["responseCode"] === 200){
-	           $('#messages').empty().append(result['html']);
-	          }else if(result["responseCode"] === 422){
-	              console.log("Errors: "+result['errors']);
-	              $('#messages').empty().append(result['html']);
-	          }
-	        },
-	        error:function(result){
-	          alert('failed');
-	          
-	        }
-	    });
-  	}
+	
 </script>
 @endsection

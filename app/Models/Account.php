@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $id
  * @property integer $licence_id
  * @property string $code
+ * @property string $name
  * @property boolean $statut
  * @property string $app_name
  * @property string $app_logo
@@ -42,7 +43,7 @@ class Account extends Model
     /**
      * @var array
      */
-    protected $fillable = ['licence_id', 'code', 'statut', 'app_name', 'app_logo', 'expired_at', 'login_image', 'favicon', 'contact_url', 'telephone1', 'telephone2', 'domaine_name', 'sub_domaine', 'email', 'with_white_mark', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['licence_id', 'code', 'name', 'statut', 'app_name', 'app_logo', 'expired_at', 'login_image', 'favicon', 'contact_url', 'telephone1', 'telephone2', 'domaine_name', 'sub_domaine', 'email', 'with_white_mark', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

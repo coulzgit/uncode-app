@@ -12,7 +12,7 @@
 		<div class="left-content">
 			<div>
 			  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
-			  	{{__('Les utilisateurs de ce compte') }}
+			  	{{__('Utilisateurs du compte') }}: {{$account->code}}
 			  </h2>
 
 			</div>
@@ -22,8 +22,24 @@
 	<!-- /breadcrumb -->
 @endsection
 @section('content')
-
+<div style="display: flex;justify-content: left; margin-left: 1px; margin-bottom:10px  " class="row row-sm">
+	<div class="col-lg-12">
+	<a class="btn btn-main-primary"  href="{{route('accounts',app()->getLocale())}}">
+		{{-- <i class="ti ti-arrow-left"></i> --}}
+		{{__('Retour') }}
+	</a>
+	</div>
+</div>
 @include('admin.uncod.users.table')
+
+<div style="display: flex;justify-content: left; margin-left: 1px; margin-bottom:10px  " class="row row-sm">
+	<div class="col-lg-12">
+	<a class="btn btn-main-primary"  href="{{route('accounts',app()->getLocale())}}">
+		{{-- <i class="ti ti-arrow-left"></i> --}}
+		{{__('Retour') }}
+	</a>
+	</div>
+</div>
 			</div>
 			<!-- /Container -->
 		</div>

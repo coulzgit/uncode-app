@@ -16,7 +16,7 @@
 		<div class="left-content">
 			<div>
 			  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
-			  	{{__('Modification de l\'utilisateur N° ')}} {{ $user->id }}1
+			  	{{__('Modification utilisateur')}} ID: {{ $user->id }}
 			  </h2>
 			  <!-- <p class="mg-b-0">Sales monitoring dashboard template.</p> -->
 			</div>
@@ -27,6 +27,34 @@
 @endsection
 @section('content')
 
+@if(session()->has('succes'))
+    <div style="padding: 12px" class="row">
+      <div style="background: #bff1cd; border: 1px solid #bff1cd;border-radius: 5px;height: 50px;padding-top: 5px" class="col-lg-12 col-md-12">
+        <span>{{__('Réussie')}}</span>
+      </div>
+    </div>
+@endif
+
+@if(session()->has('errors'))
+  <div style="padding: 12px" class="row">
+    <div id="user_form_error" style="background: #ff7c92; border: 1px solid #ff7c92;border-radius: 5px;min-height: 50px;padding-top: 5px" class="col-lg-12 col-md-12">
+      @if($errors)
+         @foreach ($errors->all() as $error)
+            <div>{{ $error }}</div>
+        @endforeach
+      @endif
+    </div>
+  </div>
+  
+@endif
+@if(session()->has('email_error'))
+  <div style="padding: 12px" class="row">
+    <div id="user_form_error" style="background: #ff7c92; border: 1px solid #ff7c92;border-radius: 5px;min-height: 50px;padding-top: 5px" class="col-lg-12 col-md-12">
+         <div>{{__('Email déjà utilisé')}}1</div>
+    </div>
+  </div>
+  
+@endif
 @include('admin.uncod.users.edit.form')
 
 
@@ -84,58 +112,29 @@
 		console.log('user',user);
 		console.log('userRole',userRole);
 		console.log('account_has_owner',account_has_owner);
+
+		
+		// var roles_string ="";
+		$('#roles').empty(); 
+		$.each(roles, function( index, value ) {
+		   if (userRole.hasOwnProperty(value)) {
+		   		$('#roles').append(
+		   			'<option selected="" value="'+value+'">'
+	                    +value+
+	                '</option>'
+		   		);
+		   }else{
+		   		$('#roles').append(
+		   			'<option value="'+value+'">'
+	                    +value+
+	                '</option>'
+		   		);
+		   }
+		});
+
+
 	});
 
-	function editUser(){
-        var account_id =account['id'];
-        var user_name = $('#user_name').val();
-        var roles = $('#roles').val();
-        var prenom = $('#prenom').val();
-        var nom = $('#nom').val();
-        var account_owner ="NON";//$('#account_owner').val();
-        var email = $('#email').val();
-        var password = $('#password').val();
-        var confirm_password = $('#confirm_password').val();
-
-        var data ={
-            'account_id' : account_id,
-              'user_name' : user_name,
-              'prenom' : prenom,
-              'nom' : nom,
-              'account_owner' : account_owner,
-              'email' : email,
-              'password' : password,
-              'confirm_password' : confirm_password,
-              'roles':roles,
-        };
-        console.log('data',data);
-        //sendUserEditedData(data);
-  	}
-  	function sendNewUserData(data){
-	    $.ajaxSetup({
-	        headers:{
-	          'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
-	        }
-	    });
-        $.ajax({
-	        url:"{{route('users.create', ['locale'=>app()-> getLocale()])}}",
-	        method:'POST',
-	        data:data,
-	        dataType: 'json',
-	        encode  : true,
-	        success:function(result){
-
-	          if(result["responseCode"] === 200){
-	            alert('success');
-	          }else if(result["responseCode"] === 404){
-	              alert('failed');
-	          }
-	        },
-	        error:function(result){
-	          alert('failed');
-	        }
-	    });
-  	}
 
 </script>
 

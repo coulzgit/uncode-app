@@ -13,6 +13,17 @@
                     <div class="row row-xs align-items-center mg-b-20">
                         <div class="col-md-4">
                             <label class="form-label mg-b-0">
+                                {{__('Nom compte')}}
+                            </label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <input value="{{$account->name}}" placeholder="{{__('Saisir le nom')}}" name="account_name" class="form-control" id="account_name">
+                        </div>
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">
                                 {{__('Type de licence')}}
                             </label>
                         </div>
@@ -36,10 +47,8 @@
                             @endforeach
                         </select>
                         </div>
-
-
                     </div>
-                     <div class="row row-xs align-items-center mg-b-20">
+                    <div class="row row-xs align-items-center mg-b-20">
                         <div class="col-md-4">
                             <label class="form-label mg-b-0">
                                 {{__('Activer ce compte automatiquement ?')}}

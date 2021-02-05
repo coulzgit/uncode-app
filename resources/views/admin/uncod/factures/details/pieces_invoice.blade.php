@@ -19,18 +19,23 @@
 					<hr class="mg-y-30">
 					<label class="main-content-label tx-13 mg-b-20">{{__('Pièces jointes')}}</label>
 					<div class="main-profile-social-list">
-						<div class="media">
-							<div class="media-icon bg-primary-transparent text-primary">
-								<i class="icon ion-md-link"></i>
+
+						@foreach($invoice['doc_attachments'] as $doc_attachment)
+							<div class="media">
+								<div class="media-icon bg-primary-transparent text-primary">
+									<i class="icon ion-md-link"></i>
+								</div>
+								<div class="media-body">
+									<span>
+										{{$doc_attachment->original_file_name}}
+									</span>
+									<a href="">
+										{{__('Télécharger')}}
+									</a>
+								</div>
 							</div>
-							<div class="media-body">
-								<span>Exemple: Lien d'un fichier vers S3</span>
-								<a href="">
-									https://s3/bucket1/file1.
-								</a>
-							</div>
-						</div>
-						<div class="media">
+						@endforeach
+						<!-- <div class="media">
 							<div class="media-icon bg-primary-transparent text-primary">
 								<i class="icon ion-md-link"></i>
 							</div>
@@ -51,7 +56,7 @@
 									https://s3/bucket1/file3.
 								</a>
 							</div>
-						</div>
+						</div> -->
 						
 					</div>
 					

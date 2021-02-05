@@ -24,7 +24,7 @@
 									<div class="card-sigin">
 										<div class="mb-5 d-flex"> 
 											<a href="{{ url('/' . $page='index') }}">
-												<img src="{{URL::asset('assets/img/brand/favicon.png')}}" class="sign-favicon ht-40" alt="logo">
+												<img src="{{URL::asset('uncode/uncode_favicon.png')}}" class="sign-favicon ht-40" alt="logo">
 											</a>
 											<h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">
 												Uncode

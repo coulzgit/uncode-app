@@ -20,6 +20,7 @@ use App\Models\DocDataName;
 use App\Models\AccDataName;
 use App\Models\DocColumnShowName;
 use App\Models\AccDataColumnShowName;
+use App\Models\DocAttachment;
 use Illuminate\Support\Str;
 use DB;
 use Auth;
@@ -27,6 +28,10 @@ use Log;
 
 class DBHelper {
     public function __construct() {
+    }
+    public static function getUserAuth(){
+        $user_id = Auth::user()->id;
+        return User::with('account')->find($user_id);
     }
     public function getDoc($doc_id,$projet_id){
         $doc=Doc::where('doc_id',$doc_id)
@@ -280,6 +285,15 @@ class DBHelper {
             }
         }
         return $docsCollect;
+    }
+
+    public static function getDocAttachments($doc_id,$projet_id){
+        $doc_attachments=DocAttachment::where('doc_id',$doc_id)
+        ->where('projet_id',$projet_id)
+        ->get();
+
+        return $doc_attachments;
+
     }
     
 }

@@ -36,7 +36,7 @@
 
 	                                    <div class="col-lg-3">
 	                                        <label class="checkbox" >
-	                                            <input required="" id="account_owner" name="account_owner" type="checkbox">
+	                                            <input id="account_owner" name="account_owner" type="checkbox">
 	                                            <span>
 	                                                {{__('Oui')}}
 	                                            </span>
@@ -101,7 +101,7 @@
 									<div class="col-lg-6 mg-b-20 mg-lg-b-0">
 
 
-	                                    <select required="" name="roles" class="form-control select2 " id="roles" multiple="multiple">
+	                                    <select required="" name="roles[]" class="form-control select2 " id="roles" multiple="multiple">
 	                                        @foreach ($roles as $key => $role)
 	                                        <option value="{{ $key }}">{{ $role }}</option>
 	                                        @endforeach

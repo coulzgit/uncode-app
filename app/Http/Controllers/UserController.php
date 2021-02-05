@@ -20,7 +20,7 @@ use App\Models\Projet;
 use App\Models\Licence;
 use App\Models\DocColumnShow;
 use App\Models\AccDataColumnShow;
-use App\MyClasses\LoadingManager;
+use App\Helpers\DBHelper;
 
 use Auth;
 use Mail;
@@ -58,8 +58,9 @@ class UserController extends Controller
         $users = User::with('roles')
         ->where('account_id',$account_id)
         ->orderBy('id','DESC')->get();
-        $projets = LoadingManager::getUserProjet();
-        return view('admin.uncod.users.index',compact('users','projets'))
+        $projets = DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.users.index',compact('users','projets','account','user_auth'))
         ->with('i', ($request->input('page', 1) - 1) * 5);
     } 
     public function create(Request $request)
@@ -81,13 +82,14 @@ class UserController extends Controller
         $account_has_owner = User::where('account_id',$account_id)
         ->where('account_owner','=',1)
         ->exists();
-        $projets = LoadingManager::getUserProjet();
-        return view('admin.uncod.users.add.index',compact('roles','projets','account','account_has_owner'));
+        $projets = DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.users.add.index',compact('roles','projets','account','account_has_owner','user_auth'));
     }
     public function store(Request $request,$account_id)
     {
         
-         $validator = Validator::make($request->all(), 
+        $validator = Validator::make($request->all(), 
             [
               'account_id'=>'required|integer',
               'user_name'=>'required|max:50',
@@ -96,10 +98,12 @@ class UserController extends Controller
               //'account_owner'=>'required',
               'email'=>'required|email|unique:users,email',
               'password'=>'required|same:confirm_password',
-              'roles' => 'required',
-              'user_photo' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+              'roles' =>'required',
+              'user_photo'=>'required|image|mimes:jpeg,jpg,png|max:2048',
             ]
         );
+
+
         if (!$validator->passes()) {
             return redirect()->back()->with('errors',$validator->errors());
         }
@@ -119,7 +123,10 @@ class UserController extends Controller
         });
         $thumbnailImage->save($thumbnailPath.time().$imagename);
         $input["photo"]= $imagename; 
-
+        $input['account_owner']=false;
+        if ($request['account_owner']=='on') {
+            $input['account_owner']=true;
+        }
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
         return redirect()->back()->with('succes','succes');
@@ -139,14 +146,15 @@ class UserController extends Controller
         }
         $account = Account::find($user->account_id);
         $userRole = $user->roles->pluck('name','name')->all();
-        $projets = LoadingManager::getUserProjet();
-        return view('admin.uncod.users.show.index',compact('user','userRole','account','projets'));
+        $projets = DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.users.show.index',compact('user','userRole','account','projets','user_auth'));
     }
     public function edit(Request $request)
     {  
         $user_id = $request['user_id'];
         Log::info('user_id: '.$user_id);
-        $user = User::find($user_id);
+        $user = User::with('roles')->find($user_id);
         if (empty($user)) {
             if($request->ajax())
             {
@@ -160,46 +168,64 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
         $account_has_owner=User::where('account_owner',1)->exists();
-        $projets = LoadingManager::getUserProjet();
-        return view('admin.uncod.users.edit.index',compact('user','userRole','roles','account','account_has_owner','projets'));
+        $projets = DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.users.edit.index',compact('user','userRole','roles','account','account_has_owner','projets','user_auth'));
     }
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), 
             [
+              'user_id'=>'required',
               'user_name'=>'required|max:50',
               'prenom'=>'required|max:50',
               'nom'=>'required|max:50',
-              'account_owner'=>'required',
-              'email'=>'required|email|unique:users,email',
+              'email'=>'required',
               'password'=>'required|same:confirm_password',
-              'roles' => 'required'
+              'roles' => 'required',
+              'user_photo' => 'required|image|mimes:jpeg,jpg,png|max:2048',
             ]
         );
         if (!$validator->passes()) {
-            $returnHTML = view('admin.uncod.users.add.error_user_form')->with('errors', $validator->errors())->render();
-            return response()->json(array(
-                'responseCode'=>422, 
-                'html'=>$returnHTML)
-            );
+            return redirect()->back()->with('errors',$validator->errors());
+        }
+        $userWithEmail=User::where('email',$request['email'])
+        ->where('id','<>',$request['user_id'])
+        ->first();
+        if (!empty($userWithEmail)) {
+            return redirect()->back()->with('email_error','email_error');
         }
 
-        $input = $request->all();
-        if(!empty($input['password'])){ 
-            $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = Arr::except($input,array('password'));    
+        $user = User::find($request['user_id']);
+        if (empty($user)) {
+            return redirect(app()-> getLocale().'/404');
         }
-        $user = User::find($id);
+        $input = $request->all();
+
+        //SAVE PHOTO
+        $originalImage= $request->file('user_photo');
+        $currentDate = Carbon::now()->toDateString();
+        $imagename = $currentDate.'-'.uniqid().'.'.$originalImage->getClientOriginalExtension();
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/uncode/marque_blanches/miniatures/';
+        $originalPath = public_path().'/uncode/marque_blanches/';
+        $thumbnailImage->save($originalPath.time().$imagename);
+        $thumbnailImage->resize(500, null, function ($constraint) {
+        $constraint->aspectRatio();
+        });
+        $thumbnailImage->save($thumbnailPath.time().$imagename);
+        $input["photo"]= $imagename; 
+        $input["photo"]= $imagename; 
+        $input['account_owner']=false;
+        if ($request['account_owner']=='on') {
+            $input['account_owner']=true;
+        }
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        
+        DB::table('model_has_roles')->where('model_id',$request['user_id'])->delete();
         $user->assignRole($request->input('roles'));
 
-        $returnHTML = view('admin.uncod.message_succes')->render();
-        return response()->json(array(
-            'responseCode'=>200, 
-            'html'=>$returnHTML)
-        );
+        return redirect()->back()->with('succes','succes');
     }
     public function destroy(Request $request)
     {
@@ -234,8 +260,9 @@ class UserController extends Controller
             if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])){
 
                 //echo "succes"; die;
-                $projets = LoadingManager::getUserProjet();
-                return redirect(app()-> getLocale().'/admin/dashboard')->with(['admin' => $admin,'projets'=>$projets]);
+                $projets = DBHelper::getUserProjet();
+                $user_auth = DBHelper::getUserAuth();
+                return redirect(app()-> getLocale().'/admin/dashboard')->with(['admin' => $admin,'projets'=>$projets,'user_auth'=>$user_auth]);
              }
 
             else{
@@ -248,7 +275,86 @@ class UserController extends Controller
     }
     public function dashboard()
     {
-        $projets = LoadingManager::getUserProjet();
-        return view('admin/uncod.index',compact('projets'));
-    }    
+        $projets = DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin/uncod.index',compact('projets','user_auth'));
+    }  
+    public function profile(Request $request)
+    {
+        $user = Auth::user();
+        if (empty($user)) {
+            return redirect(app()-> getLocale().'/');
+        }
+        $account = Account::find($user->account_id);
+        $userRole = $user->roles->pluck('name','name')->all();
+        $projets = DBHelper::getUserProjet();
+
+        $user_auth = DBHelper::getUserAuth();
+
+        return view('admin.uncod.users.profile.index',compact('user','userRole','account','projets','user_auth'));   
+    }  
+
+    public function editProfile(Request $request)
+    {
+        $user = Auth::user();
+        if (empty($user)) {
+            return redirect(app()-> getLocale().'/');
+        }
+        $account = Account::find($user->account_id);
+        $userRole = $user->roles->pluck('name','name')->all();
+        $projets = DBHelper::getUserProjet();
+
+        $user_auth = DBHelper::getUserAuth();
+
+        return view('admin.uncod.users.profile.edit.index',compact('user','userRole','account','projets','user_auth'));   
+    }  
+    public function updateProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), 
+            [
+              'user_name'=>'required|max:50',
+              'prenom'=>'required|max:50',
+              'nom'=>'required|max:50',
+              'password'=>'required|same:confirm_password',
+              'user_photo' => 'required|image|mimes:jpeg,jpg,png|max:2048|dimensions:width=200,height=200',
+            ]
+        );
+        if (!$validator->passes()) {
+            return redirect()->back()->with('errors',$validator->errors());
+        }
+        $userWithEmail=User::where('email',$request['email'])
+        ->where('id','<>',$request['user_id'])
+        ->first();
+        if (!empty($userWithEmail)) {
+            return redirect()->back()->with('email_error','email_error');
+        }
+
+        $user = Auth::user();
+        if (empty($user)) {
+            return redirect(app()-> getLocale().'/404');
+        }
+        $input = $request->all();
+
+        //SAVE PHOTO
+        $originalImage= $request->file('user_photo');
+        $currentDate = Carbon::now()->toDateString();
+        $imagename = $currentDate.'-'.uniqid().'.'.$originalImage->getClientOriginalExtension();
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/uncode/marque_blanches/miniatures/';
+        $originalPath = public_path().'/uncode/marque_blanches/';
+        $thumbnailImage->save($originalPath.time().$imagename);
+        $thumbnailImage->resize(500, null, function ($constraint) {
+        $constraint->aspectRatio();
+        });
+        $thumbnailImage->save($thumbnailPath.time().$imagename);
+        $input["photo"]= $imagename; 
+        $input['account_owner']=false;
+        if ($request['account_owner']=='on') {
+            $input['account_owner']=true;
+        }
+        $user->update($input);
+
+        return redirect()->back()->with('succes','succes');
+        
+    }  
 }

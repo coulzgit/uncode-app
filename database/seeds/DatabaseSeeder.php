@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
 
             App\Models\Account::create([
                 'code'=>'00011',//ID:1
+                'name'=>'Account1',
                 'statut'=>true,
                 'expired_at'=>'30-01-2021 00:00:00',
                 'licence_id'=>1,
@@ -66,6 +67,7 @@ class DatabaseSeeder extends Seeder
             ]),
             App\Models\Account::create([
                 'code'=>'00012',//ID:2
+                'name'=>'Account2',
                 'statut'=>true,
                 'expired_at'=>'30-01-2021 00:00:00',
                 'licence_id'=>1,
@@ -82,6 +84,7 @@ class DatabaseSeeder extends Seeder
             ]),
             App\Models\Account::create([
                 'code'=>'00013',//ID:3
+                'name'=>'Account3',
                 'statut'=>true,
                 'expired_at'=>'30-01-2021 00:00:00',
                 'licence_id'=>2,
@@ -268,8 +271,7 @@ class DatabaseSeeder extends Seeder
                 'email'=>'admin@gmail.com', 
                 'password'=>'$2y$10$Ry0.9hF64KH/TABotL9.OeBLw7LevL2CrkTRRWG5mAkX8mqCASiu2',
                 'account_id'=>1,
-                'account_owner'=>true,
-                'photo'=>'photo.jpg'
+                'account_owner'=>true
             ]),
             App\User::create([ 
                 'user_name'=>'user1',        
@@ -278,8 +280,7 @@ class DatabaseSeeder extends Seeder
                 'email'=>'user1@gmail.com', 
                 'password'=>'$2y$10$Ry0.9hF64KH/TABotL9.OeBLw7LevL2CrkTRRWG5mAkX8mqCASiu2',
                 'account_id'=>1,
-                'account_owner'=>false,
-                'photo'=>'photo.jpg'
+                'account_owner'=>false
             ]),
             App\User::create([ 
                 'user_name'=>'user2',        
@@ -288,8 +289,7 @@ class DatabaseSeeder extends Seeder
                 'email'=>'user2@gmail.com', 
                 'password'=>'$2y$10$Ry0.9hF64KH/TABotL9.OeBLw7LevL2CrkTRRWG5mAkX8mqCASiu2',
                 'account_id'=>2,
-                'account_owner'=>false,
-                'photo'=>'photo.jpg'
+                'account_owner'=>false
             ]),
             App\User::create([  
                 'user_name'=>'user3',       
@@ -298,8 +298,7 @@ class DatabaseSeeder extends Seeder
                 'email'=>'user3@gmail.com', 
                 'password'=>'$2y$10$Ry0.9hF64KH/TABotL9.OeBLw7LevL2CrkTRRWG5mAkX8mqCASiu2',
                 'account_id'=>2,
-                'account_owner'=>true,
-                'photo'=>'photo.jpg'
+                'account_owner'=>true
             ])
         ];
         // TABLE PERMISSION

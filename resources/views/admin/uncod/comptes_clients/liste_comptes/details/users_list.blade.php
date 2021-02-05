@@ -15,38 +15,30 @@
 							</tr>
 						</thead>
 						<tbody>
-
                             @foreach ($account['users'] as $user)
+    							<tr role="row" class="odd">
+                                    <td class="sorting_1">
+                                        {{$user->prenom}} {{$user->nom}}
+                                    </td>
+    								<td>{{ $user['email']}}</td>
+                                    <td>
+                                        @foreach($user['roles'] as $role )
+                                            <span>
+                                                {{$role->name}}
+                                            </span>
+                                        @endforeach
+                                    </td>
+    								<td>
 
+                                        @if($user['account_owner']==0)
+                                        <span>{{__('Non') }}</span>
+                                        @else
+                                        <span>{{__('Oui') }}</span>
+                                        @endif
 
-							<tr role="row" class="odd">
-                                <td class="sorting_1">
-                                    @if($user['nom']==null)
-                                    <span>{{__('...') }}</span>
-                                    @else
-                                    <span>{{ $user['nom']}}</span>
-                                    @endif
-                                </td>
-								<td>{{ $user['email']}}</td>
-{{-- <td>
-                                    @if($user['nom_role']==0 )
-                                    <span>...</span>
-                                    @else
-                                    <span>}</span>
-                                    @endif
-                                </td> --}}
-                                <td>....</td>
-								<td>
+                                    </td>
 
-                                    @if($user['account_owner']==0)
-                                    <span>{{__('Non') }}</span>
-                                    @else
-                                    <span>{{__('Oui') }}</span>
-                                    @endif
-
-                                </td>
-
-							</tr>
+    							</tr>
 
                             @endforeach
 						</tbody>

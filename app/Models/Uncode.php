@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $telephone1
  * @property string $telephone2
  * @property string $domaine
+ * @property string $login_image
  * @property string $email
  * @property string $created_at
  * @property string $updated_at
@@ -30,6 +31,6 @@ class Uncode extends Model
     /**
      * @var array
      */
-    protected $fillable = ['app_logo', 'favicon', 'app_name', 'contact_url', 'telephone1', 'telephone2', 'domaine', 'email', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['app_logo', 'favicon', 'app_name', 'contact_url', 'telephone1', 'telephone2', 'domaine', 'login_image', 'email', 'created_at', 'updated_at', 'deleted_at'];
 
 }

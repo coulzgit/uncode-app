@@ -227,6 +227,7 @@ class FactureController extends Controller
 
             $action_log_names =DBHelper::getActionLogNames($doc->projet_id);
             $doc_data_names=DBHelper::getDocDataNames($doc->projet_id);
+            $doc_attachments=DBHelper::getDocAttachments($doc->doc_id,$doc->projet_id);
 
             $result->put("doc",$doc);
             $result->put("data_docs",$data_docs_collect);
@@ -238,8 +239,7 @@ class FactureController extends Controller
             $result->put("action_logs",$action_log_collect);
             $result->put("action_log_names",$action_log_names);
             $result->put("doc_data_names",$doc_data_names);
-
-            
+            $result->put("doc_attachments",$doc_attachments);
             
         } catch (Exception $e) {
             Log::error('FactureController/formateInvoice: '.$e);

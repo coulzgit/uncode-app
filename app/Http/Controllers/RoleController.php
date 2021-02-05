@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\MyClasses\LoadingManager;
+use App\Helpers\DBHelper;
 use DB;
 
 class RoleController extends Controller
@@ -22,7 +23,8 @@ class RoleController extends Controller
 	{
 		$roles = Role::orderBy('id','DESC')->paginate(5);
 		$projets = LoadingManager::getUserProjet();
-		return view('admin.params.roles.index',compact('roles','projets'))
+		$user_auth= DBHelper::getUserAuth();
+		return view('admin.params.roles.index',compact('roles','projets','user_auth'))
 		->with('i', ($request->input('page', 1) - 1) * 5);
 	}
 	public function create()
@@ -30,7 +32,8 @@ class RoleController extends Controller
 
 		$permissions = Permission::get();
 		$projets = LoadingManager::getUserProjet();
-		return view('admin.params.roles.create',compact('permissions','projets'));
+		$user_auth= DBHelper::getUserAuth();
+		return view('admin.params.roles.create',compact('permissions','projets','user_auth'));
 	}
 	public function store(Request $request)
 	{
@@ -67,7 +70,8 @@ class RoleController extends Controller
 		->where("role_has_permissions.role_id",$role_id)
 		->get();
 		$projets = LoadingManager::getUserProjet();
-		return view('admin.params.roles.show',compact('role','rolePermissions','projets'));
+		$user_auth= DBHelper::getUserAuth();
+		return view('admin.params.roles.show',compact('role','rolePermissions','projets','user_auth'));
 	}
 	public function edit(Request $request)
 	{
@@ -88,7 +92,8 @@ class RoleController extends Controller
 		$rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$role_id)
 		->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
 		->all();
-		return view('admin.params.roles.edit',compact('role','permission','rolePermissions','projets'));
+		$user_auth= DBHelper::getUserAuth();
+		return view('admin.params.roles.edit',compact('role','permission','rolePermissions','projets','user_auth'));
 	}
 
 	public function update(Request $request, $id)

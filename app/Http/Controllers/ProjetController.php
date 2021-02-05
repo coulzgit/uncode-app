@@ -11,6 +11,7 @@ use App\MyClasses\DateFormater;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\MyClasses\LoadingManager;
+use App\Helpers\DBHelper;
 
 class ProjetController extends Controller
 {
@@ -31,7 +32,8 @@ class ProjetController extends Controller
         //$projets = Projet::get();
         $projets = LoadingManager::getUserProjet();
         $projetFormated = $this->formaterProjetList($projets);
-        return view('admin.uncod.projets.index',compact('projets','projetFormated'));
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.projets.index',compact('projets','projetFormated','user_auth'));
     }
     private function formaterProjetList($projets){
         $myCollect = collect([]);
@@ -79,7 +81,8 @@ class ProjetController extends Controller
     {
         $accounts = Account::get();
         $projets = LoadingManager::getUserProjet();
-        return view('admin.uncod.projets.create',compact('accounts','projets'));
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.projets.create',compact('accounts','projets','user_auth'));
     }
 
     /**
@@ -142,7 +145,8 @@ class ProjetController extends Controller
         }
         $projet =$this->formaterProjet($projet);
         $projets = LoadingManager::getUserProjet();
-        return view('admin.uncod.projets.show',compact('projet','projets'));
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.projets.show',compact('projet','projets','user_auth'));
     }
 
     /**
@@ -166,7 +170,8 @@ class ProjetController extends Controller
         }
         $accounts = Account::get();
         $projets = LoadingManager::getUserProjet();
-        return view('admin.uncod.projets.edit',compact('projet','accounts','projets'));
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.projets.edit',compact('projet','accounts','projets','user_auth'));
     }
 
     /**

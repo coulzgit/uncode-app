@@ -18,7 +18,7 @@
 										{{__('N° compte')}}
 									</th>
 									<th class="wd-15p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Last name: activate to sort column ascending" style="width: 105px;">
-										{{__('Clients')}}
+										{{__('Nom compte')}}
 									</th>
 									<th class="wd-20p border-bottom-0 sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 153px;">
 										{{__('Licence')}}
@@ -44,14 +44,10 @@
 	                                         {{ $item['account']->code }}
 	                                        </td>
 	                                        <td>
-	                                            @if($item['proprietaire']==null)
-	                                            <span>......</span>
-	                                            @else
-	                                            {{ $item['proprietaire']->prenom }}
-	                                            @endif
+	                                            {{ $item['account']->name }}
 	                                        </td>
 
-	                                            {{-- {{ $item['proprietaire']['prenom'] }}</td> --}}
+	                                         
 	                                        <td>{{ $item['licence']->nom }}</td>
 	                                        <td>{{ $item['account']->created_at }}</td>
 	                                        <td class="sorting_1">

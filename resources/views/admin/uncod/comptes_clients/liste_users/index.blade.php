@@ -22,7 +22,12 @@
 	<!-- /breadcrumb -->
 @endsection
 @section('content')
-
+<div style="display: flex;justify-content: left; margin-left: 1px; margin-bottom:10px  " class="row row-sm">
+	<a class="btn btn-main-primary"  href="{{route('accounts',app()->getLocale())}}">
+		{{-- <i class="ti ti-arrow-left"></i> --}}
+		{{__('Retour') }}
+	</a>
+</div>
 @include('admin.uncod.comptes_clients.liste_users.table')
 			</div>
 			<!-- /Container -->

@@ -22,6 +22,7 @@ class CreateUncodesTable extends Migration
             $table->string('telephone1')->nullable(true);
             $table->string('telephone2')->nullable(true);
             $table->string('domaine')->nullable(true);
+            $table->string('login_image')->nullable(true);
             $table->string('email')->nullable(true);
             $table->timestamps();
             $table->softDeletes();

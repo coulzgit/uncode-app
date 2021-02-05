@@ -462,5 +462,15 @@
 <script src="{{URL::asset('assets/js/modal-popup.js')}}"></script>
 <!--Internal  index js -->
 <script src="{{URL::asset('assets/js/index.js')}}"></script>
-<script src="{{URL::asset('assets/js/jquery.vmap.sampledata.js')}}"></script>	
+<script src="{{URL::asset('assets/js/jquery.vmap.sampledata.js')}}"></script>
+
+<!-- TEST -->
+<script src="{{asset('app-assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript">
+	var user_auth = @json($user_auth);
+	$(document).ready(function(){
+		console.log('user_auth',user_auth);
+	
+	});
+</script>	
 @endsection

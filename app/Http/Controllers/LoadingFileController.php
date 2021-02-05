@@ -34,6 +34,7 @@ use App\Models\AccDataColumnShow;
 use App\Models\Doc;
 use App\Models\Test;
 use App\MyClasses\LoadingManager;
+use App\Helpers\DBHelper;
 
 use Auth;
 use Mail;
@@ -55,14 +56,16 @@ class LoadingFileController extends Controller
     {
         //$projets = Projet::get();
         $projets = LoadingManager::getUserProjet();
-        return view('admin.uncod.loadings.index',compact('projets'));
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.loadings.index',compact('projets','user_auth'));
     }
 
     public function imports()
     {
         //$projets = Projet::get();
         $projets = LoadingManager::getUserProjet();
-        return view('mytestes.loading.import',compact('projets'));
+        $user_auth= DBHelper::getUserAuth();
+        return view('mytestes.loading.import',compact('projets',$user_auth));
     }
     private function getProjets(){
         //$projets = Projet::with('account')->get();
@@ -74,7 +77,8 @@ class LoadingFileController extends Controller
     	if ($request->method()=='GET') {
     		//$projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.docs.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.docs.index',compact('projets','user_auth'));
     	}
 
     	ini_set('memory_limit', '2028MB');
@@ -122,7 +126,8 @@ class LoadingFileController extends Controller
         if ($request->method()=='GET') {
             //$projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-            return view('admin.uncod.loadings.doc_datas.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+            return view('admin.uncod.loadings.doc_datas.index',compact('projets','user_auth'));
         }
         
         try {
@@ -164,7 +169,8 @@ class LoadingFileController extends Controller
     	if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.action_logs.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.action_logs.index',compact('projets','user_auth'));
     	}
     	
         try {
@@ -207,7 +213,8 @@ class LoadingFileController extends Controller
     	if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.action_log_names.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.action_log_names.index',compact('projets','user_auth'));
     	}
     	
         try {
@@ -251,7 +258,8 @@ class LoadingFileController extends Controller
     	if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.compagnies.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.compagnies.index',compact('projets','user_auth'));
     	}
     	
         try {
@@ -293,7 +301,8 @@ class LoadingFileController extends Controller
     	if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.company_grid_fields.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.company_grid_fields.index',compact('projets','user_auth'));
     	}
     	
         try {
@@ -337,7 +346,8 @@ class LoadingFileController extends Controller
     	if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.doc_data_names.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.doc_data_names.index',compact('projets','user_auth'));
     	}
     	
         try {
@@ -380,7 +390,8 @@ class LoadingFileController extends Controller
     	if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.acc_datas.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.acc_datas.index',compact('projets','user_auth'));
     	}
     	ini_set('memory_limit', '2028MB');
         try {
@@ -422,7 +433,8 @@ class LoadingFileController extends Controller
     	if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.acc_data_names.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.acc_data_names.index',compact('projets','user_auth'));
     	}
     	
         try {
@@ -465,7 +477,8 @@ class LoadingFileController extends Controller
     	if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.doc_attachments.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.doc_attachments.index',compact('projets','user_auth'));
     	}
 
     	
@@ -512,7 +525,8 @@ class LoadingFileController extends Controller
     	if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.ip_line_items.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.ip_line_items.index',compact('projets','user_auth'));
     	}
     	
         try {
@@ -554,7 +568,8 @@ class LoadingFileController extends Controller
 		if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.ip_line_item_params.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.ip_line_item_params.index',compact('projets','user_auth'));
     	}
 		
         try {
@@ -596,7 +611,8 @@ class LoadingFileController extends Controller
 		if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.invoice_types.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.invoice_types.index',compact('projets','user_auth'));
     	}
 		
         try {
@@ -638,7 +654,8 @@ class LoadingFileController extends Controller
 		if ($request->method()=='GET') {
             // $projets = $this->getProjets();
             $projets = LoadingManager::getUserProjet();
-        	return view('admin.uncod.loadings.doc_files.index',compact('projets'));
+            $user_auth= DBHelper::getUserAuth();
+        	return view('admin.uncod.loadings.doc_files.index',compact('projets','user_auth'));
     	}
 		
         try {

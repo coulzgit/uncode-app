@@ -61,7 +61,7 @@
     "Return": "Retour",
     "GENERAL": "GENERAL",
     "Account number": "N° du compte",
-    "Account status": "Etat du compte",
+    "Account statut": "Etat du compte",
     "Customer": "Client",
     "Number of projects:": "Nombre de projet:",
     "Number of users": "Nombre d'utilisateur:",
@@ -224,6 +224,15 @@
     "Rule":"Role",
     "Email":"Email",
     "Owner":"Propritaire",
-    "Actions":"Actions"
+    "Actions":"Actions",
+    "Account name":"Nom compte",
+    "Account users":"Utilisateurs du compte",
+    "User details":"Détails utilisateur",
+    "Username":"Nom utilisateur",
+    "User modification":"Modification utilisateur",
+    "Login page image":"Image page de connexion",
+    "Edit":"Modifier",
+    "Profil":"Profile",
+    "Edit profil":"Modifier profile"
 
 }

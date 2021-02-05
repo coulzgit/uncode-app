@@ -72,7 +72,7 @@
 						<div class="row row-xs align-items-center mg-b-20">
 							<div class="col-md-4">
 								<label class="form-label mg-b-0">
-									{{__('Logo')}}
+									{{__('Logo')}} (258x75)
 								</label>
 							</div>
 							<div class="col-md-8 mg-t-5 mg-md-t-0">
@@ -83,11 +83,22 @@
 						<div class="row row-xs align-items-center mg-b-20">
 							<div class="col-md-4">
 								<label class="form-label mg-b-0">
-									{{__('Favicon')}}
+									{{__('Favicon')}} (256x256)
 								</label>
 							</div>
 							<div class="col-md-8 mg-t-5 mg-md-t-0">
 								<input required="" name="app_favicon" type="file" class="form-control">
+							</div>
+						</div>
+						<!-- LOGIN_PAGE_IMAGE -->
+						<div class="row row-xs align-items-center mg-b-20">
+							<div class="col-md-4">
+								<label class="form-label mg-b-0">
+									{{__('Image page de connexion')}} (1440x987)
+								</label>
+							</div>
+							<div class="col-md-8 mg-t-5 mg-md-t-0">
+								<input name="login_image" type="file" class="form-control">
 							</div>
 						</div>
 						

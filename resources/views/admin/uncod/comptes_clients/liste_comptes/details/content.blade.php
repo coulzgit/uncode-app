@@ -20,27 +20,31 @@
 							<span style="color: #adadad" class="h6 ml-2">{{$account['account']->code}}</span>
 						</h6>
 						<h6 class="price">
+							{{__('Nom compte') }}:
+							<span style="color: #adadad" class="h6 ml-2">{{$account['account']->name}}</span>
+						</h6>
+						<h6 class="price">
 							{{__('Date de création:') }}
 							<span style="color: #adadad" class="h6 ml-2">{{$account['account']->created_at}}</span>
 						</h6>
 						<h6 class="price">
-                            {{__('Etat du compte') }}
+                            {{__('Etat du compte') }}:
                              @if($account['account']->statut==0)
                              <span style="color: #adadad" class="h6 ml-2">{{__('désactivé')}}
                             </span>
-                                @else
-                                    <span style="color: #adadad" class="h6 ml-2">{{__('actif')}}</span>
+                            @else
+                                <span style="color: #adadad" class="h6 ml-2">{{__('actif')}}</span>
                             @endif
 						</h6>
 						<h6 class="price">
-							{{__('Licence') }}
+							{{__('Licence') }}:
 							<span style="color: #adadad" class="h6 ml-2">{{ $account['licence']->nom }}</span>
 						</h6>
 					</div>
 					<!-- RIGHT -->
 					<div style="border: 1px solid #eee;border-radius: 5px;padding: 20px"  class="col-md-6">
 						<h6 class="price">
-                            {{__('Client') }}
+                            {{__('Propriétaire') }}:
                              @if($account['proprietaire']==null)
                             <span style="color: #adadad" class="h6 ml-2">{{__('...') }}</span>
                             @else
@@ -55,9 +59,7 @@
 						<h6 class="price">
 							{{__('Nombre de projet:') }}
 							<span style="color: #adadad" class="h6 ml-2">{{ count($account['projets']) }}</span>
-
 						</h6>
-
 					</div>
 				</div>
             </div>

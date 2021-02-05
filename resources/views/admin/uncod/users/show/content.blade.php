@@ -1,9 +1,12 @@
-{{--<div style="display: flex;justify-content: left;padding-left: 10px;padding-bottom: 10px" class="row row-sm">
-    <a class="btn btn-primary" href="#">
+<div style="margin-bottom: 10px" class="row row-sm">
+    <div class="col-lg-12">
+        <a class="btn btn-main-primary"  href="{{route('accounts.users',['account_id'=>$account['id'],'locale'=>app()->getLocale()])}}">
+            {{__('Retour') }}
+        </a>
+        <!-- accounts/1/users -->
+    </div>
+</div>
 
-        {{__('Retour')}}
-    </a>
-</div>--}}
 <!-- GENERAL INFO -->
 <div class="row row-sm">
     <div class="col-md-12 mg-md-t-0">
@@ -16,35 +19,62 @@
                     <!-- LEFT -->
                     <div style="border: 1px solid #eee;border-radius: 5px;margin-right: 20px;padding: 20px" class="col-md-12">
                         <h6 class="price">
-                            {{__('Nom d\'utilisateur')}}
+                            {{__('Nom utilisateur')}}:
                             <span style="color: #adadad" class="h6 ml-2">
-                                {{$user['nom']}}
+                                {{$user['user_name']}}
                             </span>
                         </h6>
                         <h6 class="price">
-                            {{__('Compte ')}}
-                            <span style="color: #adadad" class="h6 ml-2">
-                                {{$user['account']['code']}}
-                            </span>
-                        </h6>
-                        <h6 class="price">
-                            {{__('Email')}}
-                            <span style="color: #adadad" class="h6 ml-2">
-                                {{$user['email']}}
-                            </span>
-                        </h6>
-                        <h6 class="price">
-                            {{__('Prenom')}}
+                            {{__('Prénom')}}:
                             <span style="color: #adadad" class="h6 ml-2">
                                 {{$user['prenom']}}
                             </span>
                         </h6>
                         <h6 class="price">
-                            {{__('Nombre de roles')}}
+                            {{__('Nom')}}:
                             <span style="color: #adadad" class="h6 ml-2">
-                                {{count($user['roles'])}}
+                                {{$user['nom']}}
                             </span>
                         </h6>
+                        <h6 class="price">
+                            {{__('Email')}}:
+                            <span style="color: #adadad" class="h6 ml-2">
+                                {{$user['email']}}
+                            </span>
+                        </h6>
+                        <h6 class="price">
+                            {{__('Propriétaire')}}:
+                            <span style="color: #adadad" class="h6 ml-2">
+                                @if($user['owner']==1)
+                                    {{__('Oui')}}
+                                @else
+                                    {{__('Oui')}}
+                                @endif
+                            </span>
+                        </h6>
+                        <h6 class="price">
+                            {{__('Roles')}}:
+                            <span style="color: #adadad" class="h6 ml-2">
+                                @foreach($user['roles'] as $role)
+                                    {{$role->name}}
+                                @endforeach
+                            </span>
+                        </h6>
+                        <h6 class="price">
+                            {{__('Nom compte')}}:
+                            <span style="color: #adadad" class="h6 ml-2">
+                                {{$user['account']['name']}}
+                            </span>
+                        </h6>
+                        
+                        <h6 class="price">
+                            {{__('Compte N°')}}:
+                            <span style="color: #adadad" class="h6 ml-2">
+                                {{$user['account']['code']}}
+                            </span>
+                        </h6>
+                        
+                        
 
 
                     </div>

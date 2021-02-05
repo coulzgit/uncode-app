@@ -92,7 +92,7 @@
     "Supprimer le projet": "Delete project",
     "GENERAL": "GENERAL",
     "N° du compte": "Account number",
-    "Etat du compte": "Account status",
+    "Etat du compte": "Account statut",
     "Client": "Customer",
     "Nombre de projet:": "Number of projects:",
     "UTILISATEURS": "USERS",
@@ -245,6 +245,15 @@
     "Role":"Rule",
     "Email":"Email",
     "Propritaire":"Owner",
-    "Actions":"Actions"
+    "Actions":"Actions",
+    "Nom compte": "Account name",
+    "Utilisateurs du compte":"Account users",
+    "Détails utilisateur":"User details",
+    "Nom utilisateur":"Username",
+    "Modification utilisateur":"User modification",
+    "Image page de connexion":"Login page image",
+    "Modifier":"Edit",
+    "Profile":"Profil",
+    "Modifier profile":"Edit profil"
 
 }

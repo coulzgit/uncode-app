@@ -65,11 +65,11 @@
 					<div id="montant_input0" class="hide row">
 						<div class="row col-lg-6">
 							<label class="col-lg-4">{{__('Mnt min')}}:</label>
-							<input onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_min0">
+							<input placeholder="0.00"  onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_min0">
 						</div>
 						<div class="row col-lg-6">
 							<label class="col-lg-4">{{__('Mnt max')}}:</label>
-							<input onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_max0">
+							<input placeholder="0.00" onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_max0">
 						</div>
 					</div>
 
@@ -140,11 +140,11 @@
 				<div id="montant_input1" class="hide row">
 					<div class="row col-lg-6">
 						<label class="col-lg-4">{{__('Mnt min')}}:</label>
-						<input onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_min1">
+						<input placeholder="0.00" onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_min1">
 					</div>
 					<div class="row col-lg-6">
 						<label class="col-lg-4">{{__('Mnt max')}}:</label>
-						<input onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_max1">
+						<input placeholder="0.00" onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_max1">
 					</div>
 				</div>
 
@@ -216,11 +216,11 @@
 				<div id="montant_input2" class="hide row">
 					<div class="row col-lg-6">
 						<label class="col-lg-4">{{__('Mnt min')}}:</label>
-						<input onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_min2">
+						<input placeholder="0.00" onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_min2">
 					</div>
 					<div class="row col-lg-6">
 						<label class="col-lg-4">{{__('Mnt max')}}:</label>
-						<input onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_max2">
+						<input placeholder="0.00" onkeypress="return validNumber(event)" class="form-control col-lg-8" type="text" id="input_mtn_max2">
 					</div>
 				</div>
 

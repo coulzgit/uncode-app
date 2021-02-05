@@ -48,19 +48,11 @@
       <span>{{__('Echec')}}</span>
       
       <div class="col-lg-12">
-        @error('accountID')
-            <strong>{{ $message }}</strong>
-        @enderror
-
-        @error('app_name')
-            <strong>{{ $message }}</strong>
-        @enderror
-        @error('domaine_name')
-            <strong>{{ $message }}</strong>
-        @enderror
-        @error('app_logo')
-            <strong>{{ $message }}</strong>
-        @enderror
+        @if($errors)
+           @foreach ($errors->all() as $error)
+              <div>{{ $error }}</div>
+          @endforeach
+        @endif
       </div>
     </div>
   </div>
@@ -111,8 +103,10 @@
 <script type="text/javascript">
 
 	var accounts = @json($accounts);
+  var errors = @json($errors);
 	$(document).ready(function(){
 		console.log('accounts',accounts);
+    console.log('errors',errors);
 
 	});
 </script>

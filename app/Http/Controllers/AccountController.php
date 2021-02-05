@@ -31,12 +31,13 @@ class AccountController extends Controller
     public function index()
     {
         $accounts = $this->getListComptes();
-        $loadingManager = new LoadingManager();
-        $projets= $loadingManager->getUserProjet();
+        $projets= DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
         return view('admin.uncod.comptes_clients.liste_comptes.index',
             [
                 'accounts'=>$accounts,
-                'projets'=>$projets
+                'projets'=>$projets,
+                'user_auth'=>$user_auth
 
             ]);
     }
@@ -44,19 +45,32 @@ class AccountController extends Controller
     public function create()
     {
         $licences = DB::table('licences')->get();
-        $loadingManager = new LoadingManager();
-        $projets= $loadingManager->getUserProjet();
+        $projets= DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
         return view('admin.uncod.comptes_clients.new_account.index',
             [
                 'licences' => $licences,
-                'projets' => $projets
+                'projets' => $projets,
+                'user_auth'=>$user_auths
         ]);
     }
 
     public function store(Request $request)
     {
-       
+        $validator = Validator::make($request->all(), [
+                'account_name' => 'required',
+                'licence_id' => 'required'
+            ]
+        );
+        if (!$validator->passes()) {
+            return array(
+                'responseCode'=>404,
+                'message'=>'error'
+            ) ;
+        }
+
         $licence_id=$request['licence_id'];
+        $account_name=$request['account_name'];
         $account_code=random_int(10000,99999);
         $account_statut=false;
         if ($request['statut']=="ON") {
@@ -65,7 +79,8 @@ class AccountController extends Controller
         Account::create([
             'code'=>$account_code,
             'statut'=>$account_statut,
-            'licence_id'=>$licence_id
+            'licence_id'=>$licence_id,
+            'name'=>$account_name
         ]);
 
         $message="Create account sucessfully";
@@ -93,9 +108,9 @@ class AccountController extends Controller
         }
         
         $account = $this->formatAccountData($account_id);
-        $loadingManager = new LoadingManager();
-        $projets= $loadingManager->getUserProjet();
-        return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account,'projets'=>$projets]);
+        $projets= DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account,'projets'=>$projets,'user_auth'=>$user_auth]);
     }
 
    
@@ -115,19 +130,34 @@ class AccountController extends Controller
             }
             return redirect(app()-> getLocale().'/404');
         }
-        $loadingManager = new LoadingManager();
-        $projets= $loadingManager->getUserProjet();
+        $projets= DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
         return view('admin.uncod.comptes_clients.edit_account.index',
             [
                 'licences' => $licences,
                 'account' => $account,
-                'projets'=>$projets]
+                'projets'=>$projets,
+                'user_auth'=>$user_auth
+            ]
             );
         }
 
     
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+                'account_name' => 'required',
+                'licence_id' => 'required',
+                'account_id' => 'required'
+            ]
+        );
+        if (!$validator->passes()) {
+            return array(
+                'responseCode'=>404,
+                'message'=>'error'
+            ) ;
+        }
+
         $account_id=$request['account_id'];
         $account = Account::find($account_id);
         if (empty($account)) {
@@ -145,9 +175,9 @@ class AccountController extends Controller
         if ($request['statut']=="ON") {
             $account_statut=true;
         }
-
         $account->statut=$account_statut;
         $account->licence_id=$licence_id;
+        $account->name=$request['account_name'];
         $account->save();
 
         $message="Update account Sucessfully";
@@ -189,12 +219,14 @@ class AccountController extends Controller
         $acc_data_columns=DBHelper::getAccDataColumns();
         $doc_columns=DBHelper::getDocColumns();
         $projets= DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
 
         return view('admin.uncod.comptes_clients.config_account.index',[
                 'account'=>$accountData,
                 'doc_columns'=>$doc_columns,
                 'acc_data_columns'=>$acc_data_columns,
-                'projets'=>$projets
+                'projets'=>$projets,
+                'user_auth'=>$user_auths
             ]
         );
     }
@@ -264,9 +296,9 @@ class AccountController extends Controller
         }
         
         $account = $this->formatAccountData($account_id);
-        $loadingManager = new LoadingManager();
-        $projets= $loadingManager->getUserProjet();
-        return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account,'projets'=>$projets]);
+        $projets=DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
+        return view('admin.uncod.comptes_clients.liste_comptes.details.index',['account'=>$account,'projets'=>$projets,'user_auth'=>$user_auth]);
     }
     private function formatAccountData($account_id){
 
@@ -411,28 +443,34 @@ class AccountController extends Controller
             return $day_num.' '.$month_name_min.' '.$year_num;
         }
     }
-
     public function marqueBlanche(Request $request){
-        $loadingManager = new LoadingManager();
-        $projets= $loadingManager->getUserProjet();
+        
+        $projets=DBHelper::getUserProjet();
         $accounts = Account::where("statut",1)->get();
+        $user_auth= DBHelper::getUserAuth();
         return view('admin.uncod.comptes_clients.marque_blanche.index',
             [
                 'projets'=>$projets,
-                'accounts'=>$accounts
+                'accounts'=>$accounts,
+                'user_auth'=>$user_auth
             ]
         );
     }
     
     public function saveMarqueBlanche(Request $request){
         $validator = Validator::make($request->all(), [
-                    'app_name' => 'required',
-                    'accountID' => 'required',
-                    'app_logo' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-                ]
-            );
+                'app_name' => 'required',
+                'accountID' => 'required',
+                'contact_url'=>'required',
+                'telephone1'=>'required',
+                'domaine_name'=>'required',
+                'email'=>'required',
+                'app_logo' => 'required|image|mimes:jpeg,jpg,png|max:2048|dimensions:width=258,height=75',
+                'app_favicon'=>'required|image|mimes:jpeg,jpg,png|max:2048|dimensions:width=256,height=256'
+            ]
+        );
         if (!$validator->passes()) {
-             return redirect()->back()->withErrors('errors',$validator->errors());
+            return redirect()->back()->with('errors',$validator->errors());
         }
         $account_id= $request["accountID"];
         $account = Account::find($account_id);
@@ -445,6 +483,7 @@ class AccountController extends Controller
             return redirect()->back()->with('domaine_name_error','already used');
         }
 
+        //SAVE LOGO
         $originalImage= $request->file('app_logo');
         $currentDate = Carbon::now()->toDateString();
         $imagename = $currentDate.'-'.uniqid().'.'.$originalImage->getClientOriginalExtension();
@@ -458,8 +497,51 @@ class AccountController extends Controller
         $thumbnailImage->save($thumbnailPath.time().$imagename); 
         $account["app_logo"]= $imagename;
 
+        //SAVE FAVICON
+        $originalImage= $request->file('app_favicon');
+        $currentDate = Carbon::now()->toDateString();
+        $imagename = $currentDate.'-'.uniqid().'.'.$originalImage->getClientOriginalExtension();
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/uncode/marque_blanches/miniatures/';
+        $originalPath = public_path().'/uncode/marque_blanches/';
+        $thumbnailImage->save($originalPath.time().$imagename);
+        $thumbnailImage->resize(500, null, function ($constraint) {
+        $constraint->aspectRatio();
+        });
+        $thumbnailImage->save($thumbnailPath.time().$imagename);
+        $account["favicon"]= $imagename;
+
+        //SAVE LOGIN PAGE IMAGE
+        if ($request->hasFile('login_image')) {
+            $validator = Validator::make($request->all(), [
+                    'login_image'=>'image|mimes:jpeg,jpg,png|max:2048|dimensions:width=1440,height=987'
+                ]
+            );
+            if (!$validator->passes()) {
+                return redirect()->back()->with('errors',$validator->errors());
+            }
+
+            $originalImage= $request->file('login_image');
+            $currentDate = Carbon::now()->toDateString();
+            $imagename = $currentDate.'-'.uniqid().'.'.$originalImage->getClientOriginalExtension();
+            $thumbnailImage = Image::make($originalImage);
+            $thumbnailPath = public_path().'/uncode/marque_blanches/miniatures/';
+            $originalPath = public_path().'/uncode/marque_blanches/';
+            $thumbnailImage->save($originalPath.time().$imagename);
+            $thumbnailImage->resize(500, null, function ($constraint) {
+            $constraint->aspectRatio();
+            });
+            $thumbnailImage->save($thumbnailPath.time().$imagename);
+            $account["login_image"]= $imagename;
+            
+        }
         $account["app_name"]=$request["app_name"];
+        $account["contact_url"]=$request["contact_url"];
+        $account["telephone1"]=$request["telephone1"];
+        $account["telephone2"]=$request["telephone2"];
         $account["domaine_name"]=$request["domaine_name"];
+        $account["email"]=$request["email"];
+        $account["with_white_mark"]=true;
         $account->save();
         return redirect()->back()->with('succes','succes');   
     }
@@ -472,6 +554,7 @@ class AccountController extends Controller
 
         $acc_data_names=DBHelper::getAccDataNames(1);
         $doc_data_names=DBHelper::getDocDataNames(1);
+        $user_auth= DBHelper::getUserAuth();
         
         return view('admin.uncod.comptes_clients.display_data.index',
             [
@@ -480,7 +563,8 @@ class AccountController extends Controller
                 'acc_data_columns'=>$acc_data_columns,
                 'doc_columns'=>$doc_columns,
                 'acc_data_names'=>$acc_data_names,
-                'doc_data_names'=>$doc_data_names
+                'doc_data_names'=>$doc_data_names,
+                'user_auth'=>$user_auth
             ]
         );
     }
@@ -566,24 +650,26 @@ class AccountController extends Controller
     public function customiser(Request $required){
         $uncode = DB::table('uncodes')->first();
         $projets= DBHelper::getUserProjet();
+        $user_auth= DBHelper::getUserAuth();
         return view('admin.uncod.parametrages.index',
             [
                 'uncode'=>$uncode,
                 'projets'=>$projets,
+                'user_auth'=>$user_auth
             ]
         );
     }
     public function saveCustomiser(Request $request){
 
         $validator = Validator::make($request->all(), [
-                    'app_name' => 'required',
-                    'email' => 'required',
-                    'app_favicon' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-                    'app_logo' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-                ]
-            );
+                'app_name' => 'required',
+                'email' => 'required',
+                'app_logo' => 'required|image|mimes:jpeg,jpg,png|max:2048|dimensions:width=258,height=75',
+                'app_favicon'=>'required|image|mimes:jpeg,jpg,png|max:2048|dimensions:width=256,height=256'
+            ]
+        );
         if (!$validator->passes()) {
-             return redirect()->back()->withErrors('errors',$validator->errors());
+            return redirect()->back()->with('errors',$validator->errors());
         }
         
         $uncode = Uncode::first();
@@ -615,18 +701,38 @@ class AccountController extends Controller
         $thumbnailImage->resize(500, null, function ($constraint) {
         $constraint->aspectRatio();
         });
-        $thumbnailImage->save($thumbnailPath.time().$imagename); 
+        $thumbnailImage->save($thumbnailPath.time().$imagename);
         $uncode->favicon= $imagename;
+        //SAVE LOGIN PAGE IMAGE
+        if ($request->hasFile('login_image')) {
+            $validator = Validator::make($request->all(), [
+                    'login_image'=>'image|mimes:jpeg,jpg,png|max:2048|dimensions:width=1440,height=987'
+                ]
+            );
+            if (!$validator->passes()) {
+                return redirect()->back()->with('errors',$validator->errors());
+            }
+            $originalImage= $request->file('login_image');
+            $currentDate = Carbon::now()->toDateString();
+            $imagename = $currentDate.'-'.uniqid().'.'.$originalImage->getClientOriginalExtension();
+            $thumbnailImage = Image::make($originalImage);
+            $thumbnailPath = public_path().'/uncode/marque_blanches/miniatures/';
+            $originalPath = public_path().'/uncode/marque_blanches/';
+            $thumbnailImage->save($originalPath.time().$imagename);
+            $thumbnailImage->resize(500, null, function ($constraint) {
+            $constraint->aspectRatio();
+            });
+            $thumbnailImage->save($thumbnailPath.time().$imagename);
+            $uncode->login_image= $imagename; 
+        }
 
         $uncode->app_name=$request["app_name"];
         $uncode->email=$request["email"];
         $uncode->contact_url=$request["contact_url"];
         $uncode->telephone1=$request["telephone1"];
         $uncode->telephone2=$request["telephone2"];
-
         $uncode->save();
         return redirect()->back()->with('succes','succes');
-
     }
      
    

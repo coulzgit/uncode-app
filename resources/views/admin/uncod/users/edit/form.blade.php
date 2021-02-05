@@ -1,4 +1,4 @@
-<form method="POST" action="{{route('users.edit', ['locale'=>app()-> getLocale()])}}" enctype="multipart/form-data">
+<form method="POST" action="{{route('users.update', ['locale'=>app()-> getLocale()])}}" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-lg-12 col-md-12">
@@ -19,6 +19,9 @@
                             </div>
                             <div hidden=""  class="col-md-8 mg-t-5 mg-md-t-0">
                                 <input required="" name="account_id" id="account_id" value="{{ $account->id }}" class="form-control" type="text">
+                            </div>
+                             <div hidden=""  class="col-md-8 mg-t-5 mg-md-t-0">
+                                <input required="" name="user_id" id="user_id" value="{{ $user->id }}" class="form-control" type="text">
                             </div>
                             <div class="col-md-8 mg-t-5 mg-md-t-0">
                                 <input disabled="" value="{{ $account->code }}" class="form-control" placeholder="{{__('Saisir le numéro du compte')}}" type="text">
@@ -65,7 +68,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                <input required="" name="user_name" class="form-control" placeholder="{{__('Saisir son nom d\'utilissateur')}}" type="text">
+                                <input value="{{$user->user_name}}" required="" name="user_name" class="form-control" placeholder="{{__('Saisir son nom d\'utilissateur')}}" type="text">
                             </div>
                         </div>
                         <div class="row row-xs align-items-center mg-b-20">
@@ -75,7 +78,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                <input required="" name="prenom" class="form-control" placeholder="{{__('Saisir son prémon')}}" type="text">
+                                <input value="{{$user->prenom}}" required="" name="prenom" class="form-control" placeholder="{{__('Saisir son prémon')}}" type="text">
                             </div>
                         </div>
 
@@ -84,7 +87,7 @@
                                 <label class="form-label mg-b-0">{{__('Nom')}}</label>
                             </div>
                             <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                <input required="" name="nom" class="form-control" placeholder="{{__('Saisir son nom')}}" type="text">
+                                <input value="{{$user->nom}}" required="" name="nom" class="form-control" placeholder="{{__('Saisir son nom')}}" type="text">
                             </div>
                         </div>
                         <div class="row row-xs align-items-center mg-b-20">
@@ -95,7 +98,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 mg-t-5 mg-md-t-0">
-                                <input required="" name="email" class="form-control" placeholder="{{__('Saisir son adresse email')}}" type="email">
+                                <input value="{{$user->email}}" required="" name="email" class="form-control" placeholder="{{__('Saisir son adresse email')}}" type="email">
                             </div>
                         </div>
 
@@ -103,7 +106,6 @@
                         <div class="row row-xs align-items-center mg-b-20">
                             <div class="col-md-4">
                                 <label class="form-label mg-b-0">
-
                                     {{__('Role(s)')}}
                                 </label>
                             </div>
@@ -113,11 +115,19 @@
                                     <div class="col-lg-6 mg-b-20 mg-lg-b-0">
 
 
-                                        <select required="" class="form-control select2 " name="roles" multiple="multiple">
-                                            @foreach ($roles as $key => $role)
-                                            <option value="{{ $key }}">{{ $role }}</option>
-                                            @endforeach
-                                        </select>
+    <select id="roles" required="" class="form-control select2 " name="roles[]" multiple="multiple">
+        @foreach($roles as $key => $role)
+            @if(in_array($role, $userRole))
+                <option selected="" value="{{$key}}">
+                    {{$key}}
+                </option>
+            @else
+                <option value="{{$key}}">
+                    {{$key}}
+                </option>
+            @endif
+        @endforeach
+    </select>
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +172,7 @@
                             {{__('Sauvegarder')}}
                         </button>
 
-                        <a href="{{route('accounts',app()->getLocale())}}" class="btn btn-dark pd-x-30 mg-t-5">{{__('Annuler')}}</a>
+                        <a href="{{route('accounts.users',['account_id'=>$account['id'],'locale'=>app()->getLocale()])}}" class="btn btn-dark pd-x-30 mg-t-5">{{__('Annuler')}}</a>
                     </div>
                 </div>
             </div>

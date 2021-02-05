@@ -16,7 +16,7 @@
 		<div class="left-content">
 			<div>
 			  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
-			  	{{__('Les détails de l\'utilisateur N°')}} {{$user['account']['code']}}1
+			  	{{__('Détails utilisateur')}} ID: {{$user['id']}}
 			  </h2>
 			  <!-- <p class="mg-b-0">Sales monitoring dashboard template.</p> -->
 			</div>

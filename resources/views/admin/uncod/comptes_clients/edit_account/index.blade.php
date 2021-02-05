@@ -81,6 +81,7 @@
     function updateAccount(){
       var licence_id = $('#licence_id').val();
       var statut = $('#statut').val();
+      var account_name = $('#account_name').val();
       if($('#statut').hasClass('on')){
         statut='ON';
       }else{
@@ -88,16 +89,17 @@
       }
       var data ={
         'account_id':account['id'],
-             'statut':statut,
-             'licence_id':licence_id
+        'statut':statut,
+        'licence_id':licence_id,
+        'account_name':account_name
        };
       console.log('data',data);
       sendEditAccount(data);
     }
 
     function sendEditAccount(data){
-      $('#msg_succes').css({'display':'none'});
-      $('#msg_error').css({'display':'none'});
+        $('#msg_succes').css({'display':'none'});
+        $('#msg_error').css({'display':'none'});
         $.ajaxSetup({
           headers:{
             'X-CSRF-TOKEN':$('meta[name="api_token"]').attr('content')
@@ -110,7 +112,6 @@
           dataType: 'json',
           encode  : true,
           success:function(result){
-
             if(result["responseCode"] === 200){
               $('#msg_succes').css({'display':'flex'});
               $('#msg_error').css({'display':'none'});

@@ -105,11 +105,16 @@ Route::group(
 	    Route::get('/users/{account_id}/create', 'UserController@create')->name('users.create');
 
 	    Route::post('/users/create', 'UserController@store')->name('users.create');
+	    Route::post('/users/update', 'UserController@update')->name('users.update');
+	    
 
 	    Route::get('/users/{user_id?}/show', 'UserController@show')->name('users.show');
 	    Route::get('/users/{user_id?}/edit', 'UserController@edit')->name('users.edit');
 	    Route::post('/users/{user_id?}/edit', 'UserController@update')->name('users.edit');
 	    Route::delete('/users/{user_id?}/delete', 'UserController@destroy')->name('users.delete');
+	    Route::get('/profile', 'UserController@profile')->name('profile');
+	    Route::get('/profile/edit', 'UserController@editProfile')->name('profile.edit');
+	    Route::post('/profile/update', 'UserController@updateProfile')->name('profile.update');
 	}
 );
 
